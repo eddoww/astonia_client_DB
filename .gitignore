@@ -10,4 +10,5 @@
 moac.*
 moac_gcc.*
 sdlt.txt
+bin/
 .idea/
