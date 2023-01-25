@@ -5,10 +5,9 @@
 *.pak
 *.lnk
 *.dat
-*.o
 *.exe
 *.dll
 moac.*
 moac_gcc.*
 sdlt.txt
-
+.idea/

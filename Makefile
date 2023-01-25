@@ -4,7 +4,7 @@ CC=gcc
 CFLAGS=-O0 -ggdb -Wall -Wno-pointer-sign -Wno-char-subscripts
 LDFLAGS=-O0 -ggdb -Wl,-subsystem,windows
 #-Wl,-subsystem,windows
-LIBS = -lwsock32 -lws2_32 -lz -lpng -lsdl2 -lSDL2_mixer -lsdl2main -lzip
+LIBS = -lwsock32 -lws2_32 -lz -lpng -lSDL2 -lSDL2_mixer -lSDL2main -lzip
 
 OBJS	=		src/gui/gui.o src/client/client.o src/client/skill.o src/game/dd.o src/game/font.o\
 			src/game/main.o src/game/sprite.o src/game/game.o src/modder/modder.o\
@@ -47,7 +47,7 @@ src/sdl/sdl.o:		src/sdl/sdl.c src/astonia.h src/sdl.h src/sdl/_sdl.h
 src/sdl/sound.o:      	src/sdl/sound.c src/astonia.h src/sdl.h src/sdl/_sdl.h
 
 src/game/resource.o:	src/game/resource.rc src/game/resource.h
-			windres -F pe-x86-64 src/game/resource.rc src/game/resource.o
+			/usr/bin/x86_64-w64-mingw32-windres -F pe-x86-64 src/game/resource.rc src/game/resource.o
 
 clean:
 		rm src/client/*.o src/game/*.o src/gui/*.o helper/*.o src/sdl/*.o src/amod/*.o
