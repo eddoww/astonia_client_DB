@@ -2,14 +2,14 @@
  * Part of Astonia Client (c) Daniel Brockhaus. Please read license.txt.
  */
 
-__declspec(dllexport) void amod_init(void);
-__declspec(dllexport) void amod_exit(void);
-__declspec(dllexport) void amod_gamestart(void);
-__declspec(dllexport) void amod_frame(void);
-__declspec(dllexport) void amod_tick(void);
-__declspec(dllexport) int amod_display_skill_line(int v,int base,int curr,int cn,char *buf);
-__declspec(dllexport) void amod_mouse_move(int x,int y);
-__declspec(dllexport) int amod_mouse_click(int x,int y,int what);     // return true if mouse click should NOT be processed by the client
+__declspec(dllimport) void amod_init(void);
+__declspec(dllimport) void amod_exit(void);
+__declspec(dllimport) void amod_gamestart(void);
+__declspec(dllimport) void amod_frame(void);
+__declspec(dllimport) void amod_tick(void);
+__declspec(dllimport) int amod_display_skill_line(int v,int base,int curr,int cn,char *buf);
+__declspec(dllimport) void amod_mouse_move(int x,int y);
+__declspec(dllimport) int amod_mouse_click(int x,int y,int what);     // return true if mouse click should NOT be processed by the client
 
 // --------- Client exported functions -----------
 
@@ -48,6 +48,10 @@ __declspec(dllimport) extern int weatab[];
 __declspec(dllimport) extern int value[2][V_MAX];
 struct player;
 __declspec(dllimport) extern struct player *player;
+
+__declspec(dllimport) extern int enable_sound;
+__declspec(dllimport) extern int sound_volume;
+
 
 // ---------------- override-able functions, also exported from client ----------------
 __declspec(dllimport) int _is_cut_sprite(int sprite);
@@ -94,7 +98,7 @@ int get_skltab_show(int i);
 #endif
 
 #ifndef abs
-#define abs(a)	((a)<0 ? (-(a)) : (a))
+//#define abs(a)	((a)<0 ? (-(a)) : (a))
 #endif
 
 #ifndef ARRAYSIZE

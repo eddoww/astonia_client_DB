@@ -15,8 +15,8 @@
 #include "../../src/sdl.h"
 #include "../../src/sdl/_sdl.h"
 
-int enable_sound=0;
-int sound_volume=128;
+__declspec(dllexport) int enable_sound=0;
+__declspec(dllexport) int sound_volume=128;
 static uint64_t time_play_sound=0;
 
 static char *sfx_name[];
@@ -128,8 +128,6 @@ void play_sdl_sound(int nr,int distance,int angle)
 
 	// For debug/optimization
 	time_play_sound += SDL_GetTicks64() - time_start;
-
-	return;
 }
 
 void play_sound(int nr,int vol,int p) {

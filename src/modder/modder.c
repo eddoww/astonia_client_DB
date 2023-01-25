@@ -64,6 +64,8 @@ int amod_init(void) {
     if ((tmp=GetProcAddress(dll_instance,"get_skltab_show"))) get_skltab_show=tmp;
 
     if ((tmp=GetProcAddress(dll_instance,"game_email_main"))) game_email_main=tmp;
+    if ((tmp=GetProcAddress(dll_instance,"sound_volume"))) sound_volume=tmp;
+    if ((tmp=GetProcAddress(dll_instance,"enable_sound"))) enable_sound=tmp;
     if ((tmp=GetProcAddress(dll_instance,"game_email_cash"))) game_email_cash=tmp;
     if ((tmp=GetProcAddress(dll_instance,"game_url"))) game_url=tmp;
     if ((tmp=GetProcAddress(dll_instance,"game_rankname"))) game_rankname=tmp;

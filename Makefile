@@ -1,8 +1,8 @@
 all: bin/moac.exe bin/anicopy.exe bin/amod.dll
 
-CC=gcc
-CFLAGS=-O0 -ggdb -Wall -Wno-pointer-sign -Wno-char-subscripts
-LDFLAGS=-O0 -ggdb -Wl,-subsystem,windows
+CC=/usr/bin/x86_64-w64-mingw32-gcc
+CFLAGS=-O3 -ggdb -Wall -Wno-pointer-sign -Wno-char-subscripts
+LDFLAGS=-O3 -ggdb -Wl,-subsystem,windows
 #-Wl,-subsystem,windows
 LIBS = -lwsock32 -lws2_32 -lz -lpng -lSDL2 -lSDL2_mixer -lSDL2main -lzip
 
@@ -15,12 +15,14 @@ bin/moac.exe lib/moac.a &:	$(OBJS)
 			$(CC) $(LDFLAGS) -Wl,--out-implib,lib/moac.a -o bin/moac.exe $(OBJS) $(LIBS)
 
 bin/amod.dll:		src/amod/amod.o lib/moac.a
-			$(CC) $(LDFLAGS) -shared -o bin/amod.dll src/amod/amod.o lib/moac.a
+			$(CC) $(LDFLAGS) -shared -o bin/amod.dll src/amod/amod.o lib/moac.a src/amod/gui/volumewidget.o $(LIBS)
 
 src/amod/amod.o:	src/amod/amod.c src/amod/amod.h
 
 bin/anicopy.exe:	src/helper/anicopy.c
 			$(CC) -O3 -ggdb -Wall -o bin/anicopy.exe src/helper/anicopy.c
+
+src/amod/gui/volumewidget.o: src/amod/gui/volumewidget.c src/amod/gui/volumewidget.h src/amod/gui/nuklear.h
 
 src/client/client.o:	src/client/client.c src/astonia.h src/client.h src/client/_client.h src/sdl.h
 
