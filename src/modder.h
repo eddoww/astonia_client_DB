@@ -17,6 +17,6 @@ extern char *game_url;
 extern char **game_rankname;
 extern int *game_rankcount;
 
-extern int *enable_sound;
-extern int *sound_volume;
+extern int enable_sound;
+extern int sound_volume;
 
