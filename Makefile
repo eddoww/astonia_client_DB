@@ -50,7 +50,7 @@ src/game/resource.o:	src/game/resource.rc src/game/resource.h
 			/usr/bin/x86_64-w64-mingw32-windres -F pe-x86-64 src/game/resource.rc src/game/resource.o
 
 clean:
-		rm src/client/*.o src/game/*.o src/gui/*.o helper/*.o src/sdl/*.o src/amod/*.o
+		rm src/client/*.o src/game/*.o src/gui/*.o src/helper/*.o src/sdl/*.o src/amod/*.o
 		rm bin/moac.exe bin/amod.dll
 
 distrib:
