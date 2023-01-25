@@ -35,7 +35,7 @@ int amod_init(void) {
 	HMODULE dll_instance=NULL;
 	void *tmp;
 
-	dll_instance=LoadLibrary("bin\\amod.dll");
+	dll_instance=LoadLibrary("amod.dll");
     if (!dll_instance) return 0;
 
     if ((tmp=GetProcAddress(dll_instance,"amod_init"))) _amod_init=tmp;
