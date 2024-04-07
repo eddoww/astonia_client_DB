@@ -81,7 +81,7 @@ __declspec(dllexport) struct questlog game_questlog[]={
     {"The Traitors",53,63,"Clerk","Arkhata",60000,0},               //76,
     {"The Blue Harpy",58,68,"Hunter","Arkhata",60000,0},                //77,
     {"The Mysterious Language",60,65,"Johnatan","Arkhata",60000,0},         //78,
-
+    {"Helping Jessica",6,9,"Jessica","Cameron",750,QLF_REPEATABLE},         //79,
 
 };
 __declspec(dllexport) int game_questcount=ARRAYSIZE(game_questlog);

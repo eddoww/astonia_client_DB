@@ -796,6 +796,9 @@ void sv_prof(unsigned char *buf) {
 
 __declspec(dllexport) struct quest quest[MAXQUEST];
 __declspec(dllexport) struct shrine_ppd shrine;
+__declspec(dllexport) unsigned int rubyBits;
+__declspec(dllexport) unsigned char hardcoreFlag; //Used to determine if the char is HC (LOE in Questlog)
+__declspec(dllexport) struct military_questlog military;
 
 void sv_questlog(unsigned char *buf) {
     int size;
@@ -804,6 +807,9 @@ void sv_questlog(unsigned char *buf) {
 
     memcpy(quest,buf+1,size);
     memcpy(&shrine,buf+1+size,sizeof(struct shrine_ppd));
+	memcpy(&rubyBits,buf+1+size+sizeof(struct shrine_ppd),sizeof(unsigned int));
+	memcpy(&hardcoreFlag, buf + (size += sizeof(unsigned int)),sizeof(unsigned char));
+	memcpy(&military, buf + (size += sizeof(unsigned char)),sizeof(struct military_questlog));
 }
 
 static void save_unique(void) {
@@ -961,7 +967,7 @@ void process(unsigned char *buf,int size) {
                 case SV_PROF:			        sv_prof(buf); len=21; break;
                 case SV_PING:			        len=sv_ping(buf); break;
                 case SV_UNIQUE:			        sv_unique(buf); len=5; break;
-                case SV_QUESTLOG:		        sv_questlog(buf); len=101+sizeof(struct shrine_ppd); break;
+		        case SV_QUESTLOG:               sv_questlog(buf); len=1+sizeof(struct quest)*MAXQUEST+sizeof(struct shrine_ppd)+sizeof(unsigned int)+sizeof(unsigned char)+sizeof(struct military_questlog); break;
                 case SV_PROTOCOL:               sv_protocol(buf); len=2; break;
                 case SV_VNQUEST:                len=sv_vnquest(buf); break;
 
@@ -1054,7 +1060,7 @@ int prefetch(unsigned char *buf,int size) {
                 case SV_PROF:			        len=21; break;
                 case SV_PING:			        len=svl_ping(buf); break;
                 case SV_UNIQUE:			        len=5; break;
-                case SV_QUESTLOG:		        len=101+sizeof(struct shrine_ppd); break;
+		        case SV_QUESTLOG:                len=1+sizeof(struct quest)*MAXQUEST+sizeof(struct shrine_ppd)+sizeof(unsigned int)+sizeof(unsigned char)+sizeof(struct military_questlog); break;
                 case SV_PROTOCOL:               len=2; break;
                 case SV_VNQUEST:                len=svl_vnquest(buf); break;
 
@@ -1316,7 +1322,7 @@ void cmd_text(char *text) {
 
     buf[0]=CL_TEXT;
 
-    for (len=0; text[len] && text[len]!='°' && len<254; len++) buf[len+2]=text[len];
+    for (len=0; text[len] && text[len]!='ï¿½' && len<254; len++) buf[len+2]=text[len];
 
     buf[2+len]=0;
     buf[1]=len+1;

@@ -26,7 +26,7 @@ uint64_t gui_time_misc=0;
 __declspec(dllexport) int game_slowdown=0;
 
 #define MAXHELP		24
-#define MAXQUEST2	10
+#define MAXQUEST2	11
 
 void cmd_add_text(char *buf,int typ);
 

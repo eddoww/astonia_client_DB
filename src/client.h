@@ -14,6 +14,10 @@
 #define CMF_USE		64
 #define CMF_INFRA	128
 #define CMF_UNDERWATER	256
+#define CMF_SINK_ANKLE		512
+#define CMF_SINK_KNEE		1024
+#define CMF_SINK_BELLY		2048
+#define CMF_SINK_CHEST		4096
 
 #define VERSION         0x030100
 
@@ -171,6 +175,22 @@ struct quest {
 struct shrine_ppd {
     unsigned int used[MAXSHRINE/32];
     unsigned char continuity;
+};
+#define MAXADVISOR	20
+
+struct mission
+{
+	int type;
+	int opt1,opt2;
+	int pts;
+	int exp;
+};
+
+struct military_questlog
+{
+	int solved_mission;
+	int took_mission;
+	struct mission mis;
 };
 
 struct player {
@@ -548,6 +568,9 @@ extern char pent_str[7][80];
 
 extern struct quest quest[];
 extern struct shrine_ppd shrine;
+extern unsigned int rubyBits;
+extern unsigned char hardcoreFlag; //Used to determine if the char is HC (LOE in Questlog)
+extern struct military_questlog military;
 
 void cmd_text(char *text);
 int mapmn(int x,int y);
