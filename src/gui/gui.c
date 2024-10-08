@@ -259,7 +259,8 @@ void dx_copysprite_emerald(int scrx,int scry,int emx,int emy) {
 }
 
 
-int do_display_help(int nr) {
+int (*do_display_help)(int)=_do_display_help;
+__declspec(dllexport) int _do_display_help(int nr) {
     int x=dotx(DOT_HLP)+10,y=doty(DOT_HLP)+8,oldy;
 
     switch (nr) {
@@ -598,6 +599,7 @@ static void display(void) {
                 dd_drawtext_fmt(800/2,540/2-0,textcolor,DD_LARGE|DD_CENTER|DD_FRAME,"Please check %s for troubleshooting advice.",game_url);
             }
         }
+        goto display_graphs;    // I know, I know. goto considered harmful and all that.
         return;
     }
 
@@ -632,8 +634,9 @@ static void display(void) {
     display_minimap();
     display_citem();
     context_display(mousex,mousey);
-    display_vnquest();
     display_helpandquest(); // display last because it is on top
+
+display_graphs:
 
     int duration=SDL_GetTicks64()-start;
 
@@ -1379,17 +1382,6 @@ static void set_cmd_states(void) {
     // reset
     butsel=mapsel=itmsel=chrsel=invsel=weasel=consel=sklsel=sklsel2=telsel=helpsel=colsel=skl_look_sel=questsel=actsel=-1;
 
-    if (vnq.title) {
-        x=dotx(DOT_MTL)+(dotx(DOT_MBR)-dotx(DOT_MTL)-500)/2;
-        y=doty(DOT_MTL)+(doty(DOT_MBR)-doty(DOT_MTL)-300)/2;
-        if (mousex>=x && mousex<x+500 && mousey>=y && mousey<y+300) {
-            if (mousex>=x+490 && mousey>=y+0 && mousex<=x+499 && mousey<=y+8) butsel=BUT_VNQ_CLOSE;
-            else if (mousex>=x+340 && mousey>=y+278 && mousex<=x+384  && mousey<=y+291) butsel=BUT_VNQ_ACCEPT;
-            else if (mousex>=x+418 && mousey>=y+278 && mousex<=x+462  && mousey<=y+291) butsel=BUT_VNQ_CLOSE;
-            else butsel=BUT_VNQ_MISC;
-        }
-    }
-
     if ((display_help || display_quest) && mousex>=dotx(DOT_HLP) && mousex<=dotx(DOT_HL2)-40 && mousey>=doty(DOT_HLP) && mousey<=doty(DOT_HLP)+12)
         butsel=BUT_HELP_DRAG;
 
@@ -1562,8 +1554,6 @@ static void set_cmd_states(void) {
 
         if (butsel>=BUT_MOD_WALK0 && butsel<=BUT_MOD_WALK2) lcmd=CMD_SPEED0+butsel-BUT_MOD_WALK0;
 
-        if (butsel==BUT_VNQ_CLOSE) lcmd=CMD_VNQ_CLOSE;
-        if (butsel==BUT_VNQ_ACCEPT) lcmd=CMD_VNQ_ACCEPT;
         if (butsel==BUT_HELP_MISC) lcmd=CMD_HELP_MISC;
         if (butsel==BUT_HELP_PREV) lcmd=CMD_HELP_PREV;
         if (butsel==BUT_HELP_NEXT) lcmd=CMD_HELP_NEXT;
@@ -1666,15 +1656,6 @@ static void cmd_action(void) {
         case 10:    cmd_some_spell(CL_FIREBALL,0,0,map[plrmn].cn); break;
         case 12:    minimap_toggle(); break;
     }
-}
-static void vnq_accept(void) {
-    char buf[80];
-
-    sprintf(buf,"accept quest %d",vnq.ID);
-    cmd_text(buf);
-
-    if (vnq.title) xfree(vnq.title);
-    vnq.title=NULL;
 }
 
 static void exec_cmd(int cmd,int a) {
@@ -1797,10 +1778,6 @@ static void exec_cmd(int cmd,int a) {
         case CMD_ACTION_LOCK:   display_action_lock(); return;
         case CMD_ACTION_OPEN:   display_action_open(); return;
         case CMD_WEAR_LOCK:     display_wear_lock(); return;
-        case CMD_VNQ_CLOSE:     if (vnq.title) xfree(vnq.title);
-                                vnq.title=NULL;
-                                return;
-        case CMD_VNQ_ACCEPT:    vnq_accept(); return;
     }
     return;
 }
@@ -2247,7 +2224,7 @@ int main_loop(void) {
         poll_network();
 
         // synchronise frames and ticks if at the same speed
-        if (MPF==MPT) nextframe=nexttick;
+        if (sockstate==4 && MPF==MPT) nextframe=nexttick;
 
         // check if we can go on
         if (sockstate>2) {
@@ -2280,7 +2257,7 @@ int main_loop(void) {
 
         if (timediff>-MPF/2) {
 #ifdef TICKPRINT
-            printf("Display tick %d, Frame %d\n",tick,frame);
+            printf("Display tick %d\n",tick);
 #endif
             gui_frametime=SDL_GetTicks64()-gui_last_frame;
             gui_last_frame=SDL_GetTicks64();
@@ -2302,7 +2279,7 @@ int main_loop(void) {
             flip_at(nextframe);
         } else {
 #ifdef TICKPRINT
-            printf("Skip tick %d, Frame %d\n",tick,frame);
+            printf("Skip tick %d\n",tick);
 #endif
             skip-=timediff;
 

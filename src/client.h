@@ -70,6 +70,7 @@
 #define V_IMMUNITY	37
 
 #define V_DEMON		38
+#define V_DURATION  39
 #define V_RAGE		40
 #define V_COLD		41
 #define V_PROFESSION	42
@@ -474,24 +475,6 @@ struct client_info {
     unsigned int systemfree;
     struct client_surface surface[CL_MAX_SURFACE];
 };
-
-
-struct vnquest {
-    int ID;
-    int sprite;
-    char *title;
-    char *para1;
-    char *para2;
-    char *para3;
-    char *line1;
-    char *line2;
-    char *line3;
-    char *line4;
-    char *butt1;
-    char *butt2;
-};
-
-extern struct vnquest vnq;
 
 extern struct map map[MAPDX*MAPDY];
 extern struct map map2[MAPDX*MAPDY];
