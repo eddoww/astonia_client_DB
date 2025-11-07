@@ -53,13 +53,27 @@ jobs:
         cp eula.txt artifact/linux/ || true
 
         # Copy all required shared libraries
+        # SDL2 libraries
         cp /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0* artifact/linux/lib/ || true
         cp /usr/lib/x86_64-linux-gnu/libSDL2_net-2.0.so.0* artifact/linux/lib/ || true
         cp /usr/lib/x86_64-linux-gnu/libSDL2_mixer-2.0.so.0* artifact/linux/lib/ || true
+
+        # Image/compression libraries
         cp /lib/x86_64-linux-gnu/libpng16.so.16* artifact/linux/lib/ || true
         cp /lib/x86_64-linux-gnu/libz.so.1* artifact/linux/lib/ || true
         cp /lib/x86_64-linux-gnu/libzip.so.4* artifact/linux/lib/ || true
         cp /lib/x86_64-linux-gnu/libzip.so.5* artifact/linux/lib/ || true
+
+        # Audio codec libraries (for SDL_mixer)
+        cp /lib/x86_64-linux-gnu/libFLAC.so.12* artifact/linux/lib/ || true
+        cp /usr/lib/x86_64-linux-gnu/libFLAC.so.8* artifact/linux/lib/ || true
+        cp /usr/lib/x86_64-linux-gnu/libvorbisfile.so.3* artifact/linux/lib/ || true
+        cp /usr/lib/x86_64-linux-gnu/libvorbis.so.0* artifact/linux/lib/ || true
+        cp /usr/lib/x86_64-linux-gnu/libogg.so.0* artifact/linux/lib/ || true
+        cp /usr/lib/x86_64-linux-gnu/libopusfile.so.0* artifact/linux/lib/ || true
+        cp /usr/lib/x86_64-linux-gnu/libopus.so.0* artifact/linux/lib/ || true
+        cp /usr/lib/x86_64-linux-gnu/libmodplug.so.1* artifact/linux/lib/ || true
+        cp /usr/lib/x86_64-linux-gnu/libmpg123.so.0* artifact/linux/lib/ || true
 
         # List what we copied for debugging
         ls -lh artifact/linux/lib/
@@ -124,12 +138,26 @@ jobs:
 
         # Copy all required shared libraries from homebrew
         BREW_PREFIX=$(brew --prefix)
+
+        # SDL2 libraries
         cp $BREW_PREFIX/lib/libSDL2-2.0.0.dylib artifact/macos/lib/ || true
         cp $BREW_PREFIX/lib/libSDL2_net-2.0.0.dylib artifact/macos/lib/ || true
         cp $BREW_PREFIX/lib/libSDL2_mixer-2.0.0.dylib artifact/macos/lib/ || true
+
+        # Image/compression libraries
         cp $BREW_PREFIX/lib/libpng16.16.dylib artifact/macos/lib/ || true
         cp $BREW_PREFIX/lib/libz.1.dylib artifact/macos/lib/ || true
         cp $BREW_PREFIX/lib/libzip.*.dylib artifact/macos/lib/ || true
+
+        # Audio codec libraries (for SDL_mixer)
+        cp $BREW_PREFIX/lib/libFLAC.*.dylib artifact/macos/lib/ || true
+        cp $BREW_PREFIX/lib/libvorbisfile.*.dylib artifact/macos/lib/ || true
+        cp $BREW_PREFIX/lib/libvorbis.*.dylib artifact/macos/lib/ || true
+        cp $BREW_PREFIX/lib/libogg.*.dylib artifact/macos/lib/ || true
+        cp $BREW_PREFIX/lib/libopusfile.*.dylib artifact/macos/lib/ || true
+        cp $BREW_PREFIX/lib/libopus.*.dylib artifact/macos/lib/ || true
+        cp $BREW_PREFIX/lib/libmodplug.*.dylib artifact/macos/lib/ || true
+        cp $BREW_PREFIX/lib/libmpg123.*.dylib artifact/macos/lib/ || true
 
         # List what we copied for debugging
         ls -lh artifact/macos/lib/
