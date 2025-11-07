@@ -38,9 +38,9 @@ EXPORT int amod_client_cmd(char *buf) {
     }
 
     if (!strncmp(buf, "#option ", 8)) {
-    	option_ovr=strtoull(&buf[8],NULL,10);
+        option_ovr=strtoull(&buf[8],NULL,10);
         addline("Old options=%llu, new options=%llu",game_options,option_ovr);
-    	return 1;
+        return 1;
     }
 
     if (!strncmp(buf,"#reset",6)) {
@@ -66,7 +66,7 @@ EXPORT int amod_client_cmd(char *buf) {
 
     if (!strncmp(buf,"#echo",5)) {
         addline("Echo from mod!");
-    	return -1;
+        return -1;
     }
     return 0;
 }

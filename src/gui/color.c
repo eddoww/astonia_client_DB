@@ -98,29 +98,29 @@ void cmd_color(int nr) {
     char buf[80];
 
     switch (nr) {
-        case 1:		show_cur=0; break;
-        case 2:		show_cur=1; break;
-        case 3:		show_cur=2; break;
-        case 4:		val=max(min(31,show_cx/2),1);
+        case 1:     show_cur=0; break;
+        case 2:     show_cur=1; break;
+        case 3:     show_cur=2; break;
+        case 4:     val=max(min(31,show_cx/2),1);
                     show_color_c[show_cur]=IRGB(
                                    val,
                                    IGET_G(show_color_c[show_cur]),
                                    IGET_B(show_color_c[show_cur]));
                     break;
-        case 5:		val=max(min(31,show_cx/2),1);
+        case 5:     val=max(min(31,show_cx/2),1);
                     show_color_c[show_cur]=IRGB(
                                    IGET_R(show_color_c[show_cur]),
                                    val,
                                    IGET_B(show_color_c[show_cur]));
                     break;
-        case 6:		val=max(min(31,show_cx/2),1);
+        case 6:     val=max(min(31,show_cx/2),1);
                     show_color_c[show_cur]=IRGB(
                                    IGET_R(show_color_c[show_cur]),
                                    IGET_G(show_color_c[show_cur]),
                                    val);
                     break;
-        case 7:		show_color=0; break;
-        case 8:		sprintf(buf,"/col1 %d %d %d",IGET_R(show_color_c[0]),IGET_G(show_color_c[0]),IGET_B(show_color_c[0]));
+        case 7:     show_color=0; break;
+        case 8:     sprintf(buf,"/col1 %d %d %d",IGET_R(show_color_c[0]),IGET_G(show_color_c[0]),IGET_B(show_color_c[0]));
                     cmd_text(buf);
                     sprintf(buf,"/col2 %d %d %d",IGET_R(show_color_c[1]),IGET_G(show_color_c[1]),IGET_B(show_color_c[1]));
                     cmd_text(buf);

@@ -2,148 +2,148 @@
  * Part of Astonia Client (c) Daniel Brockhaus. Please read license.txt.
  */
 
-#define MAXCHARS	2048
+#define MAXCHARS    2048
 
-#define MAXQUEST	100
+#define MAXQUEST    100
 
-#define MAXEF		64
+#define MAXEF       64
 
-#define CMF_LIGHT	(1+2+4+8)
-#define CMF_VISIBLE	16
-#define CMF_TAKE	32
-#define CMF_USE		64
-#define CMF_INFRA	128
-#define CMF_UNDERWATER	256
-#define CMF_SINK_ANKLE		512
-#define CMF_SINK_KNEE		1024
-#define CMF_SINK_BELLY		2048
-#define CMF_SINK_CHEST		4096
+#define CMF_LIGHT   (1+2+4+8)
+#define CMF_VISIBLE 16
+#define CMF_TAKE    32
+#define CMF_USE     64
+#define CMF_INFRA   128
+#define CMF_UNDERWATER  256
+#define CMF_SINK_ANKLE      512
+#define CMF_SINK_KNEE       1024
+#define CMF_SINK_BELLY      2048
+#define CMF_SINK_CHEST      4096
 
 #define VERSION         0x030100
 
-#define V_HP		0
-#define V_ENDURANCE	1
-#define V_MANA		2
+#define V_HP        0
+#define V_ENDURANCE 1
+#define V_MANA      2
 
-#define V_WIS         	3
+#define V_WIS           3
 #undef  V_INT           // everyone likes windoof
-#define V_INT          	4
-#define V_AGI         	5
-#define V_STR       	6
+#define V_INT           4
+#define V_AGI           5
+#define V_STR           6
 
-#define V_ARMOR		7
-#define V_WEAPON	8
-#define V_LIGHT		9
-#define V_SPEED		10
+#define V_ARMOR     7
+#define V_WEAPON    8
+#define V_LIGHT     9
+#define V_SPEED     10
 
-#define V_PULSE		11
-#define V_DAGGER       	12
-#define V_HAND         	13
-#define V_STAFF        	14
-#define V_SWORD        	15
-#define V_TWOHAND      	16
+#define V_PULSE     11
+#define V_DAGGER        12
+#define V_HAND          13
+#define V_STAFF         14
+#define V_SWORD         15
+#define V_TWOHAND       16
 
-#define V_ARMORSKILL   	17
-#define V_ATTACK       	18
-#define V_PARRY	       	19
-#define V_WARCRY       	20
-#define V_TACTICS      	21
-#define V_SURROUND     	22
-#define V_BODYCONTROL	23
-#define V_SPEEDSKILL	24
+#define V_ARMORSKILL    17
+#define V_ATTACK        18
+#define V_PARRY         19
+#define V_WARCRY        20
+#define V_TACTICS       21
+#define V_SURROUND      22
+#define V_BODYCONTROL   23
+#define V_SPEEDSKILL    24
 
-#define V_BARTER       	25
-#define V_PERCEPT      	26
-#define V_STEALTH      	27
+#define V_BARTER        25
+#define V_PERCEPT       26
+#define V_STEALTH       27
 
-#define V_BLESS		28
-#define V_HEAL		29
-#define V_FREEZE	30
-#define V_MAGICSHIELD	31
-#define V_FLASH		32
+#define V_BLESS     28
+#define V_HEAL      29
+#define V_FREEZE    30
+#define V_MAGICSHIELD   31
+#define V_FLASH     32
 
-#define V_FIREBALL	33
-//#define V_BALL		34
+#define V_FIREBALL  33
+//#define V_BALL        34
 
-#define V_REGENERATE	35
-#define V_MEDITATE	36
-#define V_IMMUNITY	37
+#define V_REGENERATE    35
+#define V_MEDITATE  36
+#define V_IMMUNITY  37
 
-#define V_DEMON		38
+#define V_DEMON     38
 #define V_DURATION  39
-#define V_RAGE		40
-#define V_COLD		41
-#define V_PROFESSION	42
+#define V_RAGE      40
+#define V_COLD      41
+#define V_PROFESSION    42
 
-#define V_PROFBASE	    (*game_v_profbase)  // 43
-#define P_MAX		    20
-#define V_MAX	        200
+#define V_PROFBASE      (*game_v_profbase)  // 43
+#define P_MAX           20
+#define V_MAX           200
 
-#define CL_NOP			1
-#define CL_MOVE			2
-#define CL_SWAP			3
-#define CL_TAKE			4
-#define CL_DROP			5
-#define CL_KILL			6
-#define CL_CONTAINER		7
-#define CL_TEXT			8
-#define CL_USE			9
-#define CL_BLESS		10
-#define CL_FIREBALL		11
-#define CL_HEAL			12
-#define CL_MAGICSHIELD		13
-#define CL_FREEZE		14
-#define CL_RAISE		15
-#define CL_USE_INV		16
-#define CL_FLASH		17
-#define CL_BALL			18
-#define CL_WARCRY		19
-#define CL_LOOK_CONTAINER	20
-#define CL_LOOK_MAP		21
-#define CL_LOOK_INV		22
-#define CL_LOOK_CHAR		23
-#define CL_LOOK_ITEM		24
-#define CL_GIVE			25
-#define CL_SPEED		26
-#define CL_STOP			27
-#define CL_TAKE_GOLD		28
-#define CL_DROP_GOLD		29
-#define CL_JUNK_ITEM		30
+#define CL_NOP          1
+#define CL_MOVE         2
+#define CL_SWAP         3
+#define CL_TAKE         4
+#define CL_DROP         5
+#define CL_KILL         6
+#define CL_CONTAINER        7
+#define CL_TEXT         8
+#define CL_USE          9
+#define CL_BLESS        10
+#define CL_FIREBALL     11
+#define CL_HEAL         12
+#define CL_MAGICSHIELD      13
+#define CL_FREEZE       14
+#define CL_RAISE        15
+#define CL_USE_INV      16
+#define CL_FLASH        17
+#define CL_BALL         18
+#define CL_WARCRY       19
+#define CL_LOOK_CONTAINER   20
+#define CL_LOOK_MAP     21
+#define CL_LOOK_INV     22
+#define CL_LOOK_CHAR        23
+#define CL_LOOK_ITEM        24
+#define CL_GIVE         25
+#define CL_SPEED        26
+#define CL_STOP         27
+#define CL_TAKE_GOLD        28
+#define CL_DROP_GOLD        29
+#define CL_JUNK_ITEM        30
 
-#define CL_TICKER		33
-#define CL_CONTAINER_FAST	34
-#define CL_FASTSELL		35
-#define CL_LOG			36
-#define CL_TELEPORT		37
-#define CL_PULSE		38
-#define CL_PING			39
-#define CL_GETQUESTLOG		40
-#define CL_REOPENQUEST		41
+#define CL_TICKER       33
+#define CL_CONTAINER_FAST   34
+#define CL_FASTSELL     35
+#define CL_LOG          36
+#define CL_TELEPORT     37
+#define CL_PULSE        38
+#define CL_PING         39
+#define CL_GETQUESTLOG      40
+#define CL_REOPENQUEST      41
 
-#define PAC_IDLE	0
-#define PAC_MOVE	1
-#define PAC_TAKE	2
-#define PAC_DROP	3
-#define PAC_KILL	4
-#define PAC_USE		5
-#define PAC_BLESS	6
-#define PAC_HEAL	7
-#define PAC_FREEZE	8
-#define PAC_FIREBALL	9
-#define PAC_BALL	10
-#define PAC_MAGICSHIELD	11
-#define PAC_FLASH	12
-#define PAC_WARCRY	13
-#define PAC_LOOK_MAP	14
-#define PAC_GIVE	15
-#define PAC_BERSERK	16
+#define PAC_IDLE    0
+#define PAC_MOVE    1
+#define PAC_TAKE    2
+#define PAC_DROP    3
+#define PAC_KILL    4
+#define PAC_USE     5
+#define PAC_BLESS   6
+#define PAC_HEAL    7
+#define PAC_FREEZE  8
+#define PAC_FIREBALL    9
+#define PAC_BALL    10
+#define PAC_MAGICSHIELD 11
+#define PAC_FLASH   12
+#define PAC_WARCRY  13
+#define PAC_LOOK_MAP    14
+#define PAC_GIVE    15
+#define PAC_BERSERK 16
 
-#define INVENTORYSIZE	110
-#define CONTAINERSIZE	(INVENTORYSIZE)
+#define INVENTORYSIZE   110
+#define CONTAINERSIZE   (INVENTORYSIZE)
 
-#define IF_USE		(1<<4)
-#define IF_WNHEAD       (1<<5)	// can be worn on head
-#define IF_WNNECK       (1<<6)	// etc...
+#define IF_USE      (1<<4)
+#define IF_WNHEAD       (1<<5)  // can be worn on head
+#define IF_WNNECK       (1<<6)  // etc...
 #define IF_WNBODY       (1<<7)
 #define IF_WNARMS       (1<<8)
 #define IF_WNBELT       (1<<9)
@@ -154,19 +154,19 @@
 #define IF_WNCLOAK      (1<<14)
 #define IF_WNLRING      (1<<15)
 #define IF_WNRRING      (1<<16)
-#define IF_WNTWOHANDED	(1<<17)	// two-handed weapon, fills both WNLHAND & WNRHAND
+#define IF_WNTWOHANDED  (1<<17) // two-handed weapon, fills both WNLHAND & WNRHAND
 
-#define MAPDX			(DIST*2+1)
-#define MAPDY			(DIST*2+1)
+#define MAPDX           (DIST*2+1)
+#define MAPDY           (DIST*2+1)
 #define MAXMN           (MAPDX*MAPDY)
 
-#define QF_OPEN		1
-#define QF_DONE		2
+#define QF_OPEN     1
+#define QF_DONE     2
 
-#define QLF_REPEATABLE	(1u<<0)
-#define QLF_XREPEAT	(1u<<1)
+#define QLF_REPEATABLE  (1u<<0)
+#define QLF_XREPEAT (1u<<1)
 
-#define MAXSHRINE	256
+#define MAXSHRINE   256
 
 struct quest {
     unsigned char done:6;
@@ -177,21 +177,21 @@ struct shrine_ppd {
     unsigned int used[MAXSHRINE/32];
     unsigned char continuity;
 };
-#define MAXADVISOR	20
+#define MAXADVISOR  20
 
 struct mission
 {
-	int type;
-	int opt1,opt2;
-	int pts;
-	int exp;
+    int type;
+    int opt1,opt2;
+    int pts;
+    int exp;
 };
 
 struct military_questlog
 {
-	int solved_mission;
-	int took_mission;
-	struct mission mis;
+    int solved_mission;
+    int took_mission;
+    struct mission mis;
 };
 
 struct player {
@@ -458,7 +458,7 @@ struct skill {
     int start;      // start value, pts up to this value are free
 };
 
-#define CL_MAX_SURFACE	32
+#define CL_MAX_SURFACE  32
 
 struct client_surface {
     unsigned int xres:14;

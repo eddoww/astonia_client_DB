@@ -87,10 +87,10 @@ void minimap_update(void) {
         if (y+oy<0) continue;
         if (y+oy>=MAXMAP) continue;
 
-		if (y<DIST) { xs=DIST-y; xe=DIST+y; }
-		else { xs=y-DIST; xe=DIST*3-y; }
+        if (y<DIST) { xs=DIST-y; xe=DIST+y; }
+        else { xs=y-DIST; xe=DIST*3-y; }
 
-		for (x=xs+1; x<xe; x++) {
+        for (x=xs+1; x<xe; x++) {
             if (x+ox<0) continue;
             if (x+ox>=MAXMAP) continue;
             if (!(map[x+y*MAPDX].flags&CMF_VISIBLE)) continue;

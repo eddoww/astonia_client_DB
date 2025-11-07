@@ -40,14 +40,14 @@ typedef struct ddfx DDFX;
 #define DL_STEP 128
 
 #define DLC_STRIKE      1
-#define DLC_NUMBER	2
-#define DLC_DUMMY	3       // used to get space in the list to reduce compares ;-)
-#define DLC_PIXEL	4
-#define DLC_BLESS	5
-#define DLC_POTION	6
-#define DLC_RAIN	7
-#define DLC_PULSE	8
-#define DLC_PULSEBACK	9
+#define DLC_NUMBER  2
+#define DLC_DUMMY   3       // used to get space in the list to reduce compares ;-)
+#define DLC_PIXEL   4
+#define DLC_BLESS   5
+#define DLC_POTION  6
+#define DLC_RAIN    7
+#define DLC_PULSE   8
+#define DLC_PULSEBACK   9
 
 struct dl {
     int layer;

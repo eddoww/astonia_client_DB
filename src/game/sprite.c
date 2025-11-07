@@ -298,10 +298,10 @@ EXPORT int _is_cut_sprite(int sprite) {
         case 23110: case 23111: case 23112: case 23113: case 23114: case 23115:
             return 0;
 
-        case 51005:	return 21435;
-        case 51007:	return 21501;
-        case 51009:	return 21451;
-        case 51072:	return 21196;
+        case 51005: return 21435;
+        case 51007: return 21501;
+        case 51009: return 21451;
+        case 51072: return 21196;
 
         case 59044: case 59045: case 59046: case 59047: case 59048:
             return sprite+5;
@@ -440,22 +440,22 @@ int (*get_chr_height)(int csprite)=_get_chr_height;
 EXPORT int _get_chr_height(int csprite) {
 
     switch (csprite) {
-        case 20: 	return -35;
-        case 21: 	return -20;
+        case 20:    return -35;
+        case 21:    return -20;
 
-        case 247:	return -54;
-        case 248:	return -58;
-        case 249:	return -62;
-        case 250:	return -66;
+        case 247:   return -54;
+        case 248:   return -58;
+        case 249:   return -62;
+        case 250:   return -66;
 
-        case 255:	return -54;
-        case 256:	return -58;
-        case 257:	return -62;
-        case 258:	return -66;
+        case 255:   return -54;
+        case 256:   return -58;
+        case 257:   return -62;
+        case 258:   return -66;
 
-        case 304:	return -70;
+        case 304:   return -70;
 
-        default: 	return -50;
+        default:    return -50;
     }
 }
 
@@ -465,138 +465,138 @@ EXPORT int _trans_charno(int csprite,int *pscale,int *pcr,int *pcg,int *pcb,int 
     int scale=100,cr=0,cg=0,cb=0,light=0,sat=0,c1=0,c2=0,c3=0,shine=0,helper;
 
     switch (csprite) {
-        case 121:	csprite=8; scale=105; break; //skelly
-        case 122:	csprite=8; scale=110; break; //skelly med
-        case 123:	csprite=8; scale=115; break; //skelly high
-        case 124:	csprite=8; scale=120; break; //skelly higher
-        case 125:	csprite=16; scale=100; cb=50; break; //ice creeper
-        case 126:	csprite=16; scale=100; cr=50; break; //fire creeper
-        case 127:	csprite=16; scale=120; break;   // huge creeper
+        case 121:   csprite=8; scale=105; break; //skelly
+        case 122:   csprite=8; scale=110; break; //skelly med
+        case 123:   csprite=8; scale=115; break; //skelly high
+        case 124:   csprite=8; scale=120; break; //skelly higher
+        case 125:   csprite=16; scale=100; cb=50; break; //ice creeper
+        case 126:   csprite=16; scale=100; cr=50; break; //fire creeper
+        case 127:   csprite=16; scale=120; break;   // huge creeper
 
-        case 134:	csprite=21; scale=60; light=-50; cg=80; break;  // small spider
+        case 134:   csprite=21; scale=60; light=-50; cg=80; break;  // small spider
 
-        case 135:	csprite=22; scale=75; break;    // young moony
-        case 136:	csprite=22; scale=100; break;   // moony
-        case 137:	csprite=22; scale=100; break;   // moony warrior
-        case 138:	csprite=22; scale=110; break;   // moony guard
-        case 139:	csprite=22; scale=125; break;   // moony elite
+        case 135:   csprite=22; scale=75; break;    // young moony
+        case 136:   csprite=22; scale=100; break;   // moony
+        case 137:   csprite=22; scale=100; break;   // moony warrior
+        case 138:   csprite=22; scale=110; break;   // moony guard
+        case 139:   csprite=22; scale=125; break;   // moony elite
 
-        case 140:	csprite=13; scale=90; c3=0x001f; break;     // bearded mage in blue
-        case 141:	csprite=13; scale=105; c3=0x03700; break;   // bearded mage in green
-        case 142:	csprite=13; scale=95; c3=0x7c1f; break;     // bearded mage in purple
+        case 140:   csprite=13; scale=90; c3=0x001f; break;     // bearded mage in blue
+        case 141:   csprite=13; scale=105; c3=0x03700; break;   // bearded mage in green
+        case 142:   csprite=13; scale=95; c3=0x7c1f; break;     // bearded mage in purple
 
-        case 143:	csprite=4; scale=90; c3=0x001f; break;      // merchant in blue
-        case 144:	csprite=4; scale=105; c3=0x03700; break;    // merchant in green
-        case 145:	csprite=4; scale=95; c3=0x7c1f; break;      // merchant in purple
+        case 143:   csprite=4; scale=90; c3=0x001f; break;      // merchant in blue
+        case 144:   csprite=4; scale=105; c3=0x03700; break;    // merchant in green
+        case 145:   csprite=4; scale=95; c3=0x7c1f; break;      // merchant in purple
 
-        case 146:	csprite=2; c1=0x4108; c2=0x1884; c3=0x2884; break; // thief
-        case 147:	csprite=4; c1=0x1092; c2=0x49c8; c3=0x1092; break; // merchant
-        case 148:	csprite=1; c1=0x2108; c2=0x6284; c3=0x318C; break; // sanoa
-        case 149:	csprite=2; c1=0x4108; c2=0x1884; c3=0x2884; break; // asturin
-        case 150:	csprite=3; c1=0x4252; c2=0x40C6; c3=0x294A; break; // guiwynn
-        case 151:	csprite=2; c1=0x4863; c2=0x5A44; c3=0x5a44; break; // logain
-        case 152:	csprite=1; c1=0x18c6; c2=0x3104; c3=0x2108; break; // kelly
-        case 153:	csprite=2; c1=0x1098; c2=0x3104; c3=0x1090; break; // gatekeeper
+        case 146:   csprite=2; c1=0x4108; c2=0x1884; c3=0x2884; break; // thief
+        case 147:   csprite=4; c1=0x1092; c2=0x49c8; c3=0x1092; break; // merchant
+        case 148:   csprite=1; c1=0x2108; c2=0x6284; c3=0x318C; break; // sanoa
+        case 149:   csprite=2; c1=0x4108; c2=0x1884; c3=0x2884; break; // asturin
+        case 150:   csprite=3; c1=0x4252; c2=0x40C6; c3=0x294A; break; // guiwynn
+        case 151:   csprite=2; c1=0x4863; c2=0x5A44; c3=0x5a44; break; // logain
+        case 152:   csprite=1; c1=0x18c6; c2=0x3104; c3=0x2108; break; // kelly
+        case 153:   csprite=2; c1=0x1098; c2=0x3104; c3=0x1090; break; // gatekeeper
 
-        case 154:	csprite=29; scale=95; sat=10; cr=50; break; //earth demon dark brown
-        case 155:	csprite=29; sat=10; cr=70; break; //earth demon light brown
-        case 156:	csprite=30; break;              // ratling
+        case 154:   csprite=29; scale=95; sat=10; cr=50; break; //earth demon dark brown
+        case 155:   csprite=29; sat=10; cr=70; break; //earth demon light brown
+        case 156:   csprite=30; break;              // ratling
 
-        case 157:	csprite=39;                 // fire demon
+        case 157:   csprite=39;                 // fire demon
             helper=attick&31;
             if (helper>15) helper=32-helper;
             sat=5; light=-80; cr=60+helper*3;
             break;
 
-        case 158:	csprite=2; c1=0x108c; c2=0x3d88; c3=0x108c; break;  // bert, warrior
-        case 159:	csprite=4; c1=0x108c; c2=0x3d88; c3=0x108c; break;  // bert, mage
+        case 158:   csprite=2; c1=0x108c; c2=0x3d88; c3=0x108c; break;  // bert, warrior
+        case 159:   csprite=4; c1=0x108c; c2=0x3d88; c3=0x108c; break;  // bert, mage
 
-        case 160:	csprite=2; c1=0x108c; c2=0x48c0; c3=0x3842; break;  // josh, warrior
-        case 161:	csprite=4; c1=0x108c; c2=0x48c0; c3=0x3842; break;  // josh, mage
+        case 160:   csprite=2; c1=0x108c; c2=0x48c0; c3=0x3842; break;  // josh, warrior
+        case 161:   csprite=4; c1=0x108c; c2=0x48c0; c3=0x3842; break;  // josh, mage
 
-        case 162:	csprite=2; c1=0x108c; c2=0x4a04; c3=0x3842; break;  // will, warrior
-        case 163:	csprite=4; c1=0x108c; c2=0x4a04; c3=0x3842; break;  // will, mage
+        case 162:   csprite=2; c1=0x108c; c2=0x4a04; c3=0x3842; break;  // will, warrior
+        case 163:   csprite=4; c1=0x108c; c2=0x4a04; c3=0x3842; break;  // will, mage
 
-        case 164:	csprite=2; c1=0x2188; c2=0x18c6; c3=0x1204; break;  // james, warrior
-        case 165:	csprite=4; c1=0x2188; c2=0x18c6; c3=0x1204; break;  // james, mage
+        case 164:   csprite=2; c1=0x2188; c2=0x18c6; c3=0x1204; break;  // james, warrior
+        case 165:   csprite=4; c1=0x2188; c2=0x18c6; c3=0x1204; break;  // james, mage
 
-        case 166:	csprite=2; c1=0x2188; c2=0x4a04; c3=0x1204; break;  // carl, warrior
-        case 167:	csprite=4; c1=0x2188; c2=0x4a04; c3=0x1204; break;  // carl, mage
+        case 166:   csprite=2; c1=0x2188; c2=0x4a04; c3=0x1204; break;  // carl, warrior
+        case 167:   csprite=4; c1=0x2188; c2=0x4a04; c3=0x1204; break;  // carl, mage
 
-        case 168:	csprite=2; c1=0x2188; c2=0x3d88; c3=0x3842; break;  // jim, warrior
-        case 169:	csprite=4; c1=0x2188; c2=0x3d88; c3=0x3842; break;  // jim, mage
+        case 168:   csprite=2; c1=0x2188; c2=0x3d88; c3=0x3842; break;  // jim, warrior
+        case 169:   csprite=4; c1=0x2188; c2=0x3d88; c3=0x3842; break;  // jim, mage
 
-        case 170:	csprite=2; c1=0x4a52; c2=0x18c6; c3=0x2108; break;  // brad, warrior
-        case 171:	csprite=4; c1=0x4a52; c2=0x18c6; c3=0x2108; break;  // brad, mage
+        case 170:   csprite=2; c1=0x4a52; c2=0x18c6; c3=0x2108; break;  // brad, warrior
+        case 171:   csprite=4; c1=0x4a52; c2=0x18c6; c3=0x2108; break;  // brad, mage
 
-        case 173:	csprite=8; scale=110; cr=50; break; // fire skelly
-        case 174:	csprite=8; scale=110; cb=50; break; // ice skelly
+        case 173:   csprite=8; scale=110; cr=50; break; // fire skelly
+        case 174:   csprite=8; scale=110; cb=50; break; // ice skelly
 
-        case 176:	csprite=1; c1=0x18cc; c2=0x5a68; c3=0x5ad6; break;  // jenny, warrior
-        case 177:	csprite=3; c1=0x18cc; c2=0x5a68; c3=0x5ad6; break;  // jenny, mage
+        case 176:   csprite=1; c1=0x18cc; c2=0x5a68; c3=0x5ad6; break;  // jenny, warrior
+        case 177:   csprite=3; c1=0x18cc; c2=0x5a68; c3=0x5ad6; break;  // jenny, mage
 
-        case 178:	csprite=1; c1=0x5294; c2=0x14a5; c3=0x108c; break;  // sarah, warrior
-        case 179:	csprite=3; c1=0x5294; c2=0x14a5; c3=0x108c; break;  // sarah, mage
+        case 178:   csprite=1; c1=0x5294; c2=0x14a5; c3=0x108c; break;  // sarah, warrior
+        case 179:   csprite=3; c1=0x5294; c2=0x14a5; c3=0x108c; break;  // sarah, mage
 
-        case 180:	csprite=1; c1=0x481c; c2=0x394a; c3=0x3084; break;  // sue, warrior
-        case 181:	csprite=3; c1=0x481c; c2=0x394a; c3=0x3084; break;  // sue, mage
+        case 180:   csprite=1; c1=0x481c; c2=0x394a; c3=0x3084; break;  // sue, warrior
+        case 181:   csprite=3; c1=0x481c; c2=0x394a; c3=0x3084; break;  // sue, mage
 
-        case 182:	csprite=1; c1=0x18cc; c2=0x394a; c3=0x5ad6; break;  // peggy, warrior
-        case 183:	csprite=3; c1=0x18cc; c2=0x394a; c3=0x5ad6; break;  // peggy, mage
+        case 182:   csprite=1; c1=0x18cc; c2=0x394a; c3=0x5ad6; break;  // peggy, warrior
+        case 183:   csprite=3; c1=0x18cc; c2=0x394a; c3=0x5ad6; break;  // peggy, mage
 
-        case 184:	csprite=1; c1=0x5294; c2=0x5a68; c3=0x108c; break;  // mary, warrior
-        case 185:	csprite=3; c1=0x5294; c2=0x5a68; c3=0x108c; break;  // mary, mage
+        case 184:   csprite=1; c1=0x5294; c2=0x5a68; c3=0x108c; break;  // mary, warrior
+        case 185:   csprite=3; c1=0x5294; c2=0x5a68; c3=0x108c; break;  // mary, mage
 
-        case 186:	csprite=1; c1=0x481c; c2=0x14a5; c3=0x3084; break;  // clara, warrior
-        case 187:	csprite=3; c1=0x481c; c2=0x14a5; c3=0x3084; break;  // clara, mage
+        case 186:   csprite=1; c1=0x481c; c2=0x14a5; c3=0x3084; break;  // clara, warrior
+        case 187:   csprite=3; c1=0x481c; c2=0x14a5; c3=0x3084; break;  // clara, mage
 
-        case 188:	csprite=1; c1=0x320c; c2=0x4944; c3=0x4084; break;  // beth, warrior
-        case 189:	csprite=3; c1=0x320c; c2=0x4944; c3=0x4084; break;  // beth, mage
+        case 188:   csprite=1; c1=0x320c; c2=0x4944; c3=0x4084; break;  // beth, warrior
+        case 189:   csprite=3; c1=0x320c; c2=0x4944; c3=0x4084; break;  // beth, mage
 
-        case 190:	csprite=33; cr=50; break;       // fire world, demon2
+        case 190:   csprite=33; cr=50; break;       // fire world, demon2
 
-        case 200:	csprite=54; c1=0x3def; c2=0x0300; c3=0x4108; break; // fred, misc merchant, area 1
-        case 201:	csprite=59; c1=0x4042; c2=0x2118; c3=0x4210; break; // talaman, banker, area 1
-        case 202:	csprite=47; c1=0x1204; c2=0x1184; c3=0x1CE7; break; // egbert, armor merchant, area 1
-        case 203:	csprite=47; c1=0x2308; c2=0x4310; c3=0x3108; break; // dolf, weapon merchant, area 1
-        case 204:	csprite=55; c1=0x6050; c2=0x0858; c3=0x0858; break; // nook, jester, area 1
-        case 205:	csprite=49; c1=0x3def; c2=0x294a; c3=0x5220; break; // reskin, barkeep, area 1
-        case 206:	csprite=52; c1=0x4980; c2=0x4a40; c3=0x0000; break; // logain, teach, area 1
-        case 207:	csprite=54; c1=0x3def; c2=0x294a; c3=0x5220; break; // terion, chatter, area 1
-        case 208:	csprite=49; c1=0x70e7; c2=0x4084; c3=0x730c; break; // asturin, thief, area 1
-        case 209:	csprite=49; c1=0x2884; c2=0x2884; c3=0x1ce7; break; // weak thief guard, thief, area 1
-        case 210:	csprite=49; c1=0x21c8; c2=0x4108; c3=0x59e7; break; // guild thief, thief, area 1
-        case 211:	csprite=49; c1=0x21c8; c2=0x4108; c3=0x4948; break; // guild thief, thief, area 1
-        case 212:	csprite=49; c1=0x21c8; c2=0x4108; c3=0x14a5; break; // guild thief, thief, area 1
-        case 213:	csprite=57; c1=0x739c; c2=0x739c; c3=0x1ce7; break; // guild assassin, thief, area 1
-        case 214:	csprite=57; c1=0x5294; c2=0x5294; c3=0x3d47; break; // guild assassin, thief, area 1
-        case 215:	csprite=49; c1=0x5294; c2=0x5294; c3=0x3d47; break; // guild master, thief, area 1
+        case 200:   csprite=54; c1=0x3def; c2=0x0300; c3=0x4108; break; // fred, misc merchant, area 1
+        case 201:   csprite=59; c1=0x4042; c2=0x2118; c3=0x4210; break; // talaman, banker, area 1
+        case 202:   csprite=47; c1=0x1204; c2=0x1184; c3=0x1CE7; break; // egbert, armor merchant, area 1
+        case 203:   csprite=47; c1=0x2308; c2=0x4310; c3=0x3108; break; // dolf, weapon merchant, area 1
+        case 204:   csprite=55; c1=0x6050; c2=0x0858; c3=0x0858; break; // nook, jester, area 1
+        case 205:   csprite=49; c1=0x3def; c2=0x294a; c3=0x5220; break; // reskin, barkeep, area 1
+        case 206:   csprite=52; c1=0x4980; c2=0x4a40; c3=0x0000; break; // logain, teach, area 1
+        case 207:   csprite=54; c1=0x3def; c2=0x294a; c3=0x5220; break; // terion, chatter, area 1
+        case 208:   csprite=49; c1=0x70e7; c2=0x4084; c3=0x730c; break; // asturin, thief, area 1
+        case 209:   csprite=49; c1=0x2884; c2=0x2884; c3=0x1ce7; break; // weak thief guard, thief, area 1
+        case 210:   csprite=49; c1=0x21c8; c2=0x4108; c3=0x59e7; break; // guild thief, thief, area 1
+        case 211:   csprite=49; c1=0x21c8; c2=0x4108; c3=0x4948; break; // guild thief, thief, area 1
+        case 212:   csprite=49; c1=0x21c8; c2=0x4108; c3=0x14a5; break; // guild thief, thief, area 1
+        case 213:   csprite=57; c1=0x739c; c2=0x739c; c3=0x1ce7; break; // guild assassin, thief, area 1
+        case 214:   csprite=57; c1=0x5294; c2=0x5294; c3=0x3d47; break; // guild assassin, thief, area 1
+        case 215:   csprite=49; c1=0x5294; c2=0x5294; c3=0x3d47; break; // guild master, thief, area 1
 
-        case 216:	csprite=43; light=40; break;                // weak zombie, area 2
-        case 217:	csprite=43; light=40; cr=10; break;         // zombie, area 2
-        case 218:	csprite=43; light=40; cb=10; break;         // strong zombie, area 2
-        case 219:	csprite=43; light=40; cg=10; break;         // superior zombie, area 2
+        case 216:   csprite=43; light=40; break;                // weak zombie, area 2
+        case 217:   csprite=43; light=40; cr=10; break;         // zombie, area 2
+        case 218:   csprite=43; light=40; cb=10; break;         // strong zombie, area 2
+        case 219:   csprite=43; light=40; cg=10; break;         // superior zombie, area 2
 
-        case 220:	csprite=36; light=-10; cg=20; scale=90; break;      // weak 'hunter' collector
-        case 221:	csprite=36; light=-10; cg=20; scale=100; break;         // 'hunter' collector
-        case 222:	csprite=36; light=-10; cg=20; scale=110; break;     // strong 'hunter' collector
+        case 220:   csprite=36; light=-10; cg=20; scale=90; break;      // weak 'hunter' collector
+        case 221:   csprite=36; light=-10; cg=20; scale=100; break;         // 'hunter' collector
+        case 222:   csprite=36; light=-10; cg=20; scale=110; break;     // strong 'hunter' collector
 
-        case 223:	csprite=35; cg=10; scale=90; break;         // weak 'huntress' supervisor
-        case 224:	csprite=35; cg=10; scale=100; break;            // weak 'huntress' supervisor
-        case 225:	csprite=35; cg=10; scale=110; break;            // weak 'huntress' supervisor
+        case 223:   csprite=35; cg=10; scale=90; break;         // weak 'huntress' supervisor
+        case 224:   csprite=35; cg=10; scale=100; break;            // weak 'huntress' supervisor
+        case 225:   csprite=35; cg=10; scale=110; break;            // weak 'huntress' supervisor
 
-        case 226:	csprite=42; sat=15; cb=60; light=100; scale=110; break; // ice golem
-        case 227:	csprite=39; sat=12; cb=15; light=30; scale=110; break;  // ice lord
-        case 228:	csprite=44; sat=15; cb=60; light=100; break;    // ice eye
+        case 226:   csprite=42; sat=15; cb=60; light=100; scale=110; break; // ice golem
+        case 227:   csprite=39; sat=12; cb=15; light=30; scale=110; break;  // ice lord
+        case 228:   csprite=44; sat=15; cb=60; light=100; break;    // ice eye
 
-        case 229:	csprite=59; c1=0x5000; c2=0x3ca5; c3=0x5294; break;     // wesley, banker, area 3
-        case 230:	csprite=47; c1=0x5000; c2=0x3ca5; c3=0x5294; break;     // karl, merchant, area 3
-        case 231:	csprite=47; c1=0x21e8; c2=0x1144; c3=0x1ce7; scale=95; break;   // ludwig, merchant, area 3
-        case 232:	csprite=47; c1=0x3c05; c2=0x6012; c3=0x5ad6; break;     // norbert, merchant, area 3
-        case 233:	csprite=47; c1=0x6fb7; c2=0x2110; c3=0x5ad6; break;     // manfred, merchant, area 3
-        case 234:	csprite=54; c1=0x6fb7; c2=0x2110; c3=0x5ad6; break;     // jeremy, merchant, area 3
+        case 229:   csprite=59; c1=0x5000; c2=0x3ca5; c3=0x5294; break;     // wesley, banker, area 3
+        case 230:   csprite=47; c1=0x5000; c2=0x3ca5; c3=0x5294; break;     // karl, merchant, area 3
+        case 231:   csprite=47; c1=0x21e8; c2=0x1144; c3=0x1ce7; scale=95; break;   // ludwig, merchant, area 3
+        case 232:   csprite=47; c1=0x3c05; c2=0x6012; c3=0x5ad6; break;     // norbert, merchant, area 3
+        case 233:   csprite=47; c1=0x6fb7; c2=0x2110; c3=0x5ad6; break;     // manfred, merchant, area 3
+        case 234:   csprite=54; c1=0x6fb7; c2=0x2110; c3=0x5ad6; break;     // jeremy, merchant, area 3
 
-        case 235:	csprite=55; c1=IRGB(31,0,0); c2=IRGB(31,0,0); c3=0x5ad6; break; // clan clerks
+        case 235:   csprite=55; c1=IRGB(31,0,0); c2=IRGB(31,0,0); c3=0x5ad6; break; // clan clerks
         case 236:       csprite=55; c1=IRGB(0,31,0); c2=IRGB(0,31,0); c3=0x5ad6; break;
         case 237:       csprite=55; c1=IRGB(0,0,31); c2=IRGB(0,0,31); c3=0x5ad6; break;
         case 238:       csprite=55; c1=IRGB(31,31,0); c2=IRGB(31,31,0); c3=0x5ad6; break;
@@ -605,34 +605,34 @@ EXPORT int _trans_charno(int csprite,int *pscale,int *pcr,int *pcg,int *pcb,int 
         case 241:       csprite=55; c1=IRGB(31,16,16); c2=IRGB(31,16,16); c3=0x5ad6; break;
         case 242:       csprite=55; c1=IRGB(16,16,31); c2=IRGB(16,16,31); c3=0x5ad6; break;
 
-        case 243:	csprite=33; sat=20; light=0; shine=0; scale=80; break;      // mine, silver golems
-        case 244:	csprite=33; sat=20; light=10; shine=10; scale=85; break;
-        case 245:	csprite=33; sat=20; light=20; shine=20; scale=90; break;
-        case 246:	csprite=33; sat=20; light=30; shine=30; scale=95; break;
-        case 247:	csprite=33; sat=20; light=40; shine=40; scale=100; break;
-        case 248:	csprite=33; sat=20; light=50; shine=50; scale=105; break;
-        case 249:	csprite=33; sat=20; light=60; shine=60; scale=110; break;
-        case 250:	csprite=33; sat=20; light=70; shine=70; scale=115; break;
+        case 243:   csprite=33; sat=20; light=0; shine=0; scale=80; break;      // mine, silver golems
+        case 244:   csprite=33; sat=20; light=10; shine=10; scale=85; break;
+        case 245:   csprite=33; sat=20; light=20; shine=20; scale=90; break;
+        case 246:   csprite=33; sat=20; light=30; shine=30; scale=95; break;
+        case 247:   csprite=33; sat=20; light=40; shine=40; scale=100; break;
+        case 248:   csprite=33; sat=20; light=50; shine=50; scale=105; break;
+        case 249:   csprite=33; sat=20; light=60; shine=60; scale=110; break;
+        case 250:   csprite=33; sat=20; light=70; shine=70; scale=115; break;
 
-        case 251:	csprite=33; sat=20; light=35; shine=35; scale=80; cr=50; cg=50; break;  // mine, gold golems
-        case 252:	csprite=33; sat=20; light=40; shine=40; scale=85; cr=50; cg=50; break;
-        case 253:	csprite=33; sat=20; light=45; shine=45; scale=90; cr=50; cg=50; break;
-        case 254:	csprite=33; sat=20; light=50; shine=50; scale=95; cr=50; cg=50; break;
-        case 255:	csprite=33; sat=20; light=55; shine=55; scale=100; cr=50; cg=50; break;
-        case 256:	csprite=33; sat=20; light=60; shine=60; scale=105; cr=50; cg=50; break;
-        case 257:	csprite=33; sat=20; light=65; shine=65; scale=110; cr=50; cg=50; break;
-        case 258:	csprite=33; sat=20; light=70; shine=70; scale=115; cr=50; cg=50; break;
+        case 251:   csprite=33; sat=20; light=35; shine=35; scale=80; cr=50; cg=50; break;  // mine, gold golems
+        case 252:   csprite=33; sat=20; light=40; shine=40; scale=85; cr=50; cg=50; break;
+        case 253:   csprite=33; sat=20; light=45; shine=45; scale=90; cr=50; cg=50; break;
+        case 254:   csprite=33; sat=20; light=50; shine=50; scale=95; cr=50; cg=50; break;
+        case 255:   csprite=33; sat=20; light=55; shine=55; scale=100; cr=50; cg=50; break;
+        case 256:   csprite=33; sat=20; light=60; shine=60; scale=105; cr=50; cg=50; break;
+        case 257:   csprite=33; sat=20; light=65; shine=65; scale=110; cr=50; cg=50; break;
+        case 258:   csprite=33; sat=20; light=70; shine=70; scale=115; cr=50; cg=50; break;
 
-        case 259:	csprite=55; c1=IRGB(24,8,8); c2=IRGB(24,8,8); c3=0x5ad6; break; // clan clerks cont.
-        case 260:	csprite=55; c1=IRGB(8,24,8); c2=IRGB(8,24,8); c3=0x5ad6; break;
-        case 261:	csprite=55; c1=IRGB(8,8,24); c2=IRGB(8,8,24); c3=0x5ad6; break;
-        case 262:	csprite=55; c1=IRGB(24,24,8); c2=IRGB(24,24,8); c3=0x5ad6; break;
-        case 263:	csprite=55; c1=IRGB(24,8,24); c2=IRGB(24,8,24); c3=0x5ad6; break;
-        case 264:	csprite=55; c1=IRGB(8,24,24); c2=IRGB(8,24,24); c3=0x5ad6; break;
-        case 265:	csprite=55; c1=IRGB(24,24,24); c2=IRGB(24,24,24); c3=0x5ad6; break;
-        case 266:	csprite=55; c1=IRGB(16,16,16); c2=IRGB(16,16,16); c3=0x5ad6; break;
+        case 259:   csprite=55; c1=IRGB(24,8,8); c2=IRGB(24,8,8); c3=0x5ad6; break; // clan clerks cont.
+        case 260:   csprite=55; c1=IRGB(8,24,8); c2=IRGB(8,24,8); c3=0x5ad6; break;
+        case 261:   csprite=55; c1=IRGB(8,8,24); c2=IRGB(8,8,24); c3=0x5ad6; break;
+        case 262:   csprite=55; c1=IRGB(24,24,8); c2=IRGB(24,24,8); c3=0x5ad6; break;
+        case 263:   csprite=55; c1=IRGB(24,8,24); c2=IRGB(24,8,24); c3=0x5ad6; break;
+        case 264:   csprite=55; c1=IRGB(8,24,24); c2=IRGB(8,24,24); c3=0x5ad6; break;
+        case 265:   csprite=55; c1=IRGB(24,24,24); c2=IRGB(24,24,24); c3=0x5ad6; break;
+        case 266:   csprite=55; c1=IRGB(16,16,16); c2=IRGB(16,16,16); c3=0x5ad6; break;
 
-        case 267:	csprite=50; c1=IRGB(31,0,0); c2=IRGB(31,0,0); c3=0x5ad6; break; // clan guards 1
+        case 267:   csprite=50; c1=IRGB(31,0,0); c2=IRGB(31,0,0); c3=0x5ad6; break; // clan guards 1
         case 268:       csprite=50; c1=IRGB(0,31,0); c2=IRGB(0,31,0); c3=0x5ad6; break;
         case 269:       csprite=50; c1=IRGB(0,0,31); c2=IRGB(0,0,31); c3=0x5ad6; break;
         case 270:       csprite=50; c1=IRGB(31,31,0); c2=IRGB(31,31,0); c3=0x5ad6; break;
@@ -640,16 +640,16 @@ EXPORT int _trans_charno(int csprite,int *pscale,int *pcr,int *pcg,int *pcb,int 
         case 272:       csprite=50; c1=IRGB(0,31,31); c2=IRGB(0,31,31); c3=0x5ad6; break;
         case 273:       csprite=50; c1=IRGB(31,16,16); c2=IRGB(31,16,16); c3=0x5ad6; break;
         case 274:       csprite=50; c1=IRGB(16,16,31); c2=IRGB(16,16,31); c3=0x5ad6; break;
-        case 275:	csprite=50; c1=IRGB(24,8,8); c2=IRGB(24,8,8); c3=0x5ad6; break;
-        case 276:	csprite=50; c1=IRGB(8,24,8); c2=IRGB(8,24,8); c3=0x5ad6; break;
-        case 277:	csprite=50; c1=IRGB(8,8,24); c2=IRGB(8,8,24); c3=0x5ad6; break;
-        case 278:	csprite=50; c1=IRGB(24,24,8); c2=IRGB(24,24,8); c3=0x5ad6; break;
-        case 279:	csprite=50; c1=IRGB(24,8,24); c2=IRGB(24,8,24); c3=0x5ad6; break;
-        case 280:	csprite=50; c1=IRGB(8,24,24); c2=IRGB(8,24,24); c3=0x5ad6; break;
-        case 281:	csprite=50; c1=IRGB(24,24,24); c2=IRGB(24,24,24); c3=0x5ad6; break;
-        case 282:	csprite=50; c1=IRGB(16,16,16); c2=IRGB(16,16,16); c3=0x5ad6; break;
+        case 275:   csprite=50; c1=IRGB(24,8,8); c2=IRGB(24,8,8); c3=0x5ad6; break;
+        case 276:   csprite=50; c1=IRGB(8,24,8); c2=IRGB(8,24,8); c3=0x5ad6; break;
+        case 277:   csprite=50; c1=IRGB(8,8,24); c2=IRGB(8,8,24); c3=0x5ad6; break;
+        case 278:   csprite=50; c1=IRGB(24,24,8); c2=IRGB(24,24,8); c3=0x5ad6; break;
+        case 279:   csprite=50; c1=IRGB(24,8,24); c2=IRGB(24,8,24); c3=0x5ad6; break;
+        case 280:   csprite=50; c1=IRGB(8,24,24); c2=IRGB(8,24,24); c3=0x5ad6; break;
+        case 281:   csprite=50; c1=IRGB(24,24,24); c2=IRGB(24,24,24); c3=0x5ad6; break;
+        case 282:   csprite=50; c1=IRGB(16,16,16); c2=IRGB(16,16,16); c3=0x5ad6; break;
 
-        case 283:	csprite=51; c1=IRGB(31,0,0); c2=IRGB(31,0,0); c3=0x5ad6; break; // clan guards 2
+        case 283:   csprite=51; c1=IRGB(31,0,0); c2=IRGB(31,0,0); c3=0x5ad6; break; // clan guards 2
         case 284:       csprite=51; c1=IRGB(0,31,0); c2=IRGB(0,31,0); c3=0x5ad6; break;
         case 285:       csprite=51; c1=IRGB(0,0,31); c2=IRGB(0,0,31); c3=0x5ad6; break;
         case 286:       csprite=51; c1=IRGB(31,31,0); c2=IRGB(31,31,0); c3=0x5ad6; break;
@@ -657,93 +657,93 @@ EXPORT int _trans_charno(int csprite,int *pscale,int *pcr,int *pcg,int *pcb,int 
         case 288:       csprite=51; c1=IRGB(0,31,31); c2=IRGB(0,31,31); c3=0x5ad6; break;
         case 289:       csprite=51; c1=IRGB(31,16,16); c2=IRGB(31,16,16); c3=0x5ad6; break;
         case 290:       csprite=51; c1=IRGB(16,16,31); c2=IRGB(16,16,31); c3=0x5ad6; break;
-        case 291:	csprite=51; c1=IRGB(24,8,8); c2=IRGB(24,8,8); c3=0x5ad6; break;
-        case 292:	csprite=51; c1=IRGB(8,24,8); c2=IRGB(8,24,8); c3=0x5ad6; break;
-        case 293:	csprite=51; c1=IRGB(8,8,24); c2=IRGB(8,8,24); c3=0x5ad6; break;
-        case 294:	csprite=51; c1=IRGB(24,24,8); c2=IRGB(24,24,8); c3=0x5ad6; break;
-        case 295:	csprite=51; c1=IRGB(24,8,24); c2=IRGB(24,8,24); c3=0x5ad6; break;
-        case 296:	csprite=51; c1=IRGB(8,24,24); c2=IRGB(8,24,24); c3=0x5ad6; break;
-        case 297:	csprite=51; c1=IRGB(24,24,24); c2=IRGB(24,24,24); c3=0x5ad6; break;
-        case 298:	csprite=51; c1=IRGB(16,16,16); c2=IRGB(16,16,16); c3=0x5ad6; break;
+        case 291:   csprite=51; c1=IRGB(24,8,8); c2=IRGB(24,8,8); c3=0x5ad6; break;
+        case 292:   csprite=51; c1=IRGB(8,24,8); c2=IRGB(8,24,8); c3=0x5ad6; break;
+        case 293:   csprite=51; c1=IRGB(8,8,24); c2=IRGB(8,8,24); c3=0x5ad6; break;
+        case 294:   csprite=51; c1=IRGB(24,24,8); c2=IRGB(24,24,8); c3=0x5ad6; break;
+        case 295:   csprite=51; c1=IRGB(24,8,24); c2=IRGB(24,8,24); c3=0x5ad6; break;
+        case 296:   csprite=51; c1=IRGB(8,24,24); c2=IRGB(8,24,24); c3=0x5ad6; break;
+        case 297:   csprite=51; c1=IRGB(24,24,24); c2=IRGB(24,24,24); c3=0x5ad6; break;
+        case 298:   csprite=51; c1=IRGB(16,16,16); c2=IRGB(16,16,16); c3=0x5ad6; break;
 
-        case 299:	csprite=8; cg=5; light=-80; shine=70; break;    // dark skeleton, random dungeon
+        case 299:   csprite=8; cg=5; light=-80; shine=70; break;    // dark skeleton, random dungeon
 
-        case 300:	csprite=24; cr=20; cg=20; light=10; scale=80; break;    //swamp beasts
-        case 301:	csprite=24; cr=25; light=-40; shine=0; break;
-        case 302:	csprite=24; sat=8; light=20; scale=105; break;
-        case 303:	csprite=24; cg=10; light=-20; shine=10; scale=110; break;
-        case 304:	csprite=24; cg=10; light=-20; shine=25; scale=150; break;
+        case 300:   csprite=24; cr=20; cg=20; light=10; scale=80; break;    //swamp beasts
+        case 301:   csprite=24; cr=25; light=-40; shine=0; break;
+        case 302:   csprite=24; sat=8; light=20; scale=105; break;
+        case 303:   csprite=24; cg=10; light=-20; shine=10; scale=110; break;
+        case 304:   csprite=24; cg=10; light=-20; shine=25; scale=150; break;
 
-        case 305:	csprite=58; c1=IRGB(16,16,31); c2=IRGB(4,4,12); c3=IRGB(28,24,0); break;    // islena
+        case 305:   csprite=58; c1=IRGB(16,16,31); c2=IRGB(4,4,12); c3=IRGB(28,24,0); break;    // islena
 
-        case 306:	csprite=12; sat=10; light=30; break;                // forest: bear
-        case 307:	csprite=19; sat=8; cr=15; light=15; scale=120; break;       // forest: wolf
-        case 308:	csprite=21; cg=120; light=-125; scale=80; break;    // forest: spider
-        case 309:	csprite=21; cg=120; light=-125; scale=120; break;   // forest: spider queen
-        case 310:	csprite=40; cg=40; light=-10; break;            // forest: preying mantiss
-        case 311:	csprite=46; c1=0x41aa; c2=0x360a; c3=0x7f92; scale=80; shine=25; break; // forest: imp
-        case 312:	csprite=53; c1=0x41aa; c2=0x360a; c3=0x7f92; break; // forest: robber
-        case 313:	csprite=58; c1=IRGB(18,18,18); c2=IRGB(22,22,22); c3=IRGB(12,7,6); break; // zoetje
-        case 314:	csprite=13; c3=0x3def; break; // forest: hermit
-        case 315:	csprite=54; c1=0x7380; c2=0x739c; break;    // exkordon: cook
-        case 316:	csprite=59; c1=0x7380; c2=0x739c; c3=0x739c;  break;    // exkordon: governor double
+        case 306:   csprite=12; sat=10; light=30; break;                // forest: bear
+        case 307:   csprite=19; sat=8; cr=15; light=15; scale=120; break;       // forest: wolf
+        case 308:   csprite=21; cg=120; light=-125; scale=80; break;    // forest: spider
+        case 309:   csprite=21; cg=120; light=-125; scale=120; break;   // forest: spider queen
+        case 310:   csprite=40; cg=40; light=-10; break;            // forest: preying mantiss
+        case 311:   csprite=46; c1=0x41aa; c2=0x360a; c3=0x7f92; scale=80; shine=25; break; // forest: imp
+        case 312:   csprite=53; c1=0x41aa; c2=0x360a; c3=0x7f92; break; // forest: robber
+        case 313:   csprite=58; c1=IRGB(18,18,18); c2=IRGB(22,22,22); c3=IRGB(12,7,6); break; // zoetje
+        case 314:   csprite=13; c3=0x3def; break; // forest: hermit
+        case 315:   csprite=54; c1=0x7380; c2=0x739c; break;    // exkordon: cook
+        case 316:   csprite=59; c1=0x7380; c2=0x739c; c3=0x739c;  break;    // exkordon: governor double
 
-        case 317:	csprite=113; c1=0x4829; c2=0x18EF; c3=0x6646; break;    // exkordon guard with torch
-        case 318:	csprite=111; c1=0x4829; c2=0x18EF; c3=0x6646; break;    // exkordon guard
+        case 317:   csprite=113; c1=0x4829; c2=0x18EF; c3=0x6646; break;    // exkordon guard with torch
+        case 318:   csprite=111; c1=0x4829; c2=0x18EF; c3=0x6646; break;    // exkordon guard
 
-        case 319:	csprite=30; light=-50; cg=40; break;            // exkordon ratling
-        case 320:	csprite=49; c1=0x2421; c2=0x3C22; c3=0x6646; break; // exkordon thief guard
-        case 321:	csprite=49; c1=0x3031; c2=0x2837; c3=0x1C42; break; // exkordon thief guard
-        case 322:	csprite=41; cr=10; scale=110; break;            // exkordon statue
-        case 323:	csprite=41; cr=10; scale=120; break;                    // exkordon statue boss
-        case 324:	csprite=13; c3=0x6E82; cg=70; light=-10; break;     // random: wizard of yendor
-        case 325:	csprite=9; cg=20; scale=110; light=-10; break;      // exkordon: green light skelly
-        case 326:	csprite=9; cr=20; scale=110; light=-10; break;      // exkordon: red light skelly
-        case 327:	csprite=9; scale=110; light=-10; break;             // exkordon: no light skelly
-        case 328:	csprite=21; cr=120; cg=60; light=-125; break;       // exkordon: spider
-        case 329:	csprite=21; cr=100; cg=80; light=-125; break;           // exkordon: spider
-        case 330:	csprite=21; cr=120; cg=30; light=-125; break;       // exkordon: spider
+        case 319:   csprite=30; light=-50; cg=40; break;            // exkordon ratling
+        case 320:   csprite=49; c1=0x2421; c2=0x3C22; c3=0x6646; break; // exkordon thief guard
+        case 321:   csprite=49; c1=0x3031; c2=0x2837; c3=0x1C42; break; // exkordon thief guard
+        case 322:   csprite=41; cr=10; scale=110; break;            // exkordon statue
+        case 323:   csprite=41; cr=10; scale=120; break;                    // exkordon statue boss
+        case 324:   csprite=13; c3=0x6E82; cg=70; light=-10; break;     // random: wizard of yendor
+        case 325:   csprite=9; cg=20; scale=110; light=-10; break;      // exkordon: green light skelly
+        case 326:   csprite=9; cr=20; scale=110; light=-10; break;      // exkordon: red light skelly
+        case 327:   csprite=9; scale=110; light=-10; break;             // exkordon: no light skelly
+        case 328:   csprite=21; cr=120; cg=60; light=-125; break;       // exkordon: spider
+        case 329:   csprite=21; cr=100; cg=80; light=-125; break;           // exkordon: spider
+        case 330:   csprite=21; cr=120; cg=30; light=-125; break;       // exkordon: spider
 
-        case 331:	csprite=36; light=-10; cr=20; scale=100; break;         // exkordon: collector
+        case 331:   csprite=36; light=-10; cr=20; scale=100; break;         // exkordon: collector
 
-        case 332:	csprite=43; light=50; cr=10; shine=20; break;       // exkordon: zombie
+        case 332:   csprite=43; light=50; cr=10; shine=20; break;       // exkordon: zombie
 
-        case 333:	csprite=8; shine=20; light=-20; break;              // bones: skeleton
-        case 334:	csprite=43; light=30; sat=20; break;                // bones: zombie
+        case 333:   csprite=8; shine=20; light=-20; break;              // bones: skeleton
+        case 334:   csprite=43; light=30; sat=20; break;                // bones: zombie
 
-        case 335:	csprite=19; sat=20; cr=40; cg=30; light=40; scale=95; break;        // nomad: wolf1
-        case 336:	csprite=19; sat=20; cr=40; cg=35; light=45; break;          // nomad: wolf2
-        case 337:	csprite=19; sat=20; cr=45; cg=30; light=20; scale=105; break;       // nomad: wolf3
-        case 338:	csprite=19; sat=20; light=125; scale=110; break;            // nomad: white wolf
+        case 335:   csprite=19; sat=20; cr=40; cg=30; light=40; scale=95; break;        // nomad: wolf1
+        case 336:   csprite=19; sat=20; cr=40; cg=35; light=45; break;          // nomad: wolf2
+        case 337:   csprite=19; sat=20; cr=45; cg=30; light=20; scale=105; break;       // nomad: wolf3
+        case 338:   csprite=19; sat=20; light=125; scale=110; break;            // nomad: white wolf
 
-        case 339:	csprite=14; c1=0x2965; c2=0x318D; c3=0x4DC1; break; // nomad: nomad1
-        case 340:	csprite=14; c1=0x2965; c2=0x318D; c3=0x1C41; break; // nomad: nomad2
-        case 341:	csprite=11; c1=0x2165; c2=0x30A5; c3=0x1C41; break; // nomad: harpy1
-        case 342:	csprite=11; c1=0x2172; c2=0x1C2E; c3=0x1C4E; break; // nomad: harpy2
-        case 343:	csprite=11; c1=0x2172; c2=0x198A; c3=0x1C4E; break; // nomad: harpy3
-        case 344:	csprite=48; c1=0x2A5F; c2=0x4A55; c3=0x3421; break; // nomad: valkyrie1
-        case 345:	csprite=48; c1=0x52DF; c2=0x4A55; c3=0x3421; break; // nomad: valkyrie2
+        case 339:   csprite=14; c1=0x2965; c2=0x318D; c3=0x4DC1; break; // nomad: nomad1
+        case 340:   csprite=14; c1=0x2965; c2=0x318D; c3=0x1C41; break; // nomad: nomad2
+        case 341:   csprite=11; c1=0x2165; c2=0x30A5; c3=0x1C41; break; // nomad: harpy1
+        case 342:   csprite=11; c1=0x2172; c2=0x1C2E; c3=0x1C4E; break; // nomad: harpy2
+        case 343:   csprite=11; c1=0x2172; c2=0x198A; c3=0x1C4E; break; // nomad: harpy3
+        case 344:   csprite=48; c1=0x2A5F; c2=0x4A55; c3=0x3421; break; // nomad: valkyrie1
+        case 345:   csprite=48; c1=0x52DF; c2=0x4A55; c3=0x3421; break; // nomad: valkyrie2
 
-        case 346:	csprite=34; c1=0x7FFF; c2=0x56B5; c3=0x7FDF; break; // nomad: evil monk
-        case 347:	csprite=34; c1=0x5C34; c2=0x3C54; c3=0x7FDF; break; // nomad: sarkilar (monk)
-        case 348:	csprite=34; c1=0x7329; c2=0x6681; c3=0x7FDF; break; // nomad: good monk 1
-        case 349:	csprite=34; c1=0x2C39; c2=0x1CEF; c3=0x7FDF; break; // nomad: good monk 2
+        case 346:   csprite=34; c1=0x7FFF; c2=0x56B5; c3=0x7FDF; break; // nomad: evil monk
+        case 347:   csprite=34; c1=0x5C34; c2=0x3C54; c3=0x7FDF; break; // nomad: sarkilar (monk)
+        case 348:   csprite=34; c1=0x7329; c2=0x6681; c3=0x7FDF; break; // nomad: good monk 1
+        case 349:   csprite=34; c1=0x2C39; c2=0x1CEF; c3=0x7FDF; break; // nomad: good monk 2
 
-        case 350:	csprite=35; cr=20; cb=40; light=-20; break;     // light&dark lab, gnome 2
+        case 350:   csprite=35; cr=20; cb=40; light=-20; break;     // light&dark lab, gnome 2
 
-        case 351:	csprite=100; c1=0x0819; c2=0x2014; c3=0x5E00; break;    // imperial army seyan male
-        case 352:	csprite=110; c1=0x0819; c2=0x2014; c3=0x5E00; break;    // imperial army seyan female
+        case 351:   csprite=100; c1=0x0819; c2=0x2014; c3=0x5E00; break;    // imperial army seyan male
+        case 352:   csprite=110; c1=0x0819; c2=0x2014; c3=0x5E00; break;    // imperial army seyan female
 
-        case 353:	csprite=35; sat=20; cr=40; break;           // strategy, slot1
-        case 354:	csprite=35; sat=20; cg=40; break;                   // strategy, slot2
-        case 355:	csprite=35; sat=20; cb=40; break;                       // strategy, slot3
-        case 356:	csprite=35; sat=20; cr=40; cg=40; break;                // strategy, slot4
+        case 353:   csprite=35; sat=20; cr=40; break;           // strategy, slot1
+        case 354:   csprite=35; sat=20; cg=40; break;                   // strategy, slot2
+        case 355:   csprite=35; sat=20; cb=40; break;                       // strategy, slot3
+        case 356:   csprite=35; sat=20; cr=40; cg=40; break;                // strategy, slot4
 
-        case 357:	csprite=35; sat=20; light=40; break;                    // strategy, neutral worker
+        case 357:   csprite=35; sat=20; light=40; break;                    // strategy, neutral worker
 
-        case 360:	csprite=45; c1=0x0431; c2=0x2110; c3=0x6622; break;
+        case 360:   csprite=45; c1=0x0431; c2=0x2110; c3=0x6622; break;
 
-        case 361:	csprite=39; sat=20; light=-50; cr=30; break;    // hell demon
+        case 361:   csprite=39; sat=20; light=-50; cr=30; break;    // hell demon
 
         case 400:       csprite=16; scale=180; break;                           // lab3 large creeper
         case 401:       csprite=22; c1=0x3D88; c2=0x3D46; c3=0x6A8C; scale=96; break;           // lab4 gnalb guard
@@ -756,11 +756,11 @@ EXPORT int _trans_charno(int csprite,int *pscale,int *pcr,int *pcg,int *pcb,int 
         case 407:       csprite=27; scale=110; break;            // lab5 daemon2
         case 408:       csprite=29; scale=110; break;            // lab5 daemon3
 
-        case 409:	csprite=34; c1=0x7D31; c2=0x316B; c3=0x5568; break; // nomad: saltmine gatama
-        case 411:	csprite=34; c1=0x6E0C; c2=0x62B5; c3=0x5568; break; // nomad: saltmine worker
-        case 412:	csprite=42; cr=40; cg=70; cb=60; break;                 // nomad: saltmine golem made of stone
+        case 409:   csprite=34; c1=0x7D31; c2=0x316B; c3=0x5568; break; // nomad: saltmine gatama
+        case 411:   csprite=34; c1=0x6E0C; c2=0x62B5; c3=0x5568; break; // nomad: saltmine worker
+        case 412:   csprite=42; cr=40; cg=70; cb=60; break;                 // nomad: saltmine golem made of stone
 
-        case 410:	csprite=34; c1=0x7D21; c2=0x7BBC; c3=0x5568; break; // north: govida        !!! take care of the nr.
+        case 410:   csprite=34; c1=0x7D21; c2=0x7BBC; c3=0x5568; break; // north: govida        !!! take care of the nr.
         case 413:       csprite=48; c1=0x197A; c2=0x4A55; c3=0x3421; break; // north: valkyrie blue
         case 414:       csprite=48; c1=0x7063; c2=0x4A55; c3=0x3421; break; // north: valkyrie red
         case 415:       csprite=48; c1=0x7F28; c2=0x7F28; c3=0x7F28; break; // north: valkyrie gold
@@ -777,83 +777,83 @@ EXPORT int _trans_charno(int csprite,int *pscale,int *pcr,int *pcg,int *pcb,int 
         case 425:       csprite=39; scale=124; break;                           // north: ice deamon
         case 426:       csprite=39; scale=127; break;                           // north: ice deamon
 
-        case 500:	csprite=55; c1=IRGB(31,24,24); c2=IRGB(31,24,24); c3=0x5ad6; break; // clan clerks 17 to 32
-        case 501:	csprite=55; c1=IRGB(24,31,24); c2=IRGB(24,31,24); c3=0x5ad6; break;
-        case 502:	csprite=55; c1=IRGB(24,24,31); c2=IRGB(24,24,31); c3=0x5ad6; break;
-        case 503:	csprite=55; c1=IRGB(31,31,24); c2=IRGB(31,31,24); c3=0x5ad6; break;
-        case 504:	csprite=55; c1=IRGB(31,24,31); c2=IRGB(31,24,31); c3=0x5ad6; break;
-        case 505:	csprite=55; c1=IRGB(24,31,31); c2=IRGB(24,31,31); c3=0x5ad6; break;
-        case 506:	csprite=55; c1=IRGB(31,8,8); c2=IRGB(31,8,8); c3=0x5ad6; break;
-        case 507:	csprite=55; c1=IRGB(8,8,31); c2=IRGB(8,8,31); c3=0x5ad6; break;
-        case 508:	csprite=55; c1=IRGB(16,8,8); c2=IRGB(16,8,8); c3=0x5ad6; break;
-        case 509:	csprite=55; c1=IRGB(8,16,8); c2=IRGB(8,16,8); c3=0x5ad6; break;
-        case 510:	csprite=55; c1=IRGB(8,8,16); c2=IRGB(8,8,16); c3=0x5ad6; break;
-        case 511:	csprite=55; c1=IRGB(16,16,8); c2=IRGB(16,16,8); c3=0x5ad6; break;
-        case 512:	csprite=55; c1=IRGB(16,8,16); c2=IRGB(16,8,16); c3=0x5ad6; break;
-        case 513:	csprite=55; c1=IRGB(8,16,16); c2=IRGB(8,16,16); c3=0x5ad6; break;
-        case 514:	csprite=55; c1=IRGB(8,31,8); c2=IRGB(8,31,8); c3=0x5ad6; break;
-        case 515:	csprite=55; c1=IRGB(31,8,31); c2=IRGB(31,8,31); c3=0x5ad6; break;
+        case 500:   csprite=55; c1=IRGB(31,24,24); c2=IRGB(31,24,24); c3=0x5ad6; break; // clan clerks 17 to 32
+        case 501:   csprite=55; c1=IRGB(24,31,24); c2=IRGB(24,31,24); c3=0x5ad6; break;
+        case 502:   csprite=55; c1=IRGB(24,24,31); c2=IRGB(24,24,31); c3=0x5ad6; break;
+        case 503:   csprite=55; c1=IRGB(31,31,24); c2=IRGB(31,31,24); c3=0x5ad6; break;
+        case 504:   csprite=55; c1=IRGB(31,24,31); c2=IRGB(31,24,31); c3=0x5ad6; break;
+        case 505:   csprite=55; c1=IRGB(24,31,31); c2=IRGB(24,31,31); c3=0x5ad6; break;
+        case 506:   csprite=55; c1=IRGB(31,8,8); c2=IRGB(31,8,8); c3=0x5ad6; break;
+        case 507:   csprite=55; c1=IRGB(8,8,31); c2=IRGB(8,8,31); c3=0x5ad6; break;
+        case 508:   csprite=55; c1=IRGB(16,8,8); c2=IRGB(16,8,8); c3=0x5ad6; break;
+        case 509:   csprite=55; c1=IRGB(8,16,8); c2=IRGB(8,16,8); c3=0x5ad6; break;
+        case 510:   csprite=55; c1=IRGB(8,8,16); c2=IRGB(8,8,16); c3=0x5ad6; break;
+        case 511:   csprite=55; c1=IRGB(16,16,8); c2=IRGB(16,16,8); c3=0x5ad6; break;
+        case 512:   csprite=55; c1=IRGB(16,8,16); c2=IRGB(16,8,16); c3=0x5ad6; break;
+        case 513:   csprite=55; c1=IRGB(8,16,16); c2=IRGB(8,16,16); c3=0x5ad6; break;
+        case 514:   csprite=55; c1=IRGB(8,31,8); c2=IRGB(8,31,8); c3=0x5ad6; break;
+        case 515:   csprite=55; c1=IRGB(31,8,31); c2=IRGB(31,8,31); c3=0x5ad6; break;
 
-        case 516:	csprite=50; c1=IRGB(31,24,24); c2=IRGB(31,24,24); c3=0x5ad6; break; // clan guards 1 (17 to 32)
-        case 517:	csprite=50; c1=IRGB(24,31,24); c2=IRGB(24,31,24); c3=0x5ad6; break;
-        case 518:	csprite=50; c1=IRGB(24,24,31); c2=IRGB(24,24,31); c3=0x5ad6; break;
-        case 519:	csprite=50; c1=IRGB(31,31,24); c2=IRGB(31,31,24); c3=0x5ad6; break;
-        case 520:	csprite=50; c1=IRGB(31,24,31); c2=IRGB(31,24,31); c3=0x5ad6; break;
-        case 521:	csprite=50; c1=IRGB(24,31,31); c2=IRGB(24,31,31); c3=0x5ad6; break;
-        case 522:	csprite=50; c1=IRGB(31,8,8); c2=IRGB(31,8,8); c3=0x5ad6; break;
-        case 523:	csprite=50; c1=IRGB(8,8,31); c2=IRGB(8,8,31); c3=0x5ad6; break;
-        case 524:	csprite=50; c1=IRGB(16,8,8); c2=IRGB(16,8,8); c3=0x5ad6; break;
-        case 525:	csprite=50; c1=IRGB(8,16,8); c2=IRGB(8,16,8); c3=0x5ad6; break;
-        case 526:	csprite=50; c1=IRGB(8,8,16); c2=IRGB(8,8,16); c3=0x5ad6; break;
-        case 527:	csprite=50; c1=IRGB(16,16,8); c2=IRGB(16,16,8); c3=0x5ad6; break;
-        case 528:	csprite=50; c1=IRGB(16,8,16); c2=IRGB(16,8,16); c3=0x5ad6; break;
-        case 529:	csprite=50; c1=IRGB(8,16,16); c2=IRGB(8,16,16); c3=0x5ad6; break;
-        case 530:	csprite=50; c1=IRGB(8,31,8); c2=IRGB(8,31,8); c3=0x5ad6; break;
-        case 531:	csprite=50; c1=IRGB(31,8,31); c2=IRGB(31,8,31); c3=0x5ad6; break;
+        case 516:   csprite=50; c1=IRGB(31,24,24); c2=IRGB(31,24,24); c3=0x5ad6; break; // clan guards 1 (17 to 32)
+        case 517:   csprite=50; c1=IRGB(24,31,24); c2=IRGB(24,31,24); c3=0x5ad6; break;
+        case 518:   csprite=50; c1=IRGB(24,24,31); c2=IRGB(24,24,31); c3=0x5ad6; break;
+        case 519:   csprite=50; c1=IRGB(31,31,24); c2=IRGB(31,31,24); c3=0x5ad6; break;
+        case 520:   csprite=50; c1=IRGB(31,24,31); c2=IRGB(31,24,31); c3=0x5ad6; break;
+        case 521:   csprite=50; c1=IRGB(24,31,31); c2=IRGB(24,31,31); c3=0x5ad6; break;
+        case 522:   csprite=50; c1=IRGB(31,8,8); c2=IRGB(31,8,8); c3=0x5ad6; break;
+        case 523:   csprite=50; c1=IRGB(8,8,31); c2=IRGB(8,8,31); c3=0x5ad6; break;
+        case 524:   csprite=50; c1=IRGB(16,8,8); c2=IRGB(16,8,8); c3=0x5ad6; break;
+        case 525:   csprite=50; c1=IRGB(8,16,8); c2=IRGB(8,16,8); c3=0x5ad6; break;
+        case 526:   csprite=50; c1=IRGB(8,8,16); c2=IRGB(8,8,16); c3=0x5ad6; break;
+        case 527:   csprite=50; c1=IRGB(16,16,8); c2=IRGB(16,16,8); c3=0x5ad6; break;
+        case 528:   csprite=50; c1=IRGB(16,8,16); c2=IRGB(16,8,16); c3=0x5ad6; break;
+        case 529:   csprite=50; c1=IRGB(8,16,16); c2=IRGB(8,16,16); c3=0x5ad6; break;
+        case 530:   csprite=50; c1=IRGB(8,31,8); c2=IRGB(8,31,8); c3=0x5ad6; break;
+        case 531:   csprite=50; c1=IRGB(31,8,31); c2=IRGB(31,8,31); c3=0x5ad6; break;
 
-        case 532:	csprite=51; c1=IRGB(31,24,24); c2=IRGB(31,24,24); c3=0x5ad6; break; // clan guards 2 (17 to 32)
-        case 533:	csprite=51; c1=IRGB(24,31,24); c2=IRGB(24,31,24); c3=0x5ad6; break;
-        case 534:	csprite=51; c1=IRGB(24,24,31); c2=IRGB(24,24,31); c3=0x5ad6; break;
-        case 535:	csprite=51; c1=IRGB(31,31,24); c2=IRGB(31,31,24); c3=0x5ad6; break;
-        case 536:	csprite=51; c1=IRGB(31,24,31); c2=IRGB(31,24,31); c3=0x5ad6; break;
-        case 537:	csprite=51; c1=IRGB(24,31,31); c2=IRGB(24,31,31); c3=0x5ad6; break;
-        case 538:	csprite=51; c1=IRGB(31,8,8); c2=IRGB(31,8,8); c3=0x5ad6; break;
-        case 539:	csprite=51; c1=IRGB(8,8,31); c2=IRGB(8,8,31); c3=0x5ad6; break;
-        case 540:	csprite=51; c1=IRGB(16,8,8); c2=IRGB(16,8,8); c3=0x5ad6; break;
-        case 541:	csprite=51; c1=IRGB(8,16,8); c2=IRGB(8,16,8); c3=0x5ad6; break;
-        case 542:	csprite=51; c1=IRGB(8,8,16); c2=IRGB(8,8,16); c3=0x5ad6; break;
-        case 543:	csprite=51; c1=IRGB(16,16,8); c2=IRGB(16,16,8); c3=0x5ad6; break;
-        case 544:	csprite=51; c1=IRGB(16,8,16); c2=IRGB(16,8,16); c3=0x5ad6; break;
-        case 545:	csprite=51; c1=IRGB(8,16,16); c2=IRGB(8,16,16); c3=0x5ad6; break;
-        case 546:	csprite=51; c1=IRGB(8,31,8); c2=IRGB(8,31,8); c3=0x5ad6; break;
-        case 547:	csprite=51; c1=IRGB(31,8,31); c2=IRGB(31,8,31); c3=0x5ad6; break;
+        case 532:   csprite=51; c1=IRGB(31,24,24); c2=IRGB(31,24,24); c3=0x5ad6; break; // clan guards 2 (17 to 32)
+        case 533:   csprite=51; c1=IRGB(24,31,24); c2=IRGB(24,31,24); c3=0x5ad6; break;
+        case 534:   csprite=51; c1=IRGB(24,24,31); c2=IRGB(24,24,31); c3=0x5ad6; break;
+        case 535:   csprite=51; c1=IRGB(31,31,24); c2=IRGB(31,31,24); c3=0x5ad6; break;
+        case 536:   csprite=51; c1=IRGB(31,24,31); c2=IRGB(31,24,31); c3=0x5ad6; break;
+        case 537:   csprite=51; c1=IRGB(24,31,31); c2=IRGB(24,31,31); c3=0x5ad6; break;
+        case 538:   csprite=51; c1=IRGB(31,8,8); c2=IRGB(31,8,8); c3=0x5ad6; break;
+        case 539:   csprite=51; c1=IRGB(8,8,31); c2=IRGB(8,8,31); c3=0x5ad6; break;
+        case 540:   csprite=51; c1=IRGB(16,8,8); c2=IRGB(16,8,8); c3=0x5ad6; break;
+        case 541:   csprite=51; c1=IRGB(8,16,8); c2=IRGB(8,16,8); c3=0x5ad6; break;
+        case 542:   csprite=51; c1=IRGB(8,8,16); c2=IRGB(8,8,16); c3=0x5ad6; break;
+        case 543:   csprite=51; c1=IRGB(16,16,8); c2=IRGB(16,16,8); c3=0x5ad6; break;
+        case 544:   csprite=51; c1=IRGB(16,8,16); c2=IRGB(16,8,16); c3=0x5ad6; break;
+        case 545:   csprite=51; c1=IRGB(8,16,16); c2=IRGB(8,16,16); c3=0x5ad6; break;
+        case 546:   csprite=51; c1=IRGB(8,31,8); c2=IRGB(8,31,8); c3=0x5ad6; break;
+        case 547:   csprite=51; c1=IRGB(31,8,31); c2=IRGB(31,8,31); c3=0x5ad6; break;
 
-        case 550:	csprite=19; sat=10; cr=5; light=-5; scale=135; break;       // moors: wolf
-        case 551:	csprite=37; sat=10; cr=5; light=-50; break;         // moors: werewolf
+        case 550:   csprite=19; sat=10; cr=5; light=-5; scale=135; break;       // moors: wolf
+        case 551:   csprite=37; sat=10; cr=5; light=-50; break;         // moors: werewolf
 
-        case 552:	csprite=30; light=-40; sat=10; cg=30; scale=80; break;
-        case 553:	csprite=30; light=-40; sat=10; cg=30; scale=90; break;
-        case 554:	csprite=30; light=-40; sat=10; cg=30; scale=100; break;
-        case 555:	csprite=30; light=-40; sat=10; cg=30; scale=110; break;
+        case 552:   csprite=30; light=-40; sat=10; cg=30; scale=80; break;
+        case 553:   csprite=30; light=-40; sat=10; cg=30; scale=90; break;
+        case 554:   csprite=30; light=-40; sat=10; cg=30; scale=100; break;
+        case 555:   csprite=30; light=-40; sat=10; cg=30; scale=110; break;
 
-        case 556:	csprite=30; light=10; sat=15; cb=20; scale=60; break;
-        case 557:	csprite=30; light=10; sat=15; cb=20; scale=80; break;
-        case 558:	csprite=30; light=10; sat=15; cb=20; scale=100; break;
-        case 559:	csprite=30; light=10; sat=15; cb=20; scale=120; break;
-        case 560:	csprite=30; light=10; sat=15; cb=20; scale=140; break;
-        case 561:	csprite=30; light=10; sat=15; cb=20; scale=160; break;
+        case 556:   csprite=30; light=10; sat=15; cb=20; scale=60; break;
+        case 557:   csprite=30; light=10; sat=15; cb=20; scale=80; break;
+        case 558:   csprite=30; light=10; sat=15; cb=20; scale=100; break;
+        case 559:   csprite=30; light=10; sat=15; cb=20; scale=120; break;
+        case 560:   csprite=30; light=10; sat=15; cb=20; scale=140; break;
+        case 561:   csprite=30; light=10; sat=15; cb=20; scale=160; break;
 
-        case 562:	csprite=30; light=-20; sat=15; cr=60; scale=60; break;
-        case 563:	csprite=30; light=-20; sat=15; cr=60; scale=80; break;
-        case 564:	csprite=30; light=-20; sat=15; cr=60; scale=100; break;
-        case 565:	csprite=30; light=-20; sat=15; cr=60; scale=120; break;
-        case 566:	csprite=30; light=-20; sat=15; cr=60; scale=140; break;
-        case 567:	csprite=30; light=-20; sat=15; cr=60; scale=160; break;
+        case 562:   csprite=30; light=-20; sat=15; cr=60; scale=60; break;
+        case 563:   csprite=30; light=-20; sat=15; cr=60; scale=80; break;
+        case 564:   csprite=30; light=-20; sat=15; cr=60; scale=100; break;
+        case 565:   csprite=30; light=-20; sat=15; cr=60; scale=120; break;
+        case 566:   csprite=30; light=-20; sat=15; cr=60; scale=140; break;
+        case 567:   csprite=30; light=-20; sat=15; cr=60; scale=160; break;
 
-            //case 305:	csprite=58; c1=IRGB(16,16,31); c2=IRGB(4,4,12); c3=IRGB(28,24,0); break;	// islena
-            //case 313:	csprite=58; c1=IRGB(18,18,18); c2=IRGB(22,22,22); c3=IRGB(12,7,6); break; // zoetje
+            //case 305: csprite=58; c1=IRGB(16,16,31); c2=IRGB(4,4,12); c3=IRGB(28,24,0); break;    // islena
+            //case 313: csprite=58; c1=IRGB(18,18,18); c2=IRGB(22,22,22); c3=IRGB(12,7,6); break; // zoetje
 
-        case 568:	csprite=58; c1=IRGB(16,31,16); c2=IRGB(6,20,6); c3=IRGB(28,16,16); break; // queen fiona
+        case 568:   csprite=58; c1=IRGB(16,31,16); c2=IRGB(6,20,6); c3=IRGB(28,16,16); break; // queen fiona
 
         case 800: csprite=120; break;
         case 801: csprite=121; break;
@@ -903,9 +903,9 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 13087:
         case 13095:
         case 13214:
-        case 13223:	sprite=sprite+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/5)%8; break;
+        case 13223: sprite=sprite+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/5)%8; break;
 
-        case 13232:	sprite=sprite+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/5)%16; break;
+        case 13232: sprite=sprite+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/5)%16; break;
             //--
         case 12163:
         case 14353: // lava_ground_circle
@@ -998,7 +998,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 1128:
         case 1129:
         case 1130:
-        case 1131:	c1=c2=c3=IRGB(20,20,30); break;
+        case 1131:  c1=c2=c3=IRGB(20,20,30); break;
 
 
 
@@ -1274,7 +1274,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
             case 20802:
             case 20803:
             case 20804:
-            case 20805:	light=10; break;*/
+            case 20805: light=10; break;*/
 
         case 22500: // sewer outlet
             sprite=sprite+(int)((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/2)%8;
@@ -1344,9 +1344,9 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
             break;
 
         case 51085:
-        case 51086:	c2=IRGB(0,0,abs(30-(attick%61))/2+10); light=abs(30-(attick%61))/2; cg=10; shine=5; break;
+        case 51086: c2=IRGB(0,0,abs(30-(attick%61))/2+10); light=abs(30-(attick%61))/2; cg=10; shine=5; break;
 
-        case 51098:	c2=IRGB(0,0,abs(30-(attick%61))/2+10); break;
+        case 51098: c2=IRGB(0,0,abs(30-(attick%61))/2+10); break;
 
         case 51600:
             sprite=sprite+((int)(((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick))%8)*2);
@@ -1355,22 +1355,22 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
             sprite=sprite+((int)(((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick))%8)*2);
             break;
 
-        case 51617:	cr=-30; break;  // leather gloves
+        case 51617: cr=-30; break;  // leather gloves
 
-        case 51625:	help=((int)((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/2)%10);  // glowing steel door
+        case 51625: help=((int)((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/2)%10);  // glowing steel door
             if (help>4) help=9-help;
             sprite=sprite+help;
             break;
 
-        case 51632:	light=-20; shine=5; cr=10; break; // shrike stone
+        case 51632: light=-20; shine=5; cr=10; break; // shrike stone
 
-        case 56002:	help=(attick/2)%8; if (help>3) sprite=56002+7-help;
+        case 56002: help=(attick/2)%8; if (help>3) sprite=56002+7-help;
             else sprite=56002+help;
                                        break; // pulsing ring
 
 // !! -------------------- !! pseudo sprites start here !! --------------------- !!
-        case 59000:	sprite=14205; c2=IRGB(16,12,0); break; // edemon book orange
-        case 59001:	sprite=14207; c2=IRGB(16,12,0); break; // edemon book orange
+        case 59000: sprite=14205; c2=IRGB(16,12,0); break; // edemon book orange
+        case 59001: sprite=14207; c2=IRGB(16,12,0); break; // edemon book orange
         case 59002: // lava ground dark
         case 59003:
         case 59004:
@@ -1379,7 +1379,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59007:
         case 59008:
         case 59009:
-        case 59010:	sprite=sprite-59002+14330; light=-20; break;
+        case 59010: sprite=sprite-59002+14330; light=-20; break;
         case 59011: // lava ground not that dark
         case 59012:
         case 59013:
@@ -1388,8 +1388,8 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59016:
         case 59017:
         case 59018:
-        case 59019:	sprite=sprite-59011+14330; light=-10; break;
-        case 59020:	sprite=14256; c2=IRGB(12,0,0); scale=75; break;
+        case 59019: sprite=sprite-59011+14330; light=-10; break;
+        case 59020: sprite=14256; c2=IRGB(12,0,0); scale=75; break;
 
         case 59021: // edemon loader ground growing red
         case 59022:
@@ -1407,10 +1407,10 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
             c2=IRGB(16,0,0);
             break;
 
-        case 59030:	sprite=14257; c2=IRGB(20,0,0); break;   // edemon loader platform red
-        case 59031:	sprite=14257; c2=IRGB(18,0,0); break;   // edemon loader platform red
-        case 59032:	sprite=14257; c2=IRGB(16,0,0); break;   // edemon loader platform red
-        case 59033:	sprite=14257; c2=IRGB(14,0,0); break;   // edemon loader platform red
+        case 59030: sprite=14257; c2=IRGB(20,0,0); break;   // edemon loader platform red
+        case 59031: sprite=14257; c2=IRGB(18,0,0); break;   // edemon loader platform red
+        case 59032: sprite=14257; c2=IRGB(16,0,0); break;   // edemon loader platform red
+        case 59033: sprite=14257; c2=IRGB(14,0,0); break;   // edemon loader platform red
         case 59034: // edemon loader platform red
         case 59035:
         case 59036:
@@ -1421,10 +1421,10 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
             c2=IRGB(12,0,0);
             break;
 
-        case 59040:	sprite=14256; c2=IRGB(14,0,0); scale=80; break; // edemon loader platform red
-        case 59041:	sprite=14256; c2=IRGB(16,0,0); scale=90; break; // edemon loader platform red
-        case 59042:	sprite=14256; c2=IRGB(18,0,0); scale=100; break; // edemon loader platform red
-        case 59043:	sprite=14256; c2=IRGB(20,0,0); scale=110; break; // edemon loader platform red
+        case 59040: sprite=14256; c2=IRGB(14,0,0); scale=80; break; // edemon loader platform red
+        case 59041: sprite=14256; c2=IRGB(16,0,0); scale=90; break; // edemon loader platform red
+        case 59042: sprite=14256; c2=IRGB(18,0,0); scale=100; break; // edemon loader platform red
+        case 59043: sprite=14256; c2=IRGB(20,0,0); scale=110; break; // edemon loader platform red
 
         case 59044:
         case 59045:
@@ -1435,7 +1435,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59050:
         case 59051:
         case 59052:
-        case 59053:	sprite=sprite+20909-59044; cr=20; cg=10; light=30; break;   // palisade
+        case 59053: sprite=sprite+20909-59044; cr=20; cg=10; light=30; break;   // palisade
 
         case 59054:
         case 59055:
@@ -1450,7 +1450,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59064:
         case 59065:
         case 59066:
-        case 59067:	sprite=sprite+21302-59054; cr=10; light=-20; break; // krüge
+        case 59067: sprite=sprite+21302-59054; cr=10; light=-20; break; // krüge
 
         case 59068:
         case 59069:
@@ -1465,12 +1465,12 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59078:
         case 59079:
         case 59080:
-        case 59081:	sprite=sprite+21302-59068; cr=15; light=-30; break; // krüge
+        case 59081: sprite=sprite+21302-59068; cr=15; light=-30; break; // krüge
 
         case 59082:
         case 59083:
         case 59084:
-        case 59085:	sprite=sprite+21252-59082; scale=80; break; // weapons decoration
+        case 59085: sprite=sprite+21252-59082; scale=80; break; // weapons decoration
 
         case 59086:
         case 59087:
@@ -1479,7 +1479,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59090:
         case 59091:
         case 59092:
-        case 59093:	sprite=sprite+21256-59086; cr=40; cg=40; light=-10; break;  // shields decoration
+        case 59093: sprite=sprite+21256-59086; cr=40; cg=40; light=-10; break;  // shields decoration
 
         case 59094:
         case 59095:
@@ -1496,7 +1496,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59105:     sprite=sprite+21209-59100; sat=15; cr=-30; cg=-30; light=15; cb=-5; break;  // rich table/chair
 
         case 59106:
-        case 59107:	sprite=sprite+21209-59106; c3=IRGB(0,0,24); break;  // rich chair
+        case 59107: sprite=sprite+21209-59106; c3=IRGB(0,0,24); break;  // rich chair
 
         case 59108:
         case 59109:
@@ -1506,11 +1506,11 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59113:
         case 59114:
         case 59115:
-        case 59116:	sprite=sprite+12090-59108; cr=30; cb=-20; cg=10; light=20; sat=5; break;
+        case 59116: sprite=sprite+12090-59108; cr=30; cb=-20; cg=10; light=20; sat=5; break;
         case 59117:
         case 59118:
         case 59119:
-        case 59120:	sprite=sprite+12110-59117; cr=30; cb=-20; cg=10; light=20; sat=5; break;
+        case 59120: sprite=sprite+12110-59117; cr=30; cb=-20; cg=10; light=20; sat=5; break;
 
         case 59121:
         case 59122:
@@ -1520,7 +1520,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59126:
         case 59127:
         case 59128:
-        case 59129:	sprite=sprite+20318-59121; cr=-10; cg=-10; sat=5; light=-60; break;
+        case 59129: sprite=sprite+20318-59121; cr=-10; cg=-10; sat=5; light=-60; break;
 
         case 59130:
         case 59131:
@@ -1530,28 +1530,28 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59135:
         case 59136:
         case 59137:
-        case 59138:	sprite=sprite+20309-59130; sat=10; light=-90; break;
+        case 59138: sprite=sprite+20309-59130; sat=10; light=-90; break;
 
         case 59139:
-        case 59140:	sprite=sprite+21269-59139; sat=5; light=-30; cg=30; break;
+        case 59140: sprite=sprite+21269-59139; sat=5; light=-30; cg=30; break;
 
         case 59141:
-        case 59142:	sprite=sprite+21309-59141; light=-80; cr=10; cg=45; break;
+        case 59142: sprite=sprite+21309-59141; light=-80; cr=10; cg=45; break;
 
         case 59143:
-        case 59144:	sprite=sprite+21240-59143; light=-120; cg=30; cb=-30; break;
+        case 59144: sprite=sprite+21240-59143; light=-120; cg=30; cb=-30; break;
 
         case 59145:
         case 59146:
         case 59147:
         case 59148:
         case 59149:
-        case 59150:	sprite=sprite+21209-59145; light=-70; cg=30; sat=10; break;
+        case 59150: sprite=sprite+21209-59145; light=-70; cg=30; sat=10; break;
 
         case 59151:
         case 59152:
         case 59153:
-        case 59154:	sprite=sprite+21252-59151; scale=80; cg=30; light=-20; break;   // weapons decoration
+        case 59154: sprite=sprite+21252-59151; scale=80; cg=30; light=-20; break;   // weapons decoration
 
         case 59155:
         case 59156:
@@ -1560,7 +1560,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59159:
         case 59160:
         case 59161:
-        case 59162:	sprite=sprite+14030-59155; light=-30; cr=10; break;
+        case 59162: sprite=sprite+14030-59155; light=-30; cr=10; break;
 
         case 59163:
         case 59164:
@@ -1569,7 +1569,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59167:
         case 59168:
         case 59169:
-        case 59170:	sprite=sprite+14060-59163; light=-30; cr=10; break;
+        case 59170: sprite=sprite+14060-59163; light=-30; cr=10; break;
 
         case 59171:
         case 59172:
@@ -1592,12 +1592,12 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59189:
         case 59190:
         case 59191:
-        case 59192:	sprite=sprite+14090-59171; light=-20; cg=20; break;
+        case 59192: sprite=sprite+14090-59171; light=-20; cg=20; break;
 
-        case 59193:	sprite=14092; light=-5; break;
-        case 59194:	sprite=0; break;
+        case 59193: sprite=14092; light=-5; break;
+        case 59194: sprite=0; break;
 
-        case 59195:	c2=IRGB(abs(30-(attick%61))/4,abs(30-(attick%61))/2+5,abs(30-(attick%61))/4); light=abs(30-(attick%61))/3; shine=5; sprite=51085; break;
+        case 59195: c2=IRGB(abs(30-(attick%61))/4,abs(30-(attick%61))/2+5,abs(30-(attick%61))/4); light=abs(30-(attick%61))/3; shine=5; sprite=51085; break;
         case 59196:     sprite=51110+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/3)%8; c2=IRGB(0,16,0); break;
         case 59197:     sprite=51110+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/3)%8; c2=IRGB(16,12,0); break;
         case 59198:     sprite=51110+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/3)%8; c2=IRGB(16,0,0); break;
@@ -1642,7 +1642,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59236:
         case 59237:
         case 59238:
-        case 59239:	sprite=sprite-59200+10120; sat=20; light=-30; cr=50; cg=50; shine=50; break;
+        case 59239: sprite=sprite-59200+10120; sat=20; light=-30; cr=50; cg=50; shine=50; break;
 
         case 59240:
         case 59241:
@@ -1653,7 +1653,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59246:
         case 59247:
         case 59248:
-        case 59249:	sprite=sprite-59240+10190; sat=20; light=-30; cr=50; cg=50; shine=50; break;
+        case 59249: sprite=sprite-59240+10190; sat=20; light=-30; cr=50; cg=50; shine=50; break;
 
         case 59250:
         case 59251:
@@ -1664,7 +1664,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59256:
         case 59257:
         case 59258:
-        case 59259:	sprite=sprite-59250+10220; sat=20; light=-30; cr=50; cg=50; shine=50; break;
+        case 59259: sprite=sprite-59250+10220; sat=20; light=-30; cr=50; cg=50; shine=50; break;
 
         case 59260:
         case 59261:
@@ -1675,7 +1675,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59266:
         case 59267:
         case 59268:
-        case 59269:	sprite=sprite-59260+10250; sat=20; light=-30; cr=50; cg=50; shine=50; break;
+        case 59269: sprite=sprite-59260+10250; sat=20; light=-30; cr=50; cg=50; shine=50; break;
 
         case 59270:
         case 59271:
@@ -1686,24 +1686,24 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59276:
         case 59277:
         case 59278:
-        case 59279:	sprite=sprite-59270+10280; sat=20; light=-30; cr=50; cg=50; shine=50; break;
+        case 59279: sprite=sprite-59270+10280; sat=20; light=-30; cr=50; cg=50; shine=50; break;
 
 
 
-        case 59288:	sprite=50510; sat=20; light=50; cr=80; cg=80; shine=95; break;
-        case 59280:	sprite=50025; sat=20; light=0; cr=50; cg=50; shine=60; break;
-        case 59281:	sprite=50026; sat=20; light=0; cr=50; cg=50; shine=60; break;
-        case 59282:	sprite=50122; sat=20; light=60; cr=80; cg=80; shine=85; break;
-        case 59283:	sprite=50123; sat=20; light=60; cr=80; cg=80; shine=85; break;
-        case 59284:	sprite=50124; sat=20; light=60; cr=80; cg=80; shine=85; break;
-        case 59285:	sprite=50125; sat=20; light=60; cr=80; cg=80; shine=85; break;
-        case 59286:	sprite=50126; sat=20; light=60; cr=80; cg=80; shine=85; break;
-        case 59287:	sprite=50141; sat=20; light=0; cr=50; cg=50; shine=60; break;
-        case 59289:	sprite=50512; sat=20; light=40; cr=80; cg=80; shine=85; break;
-        case 59290:	sprite=50513; sat=20; light=60; cr=80; cg=80; shine=95; break;
-        case 59291:	sprite=51617; sat=20; light=20; cr=65; cg=80; shine=95; break;
+        case 59288: sprite=50510; sat=20; light=50; cr=80; cg=80; shine=95; break;
+        case 59280: sprite=50025; sat=20; light=0; cr=50; cg=50; shine=60; break;
+        case 59281: sprite=50026; sat=20; light=0; cr=50; cg=50; shine=60; break;
+        case 59282: sprite=50122; sat=20; light=60; cr=80; cg=80; shine=85; break;
+        case 59283: sprite=50123; sat=20; light=60; cr=80; cg=80; shine=85; break;
+        case 59284: sprite=50124; sat=20; light=60; cr=80; cg=80; shine=85; break;
+        case 59285: sprite=50125; sat=20; light=60; cr=80; cg=80; shine=85; break;
+        case 59286: sprite=50126; sat=20; light=60; cr=80; cg=80; shine=85; break;
+        case 59287: sprite=50141; sat=20; light=0; cr=50; cg=50; shine=60; break;
+        case 59289: sprite=50512; sat=20; light=40; cr=80; cg=80; shine=85; break;
+        case 59290: sprite=50513; sat=20; light=60; cr=80; cg=80; shine=95; break;
+        case 59291: sprite=51617; sat=20; light=20; cr=65; cg=80; shine=95; break;
 
-        case 59299:	sprite=51617; sat=20; light=40; shine=100; break;
+        case 59299: sprite=51617; sat=20; light=40; shine=100; break;
         case 59300:
         case 59301:
         case 59302:
@@ -1743,7 +1743,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59336:
         case 59337:
         case 59338:
-        case 59339:	sprite=sprite-59300+10120; sat=20; light=-10; shine=40; break;
+        case 59339: sprite=sprite-59300+10120; sat=20; light=-10; shine=40; break;
 
         case 59340:
         case 59341:
@@ -1754,7 +1754,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59346:
         case 59347:
         case 59348:
-        case 59349:	sprite=sprite-59340+10190; sat=20; light=-10; shine=40; break;
+        case 59349: sprite=sprite-59340+10190; sat=20; light=-10; shine=40; break;
 
         case 59350:
         case 59351:
@@ -1765,7 +1765,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59356:
         case 59357:
         case 59358:
-        case 59359:	sprite=sprite-59350+10220; sat=20; light=-10; shine=40; break;
+        case 59359: sprite=sprite-59350+10220; sat=20; light=-10; shine=40; break;
 
         case 59360:
         case 59361:
@@ -1776,7 +1776,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59366:
         case 59367:
         case 59368:
-        case 59369:	sprite=sprite-59360+10250; sat=20; light=-10; shine=40; break;
+        case 59369: sprite=sprite-59360+10250; sat=20; light=-10; shine=40; break;
 
         case 59370:
         case 59371:
@@ -1787,37 +1787,37 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59376:
         case 59377:
         case 59378:
-        case 59379:	sprite=sprite-59370+10280; sat=20; light=-10; shine=40; break;
+        case 59379: sprite=sprite-59370+10280; sat=20; light=-10; shine=40; break;
 
-        case 59388:	sprite=50510; sat=20; light=80; shine=95; break;
-        case 59380:	sprite=50025; sat=20; light=0; shine=60; break;
-        case 59381:	sprite=50026; sat=20; light=0; shine=60; break;
-        case 59382:	sprite=50122; sat=20; light=90; shine=85; break;
-        case 59383:	sprite=50123; sat=20; light=90; shine=85; break;
-        case 59384:	sprite=50124; sat=20; light=90; shine=85; break;
-        case 59385:	sprite=50125; sat=20; light=90; shine=85; break;
-        case 59386:	sprite=50126; sat=20; light=90; shine=85; break;
-        case 59387:	sprite=50141; sat=20; light=0; shine=60; break;
-        case 59389:	sprite=50512; sat=20; light=40; shine=85; break;
-        case 59390:	sprite=50513; sat=20; light=90; shine=95; break;
+        case 59388: sprite=50510; sat=20; light=80; shine=95; break;
+        case 59380: sprite=50025; sat=20; light=0; shine=60; break;
+        case 59381: sprite=50026; sat=20; light=0; shine=60; break;
+        case 59382: sprite=50122; sat=20; light=90; shine=85; break;
+        case 59383: sprite=50123; sat=20; light=90; shine=85; break;
+        case 59384: sprite=50124; sat=20; light=90; shine=85; break;
+        case 59385: sprite=50125; sat=20; light=90; shine=85; break;
+        case 59386: sprite=50126; sat=20; light=90; shine=85; break;
+        case 59387: sprite=50141; sat=20; light=0; shine=60; break;
+        case 59389: sprite=50512; sat=20; light=40; shine=85; break;
+        case 59390: sprite=50513; sat=20; light=90; shine=95; break;
 
-        case 59391:	sprite=51055; c1=IRGB(16,2,2); c2=IRGB(10,2,2); break;
-        case 59392:	sprite=51055; c1=IRGB(2,16,2); c2=IRGB(10,2,2); break;
-        case 59393:	sprite=51055; c1=IRGB(2,2,16); c2=IRGB(10,2,2); break;
-        case 59394:	sprite=51055; c1=IRGB(16,16,2); c2=IRGB(10,2,2); break;
+        case 59391: sprite=51055; c1=IRGB(16,2,2); c2=IRGB(10,2,2); break;
+        case 59392: sprite=51055; c1=IRGB(2,16,2); c2=IRGB(10,2,2); break;
+        case 59393: sprite=51055; c1=IRGB(2,2,16); c2=IRGB(10,2,2); break;
+        case 59394: sprite=51055; c1=IRGB(16,16,2); c2=IRGB(10,2,2); break;
 
-        case 59395:	sprite=51055; c1=IRGB(16,2,2); c2=IRGB(2,10,2); break;
-        case 59396:	sprite=51055; c1=IRGB(2,16,2); c2=IRGB(2,10,2); break;
-        case 59397:	sprite=51055; c1=IRGB(2,2,16); c2=IRGB(2,10,2); break;
-        case 59398:	sprite=51055; c1=IRGB(16,16,2); c2=IRGB(2,10,2); break;
+        case 59395: sprite=51055; c1=IRGB(16,2,2); c2=IRGB(2,10,2); break;
+        case 59396: sprite=51055; c1=IRGB(2,16,2); c2=IRGB(2,10,2); break;
+        case 59397: sprite=51055; c1=IRGB(2,2,16); c2=IRGB(2,10,2); break;
+        case 59398: sprite=51055; c1=IRGB(16,16,2); c2=IRGB(2,10,2); break;
 
-        case 59399:	sprite=51055; c1=IRGB(16,2,2); c2=IRGB(2,2,10); break;
-        case 59400:	sprite=51055; c1=IRGB(2,16,2); c2=IRGB(2,2,10); break;
-        case 59401:	sprite=51055; c1=IRGB(2,2,16); c2=IRGB(2,2,10); break;
-        case 59402:	sprite=51055; c1=IRGB(16,16,2); c2=IRGB(2,2,10); break;
+        case 59399: sprite=51055; c1=IRGB(16,2,2); c2=IRGB(2,2,10); break;
+        case 59400: sprite=51055; c1=IRGB(2,16,2); c2=IRGB(2,2,10); break;
+        case 59401: sprite=51055; c1=IRGB(2,2,16); c2=IRGB(2,2,10); break;
+        case 59402: sprite=51055; c1=IRGB(16,16,2); c2=IRGB(2,2,10); break;
 
-        case 59403:	sprite=51055; c1=IRGB(16,2,2); c2=IRGB(4,4,4); break;
-        case 59404:	sprite=51055; c1=IRGB(2,16,2); c2=IRGB(4,4,4); break;
+        case 59403: sprite=51055; c1=IRGB(16,2,2); c2=IRGB(4,4,4); break;
+        case 59404: sprite=51055; c1=IRGB(2,16,2); c2=IRGB(4,4,4); break;
 
         case 59405:
         case 59406:
@@ -1827,7 +1827,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59410:
         case 59411:
         case 59412:
-        case 59413:	sprite=sprite-59405+20815; light=60*edi; break;
+        case 59413: sprite=sprite-59405+20815; light=60*edi; break;
 
         case 59414:
         case 59415:
@@ -1837,7 +1837,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59419:
         case 59420:
         case 59421:
-        case 59422:	sprite=sprite-59414+20815; light=40*edi; break;
+        case 59422: sprite=sprite-59414+20815; light=40*edi; break;
 
         case 59423:
         case 59424:
@@ -1847,7 +1847,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59428:
         case 59429:
         case 59430:
-        case 59431:	sprite=sprite-59423+20815; light=20*edi; break;
+        case 59431: sprite=sprite-59423+20815; light=20*edi; break;
 
 
         case 59432:
@@ -1858,7 +1858,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59437:
         case 59438:
         case 59439:
-        case 59440:	sprite=sprite-59432+51057; cr=20; cg=20; light=10; scale=80; break; //swamp beasts
+        case 59440: sprite=sprite-59432+51057; cr=20; cg=20; light=10; scale=80; break; //swamp beasts
 
 
         case 59441:
@@ -1869,7 +1869,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59446:
         case 59447:
         case 59448:
-        case 59449:	sprite=sprite-59441+51057; cr=25; light=-40; shine=0; break;
+        case 59449: sprite=sprite-59441+51057; cr=25; light=-40; shine=0; break;
 
         case 59450:
         case 59451:
@@ -1879,7 +1879,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59455:
         case 59456:
         case 59457:
-        case 59458:	sprite=sprite-59450+51057; sat=8; light=20; scale=105; break;
+        case 59458: sprite=sprite-59450+51057; sat=8; light=20; scale=105; break;
 
         case 59459:
         case 59460:
@@ -1889,16 +1889,16 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59464:
         case 59465:
         case 59466:
-        case 59467:	sprite=sprite-59459+51057; cg=10; light=-20; shine=10; scale=110; break;
+        case 59467: sprite=sprite-59459+51057; cg=10; light=-20; shine=10; scale=110; break;
 
-        case 59468:	sprite=51068; cr=20; cg=20; light=10; scale=80; break;
-        case 59469:	sprite=51068; cr=25; light=-40; shine=0; break;
-        case 59470:	sprite=51068; sat=8; light=20; scale=105; break;
-        case 59471:	sprite=51068; cg=10; light=-20; shine=10; scale=110; break;
-        case 59472:	sprite=51068; cg=10; light=-20; shine=25; scale=150; break;
+        case 59468: sprite=51068; cr=20; cg=20; light=10; scale=80; break;
+        case 59469: sprite=51068; cr=25; light=-40; shine=0; break;
+        case 59470: sprite=51068; sat=8; light=20; scale=105; break;
+        case 59471: sprite=51068; cg=10; light=-20; shine=10; scale=110; break;
+        case 59472: sprite=51068; cg=10; light=-20; shine=25; scale=150; break;
 
-        case 59473:	sprite=51084; sat=20; light=25; shine=40; break;
-        case 59474:	sprite=51084; sat=20; light=25; cr=50; cg=50; shine=50; break;
+        case 59473: sprite=51084; sat=20; light=25; shine=40; break;
+        case 59474: sprite=51084; sat=20; light=25; cr=50; cg=50; shine=50; break;
 
         case 59475:
         case 59476:
@@ -1908,20 +1908,20 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59480:
         case 59481:
         case 59482:
-        case 59483:	sprite=sprite-59475+22462; light=10-40*edi; cr=-10; cg=5; shine=15; break;
+        case 59483: sprite=sprite-59475+22462; light=10-40*edi; cr=-10; cg=5; shine=15; break;
 
-        case 59484:	sprite=15447; break;    // copied here so they work as a normal door
-        case 59485:	sprite=15486; break;    // copied here so they work as a normal door
+        case 59484: sprite=15447; break;    // copied here so they work as a normal door
+        case 59485: sprite=15486; break;    // copied here so they work as a normal door
 
-        case 59486:	sprite=15457; break;    // copied here so they work as a normal door
-        case 59487:	sprite=15488; break;    // copied here so they work as a normal door
+        case 59486: sprite=15457; break;    // copied here so they work as a normal door
+        case 59487: sprite=15488; break;    // copied here so they work as a normal door
 
-        case 59488:	sprite=20640; cr=50; break;
-        case 59489:	sprite=20640; cg=50; break;
-        case 59490:	sprite=20640; cb=50; break;
-        case 59491:	sprite=20640; cr=40; cg=40; light=20; break;
-        case 59492:	sprite=20640; sat=20; light=-50; break;
-        case 59493:	sprite=20640; sat=20; light=50; break;
+        case 59488: sprite=20640; cr=50; break;
+        case 59489: sprite=20640; cg=50; break;
+        case 59490: sprite=20640; cb=50; break;
+        case 59491: sprite=20640; cr=40; cg=40; light=20; break;
+        case 59492: sprite=20640; sat=20; light=-50; break;
+        case 59493: sprite=20640; sat=20; light=50; break;
 
 
         case 59494:     // green mr_wall_torch_ds
@@ -1949,17 +1949,17 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59503:
         case 59504:
         case 59505:
-        case 59506:	sprite=sprite-59498+20636; cg=15; light=-40; break; // green lighted floor
+        case 59506: sprite=sprite-59498+20636; cg=15; light=-40; break; // green lighted floor
 
         case 59507:
         case 59508:
         case 59509:
         case 59510:
         case 59511:
-        case 59512:	sprite=sprite-59507+15279; cg=20; light=-20; break; // green lighted bones
+        case 59512: sprite=sprite-59507+15279; cg=20; light=-20; break; // green lighted bones
 
-        case 59513:	sprite=15432; cg=20; light=-20; break;          // green lighted skelly chair
-        case 59514:	sprite=15439; cg=20; light=-20; break;          // empty green lighted skelly chair
+        case 59513: sprite=15432; cg=20; light=-20; break;          // green lighted skelly chair
+        case 59514: sprite=15439; cg=20; light=-20; break;          // empty green lighted skelly chair
 
         case 59515:     // red mr_wall_torch_ds
             sprite=sprite-59515+20044+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/4)%8;
@@ -1986,17 +1986,17 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59524:
         case 59525:
         case 59526:
-        case 59527:	sprite=sprite-59519+20636; cr=15; light=-40; break; // red lighted floor
+        case 59527: sprite=sprite-59519+20636; cr=15; light=-40; break; // red lighted floor
 
         case 59528:
         case 59529:
         case 59530:
         case 59531:
         case 59532:
-        case 59533:	sprite=sprite-59528+15279; cr=20; light=-20; break; // red lighted bones
+        case 59533: sprite=sprite-59528+15279; cr=20; light=-20; break; // red lighted bones
 
-        case 59534:	sprite=15432; cr=20; light=-20; break;          // red lighted skelly chair
-        case 59535:	sprite=15439; cr=20; light=-20; break;          // empty red lighted skelly chair
+        case 59534: sprite=15432; cr=20; light=-20; break;          // red lighted skelly chair
+        case 59535: sprite=15439; cr=20; light=-20; break;          // empty red lighted skelly chair
 
         case 59536:
         case 59537:
@@ -2006,20 +2006,20 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59541:
         case 59542:
         case 59543:
-        case 59544:	sprite=sprite-59536+20636; light=-40; break;    // unlighted floor
+        case 59544: sprite=sprite-59536+20636; light=-40; break;    // unlighted floor
 
         case 59545:
-        case 59546:	sprite=sprite-59545+20122; sat=20; cg=60; light=20; shine=30; break;
+        case 59546: sprite=sprite-59545+20122; sat=20; cg=60; light=20; shine=30; break;
 
         case 59547:
-        case 59548:	sprite=sprite-59547+20122; sat=20; cr=60; light=20; shine=30; break;
+        case 59548: sprite=sprite-59547+20122; sat=20; cr=60; light=20; shine=30; break;
 
-        case 59549:	sprite=50004; sat=20; cg=60; light=20; shine=30; break;
-        case 59550:	sprite=50004; sat=20; cr=60; light=20; shine=30; break;
+        case 59549: sprite=50004; sat=20; cg=60; light=20; shine=30; break;
+        case 59550: sprite=50004; sat=20; cr=60; light=20; shine=30; break;
 
-        case 59551:	sprite=15432; break;            // nolight skelly chair
-        case 59552:	sprite=15439; break;            // empty nolight skelly chair
-        case 59553:	sprite=20779; light=70; shine=70; cr=75; cg=75; break;
+        case 59551: sprite=15432; break;            // nolight skelly chair
+        case 59552: sprite=15439; break;            // empty nolight skelly chair
+        case 59553: sprite=20779; light=70; shine=70; cr=75; cg=75; break;
 
         case 59554:
         case 59555:
@@ -2029,7 +2029,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59559:
         case 59560:
         case 59561:
-        case 59562:	sprite=sprite+20300-59554; light=-50; cr=15; break; // dark orange sand ground
+        case 59562: sprite=sprite+20300-59554; light=-50; cr=15; break; // dark orange sand ground
 
         case 59563:
         case 59564:
@@ -2038,12 +2038,12 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59567:
         case 59568:
         case 59569:
-        case 59570:	sprite=sprite+14030-59563; light=-50; cr=30; cg=10; break;  // dark orange stone walls
+        case 59570: sprite=sprite+14030-59563; light=-50; cr=30; cg=10; break;  // dark orange stone walls
 
         case 59571:
         case 59572:
         case 59573:
-        case 59574:	sprite=sprite+20272-59571; c1=IRGB(20,8,0); break;
+        case 59574: sprite=sprite+20272-59571; c1=IRGB(20,8,0); break;
 
         case 59575:
         case 59576:
@@ -2053,7 +2053,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59580:
         case 59581:
         case 59582:
-        case 59583:	sprite=sprite+20327-59575; cr=5; sat=10; light=-100; break;
+        case 59583: sprite=sprite+20327-59575; cr=5; sat=10; light=-100; break;
 
         case 59584:
         case 59585:
@@ -2063,7 +2063,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59589:
         case 59590:
         case 59591:
-        case 59592:	sprite=sprite+20327-59584; cr=5; sat=7; light=-50; break;
+        case 59592: sprite=sprite+20327-59584; cr=5; sat=7; light=-50; break;
 
         case 59593:
         case 59594:
@@ -2072,7 +2072,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59597:
         case 59598:
         case 59599:
-        case 59600:	sprite=sprite+14060-59593; light=15; cr=-10; cg=-15; cb=5; break;
+        case 59600: sprite=sprite+14060-59593; light=15; cr=-10; cg=-15; cb=5; break;
 
 
         case 59601:
@@ -2092,7 +2092,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59615:
         case 59616:
         case 59617:
-        case 59618:	sprite=sprite+23900-59601; light-=30; break;
+        case 59618: sprite=sprite+23900-59601; light-=30; break;
 
         case 59619:
         case 59620:
@@ -2102,7 +2102,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59624:
         case 59625:
         case 59626:
-        case 59627:	sprite=sprite+23036-59619; light-=30; break;
+        case 59627: sprite=sprite+23036-59619; light-=30; break;
 
         case 59628:
         case 59629:
@@ -2112,7 +2112,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59633:
         case 59634:
         case 59635:
-        case 59636:	sprite=sprite+23927-59628; light-=30; break;
+        case 59636: sprite=sprite+23927-59628; light-=30; break;
 
         case 59637:
         case 59638:
@@ -2122,7 +2122,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59642:
         case 59643:
         case 59644:
-        case 59645:	sprite=sprite+21789-59637; light=15; cr=25; cg=10; break;
+        case 59645: sprite=sprite+21789-59637; light=15; cr=25; cg=10; break;
 
         case 59646:
         case 59647:
@@ -2132,31 +2132,31 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59651:
         case 59652:
         case 59653:
-        case 59654:	sprite=sprite+12050-59646; sat=12; light=25; cr=20; cg=15; break;
+        case 59654: sprite=sprite+12050-59646; sat=12; light=25; cr=20; cg=15; break;
 
-        case 59655:	sprite=51099; sat=20; cr=40; cg=30; light=40; scale=95; break;      // nomad: wolf1
-        case 59656:	sprite=51100; sat=20; cr=40; cg=30; light=40; scale=95; break;      // nomad: wolf1
-        case 59657:	sprite=51101; sat=20; cr=40; cg=30; light=40; scale=95; break;      // nomad: wolf1
-        case 59658:	sprite=51102; sat=20; cr=40; cg=30; light=40; scale=95; break;      // nomad: wolf1
-        case 59659:	sprite=51103; sat=20; cr=40; cg=30; light=40; scale=95; break;      // nomad: wolf1
+        case 59655: sprite=51099; sat=20; cr=40; cg=30; light=40; scale=95; break;      // nomad: wolf1
+        case 59656: sprite=51100; sat=20; cr=40; cg=30; light=40; scale=95; break;      // nomad: wolf1
+        case 59657: sprite=51101; sat=20; cr=40; cg=30; light=40; scale=95; break;      // nomad: wolf1
+        case 59658: sprite=51102; sat=20; cr=40; cg=30; light=40; scale=95; break;      // nomad: wolf1
+        case 59659: sprite=51103; sat=20; cr=40; cg=30; light=40; scale=95; break;      // nomad: wolf1
 
-        case 59660:	sprite=51099; sat=20; light=125; scale=110; break;              // nomad: white wolf
-        case 59661:	sprite=51100; sat=20; light=125; scale=110; break;              // nomad: white wolf
-        case 59662:	sprite=51101; sat=20; light=125; scale=110; break;              // nomad: white wolf
-        case 59663:	sprite=51102; sat=20; light=125; scale=110; break;              // nomad: white wolf
-        case 59664:	sprite=51103; sat=20; light=125; scale=110; break;              // nomad: white wolf
+        case 59660: sprite=51099; sat=20; light=125; scale=110; break;              // nomad: white wolf
+        case 59661: sprite=51100; sat=20; light=125; scale=110; break;              // nomad: white wolf
+        case 59662: sprite=51101; sat=20; light=125; scale=110; break;              // nomad: white wolf
+        case 59663: sprite=51102; sat=20; light=125; scale=110; break;              // nomad: white wolf
+        case 59664: sprite=51103; sat=20; light=125; scale=110; break;              // nomad: white wolf
 
         case 59665:     sprite=51110+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/3)%8; c2=IRGB(16,16,24); break;
 
         case 59666:
         case 59667:
         case 59668:
-        case 59669:	sprite=sprite-59666+51104; cg=40; light=-90; shine=0; break;
+        case 59669: sprite=sprite-59666+51104; cg=40; light=-90; shine=0; break;
 
         case 59670:
         case 59671:
         case 59672:
-        case 59673:	sprite=sprite-59670+17000; cg=40; light=-50; shine=0; break;
+        case 59673: sprite=sprite-59670+17000; cg=40; light=-50; shine=0; break;
 
         case 59674:
         case 59675:
@@ -2166,16 +2166,16 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59678:
         case 59679:
         case 59680:
-        case 59681:	sprite=sprite-59678+17048; light=30; cr=40; shine=10; break;
+        case 59681: sprite=sprite-59678+17048; light=30; cr=40; shine=10; break;
 
         case 59682:
         case 59683:
         case 59684:
-        case 59685:	sprite=sprite-59682+51104; cg=30; cr=30; light=-90; shine=0; break;
+        case 59685: sprite=sprite-59682+51104; cg=30; cr=30; light=-90; shine=0; break;
         case 59686:
         case 59687:
         case 59688:
-        case 59689:	sprite=sprite-59686+17000; cg=30; cr=30; light=-50; shine=0; break;
+        case 59689: sprite=sprite-59686+17000; cg=30; cr=30; light=-50; shine=0; break;
         case 59690:
         case 59691:
         case 59692:
@@ -2184,11 +2184,11 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59694:
         case 59695:
         case 59696:
-        case 59697:	sprite=sprite-59694+51104; cr=40; light=-90; shine=0; break;
+        case 59697: sprite=sprite-59694+51104; cr=40; light=-90; shine=0; break;
         case 59698:
         case 59699:
         case 59700:
-        case 59701:	sprite=sprite-59698+17000; cr=40; light=-50; shine=0; break;
+        case 59701: sprite=sprite-59698+17000; cr=40; light=-50; shine=0; break;
         case 59702:
         case 59703:
         case 59704:
@@ -2197,11 +2197,11 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59706:
         case 59707:
         case 59708:
-        case 59709:	sprite=sprite-59706+51104; cb=50; cr=-10; light=-100; shine=0; break;
+        case 59709: sprite=sprite-59706+51104; cb=50; cr=-10; light=-100; shine=0; break;
         case 59710:
         case 59711:
         case 59712:
-        case 59713:	sprite=sprite-59710+17000; cb=50; cr=-10; light=-60; shine=0; break;
+        case 59713: sprite=sprite-59710+17000; cb=50; cr=-10; light=-60; shine=0; break;
         case 59714:
         case 59715:
         case 59716:
@@ -2210,11 +2210,11 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59718:
         case 59719:
         case 59720:
-        case 59721:	sprite=sprite-59718+51104; cb=40; cr=-10; light=-40; shine=5; break;
+        case 59721: sprite=sprite-59718+51104; cb=40; cr=-10; light=-40; shine=5; break;
         case 59722:
         case 59723:
         case 59724:
-        case 59725:	sprite=sprite-59722+17000; cb=40; cr=-10; light=-10; shine=5; break;
+        case 59725: sprite=sprite-59722+17000; cb=40; cr=-10; light=-10; shine=5; break;
         case 59726:
         case 59727:
         case 59728:
@@ -2260,7 +2260,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59739:
         case 59740:
         case 59741:
-        case 59742:	sprite=sprite-59739+17048; sat=20; light=30; cg=50; shine=10; break;
+        case 59742: sprite=sprite-59739+17048; sat=20; light=30; cg=50; shine=10; break;
 
         case 59743: // edemon suspensor white
             sprite=14200+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/3)%4;
@@ -2284,7 +2284,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59758:
         case 59759:
         case 59760:
-        case 59761:	sprite=sprite-59744+20797; light=65; sat=12; shine=18; cb=5; break;
+        case 59761: sprite=sprite-59744+20797; light=65; sat=12; shine=18; cb=5; break;
 
         case 59762:
         case 59763:
@@ -2294,10 +2294,10 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59767:
         case 59768:
         case 59769:
-        case 59770:	sprite=sprite-59762+21780; light=-20; shine=5; cr=10; break; // shrike stones
+        case 59770: sprite=sprite-59762+21780; light=-20; shine=5; cr=10; break; // shrike stones
 
-        case 59771:	sprite=10318; sat=15; cg=70; light=-40; break;
-        case 59772:	sprite=50337; scale=150; sat=20; cr=80; shine=10; light=-10; break;
+        case 59771: sprite=10318; sat=15; cg=70; light=-40; break;
+        case 59772: sprite=50337; scale=150; sat=20; cr=80; shine=10; light=-10; break;
 
         case 59780:
         case 59781:
@@ -2307,7 +2307,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59785:
         case 59786:
         case 59787:
-        case 59788:	sprite=sprite-59780+30060; shine=10; light=-55; cg=50; cr=20; break;
+        case 59788: sprite=sprite-59780+30060; shine=10; light=-55; cg=50; cr=20; break;
 
         case 59790:
         case 59791:
@@ -2316,17 +2316,17 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
         case 59794:
         case 59795:
         case 59796:
-        case 59797:	sprite=sprite-59790+14030; cg=50; light=-55; break;
+        case 59797: sprite=sprite-59790+14030; cg=50; light=-55; break;
 
-        case 59798:	sprite=10004+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/2)%8;
+        case 59798: sprite=10004+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/2)%8;
             light=-20; cg=100; cr=-100;
             break;
-        case 59799:	sprite=50023; light=-20; cg=100; cr=-100; break;
+        case 59799: sprite=50023; light=-20; cg=100; cr=-100; break;
 
-        case 59800:	sprite=10004+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/2)%8;
+        case 59800: sprite=10004+((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/2)%8;
             light=-20; cb=100; cr=-100;
             break;
-        case 59801:	sprite=50023; light=-20; cb=100; cr=-100; break;
+        case 59801: sprite=50023; light=-20; cb=100; cr=-100; break;
 
         case 59802: // sewer outlet
             sprite=22500+(int)((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/2)%8;
@@ -2336,7 +2336,7 @@ EXPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,uns
             sprite=22508+(int)((mn%MAPDX+originx)+(mn/MAPDX+originy)*256+(attick)/2)%8;
             c3=IRGB(4,6,0);
             break;
-        case 59804:	sprite=50075; scale=35; break;  // small iron pot
+        case 59804: sprite=50075; scale=35; break;  // small iron pot
 
 
 
@@ -2558,27 +2558,27 @@ EXPORT int _get_offset_sprite(int sprite,int *px,int *py) {
         case 16035:
         case 16036:     x=6; y=8; break;
         case 16037:
-        case 16038:	x=-6; y=8; break;
+        case 16038: x=-6; y=8; break;
 
         case 16051:
         case 16052:     x=6; y=8; break;
         case 16053:
-        case 16054:	x=-6; y=8; break;
+        case 16054: x=-6; y=8; break;
 
         case 16055:
         case 16056:     x=6; y=8; break;
         case 16057:
-        case 16058:	x=-6; y=8; break;
+        case 16058: x=-6; y=8; break;
 
         case 21681:
         case 21682:     x=6; y=8; break;
         case 21683:
-        case 21684:	x=-6; y=8; break;
+        case 21684: x=-6; y=8; break;
 
         case 21685:
         case 21686:     x=6; y=8; break;
         case 21687:
-        case 21688:	x=-6; y=8; break;
+        case 21688: x=-6; y=8; break;
     }
 
     if (px) *px=x;

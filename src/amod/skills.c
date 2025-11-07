@@ -11,59 +11,59 @@ EXPORT int game_v_max=MOD_V_MAX;
 EXPORT int game_v_profbase=MOD_V_PROFBASE;
 
 EXPORT struct skill game_skill[MOD_V_MAX] = {
-	//  Bases          Cost W M (0=not raisable, 1=skill, 2=attribute, 3=power)
+    //  Bases          Cost W M (0=not raisable, 1=skill, 2=attribute, 3=power)
     // Powers
-    {"Hitpoints",-1,-1,-1,3,10},    // 0		done
+    {"Hitpoints",-1,-1,-1,3,10},    // 0        done
     {"Endurance",-1,-1,-1,3,10},    // 1
-    {"Mana",-1,-1,-1,3,10},    // 2		done
+    {"Mana",-1,-1,-1,3,10},    // 2     done
 
     // Attributes
-    {"Wisdom",-1,-1,-1,2,10},    // 3		done
-    {"Intuition",-1,-1,-1,2,10},    // 4		done
-    {"Agility",-1,-1,-1,2,10},    // 5		done
-    {"Strength",-1,-1,-1,2,10},    // 6		done
+    {"Wisdom",-1,-1,-1,2,10},    // 3       done
+    {"Intuition",-1,-1,-1,2,10},    // 4        done
+    {"Agility",-1,-1,-1,2,10},    // 5      done
+    {"Strength",-1,-1,-1,2,10},    // 6     done
 
     // Values
-    {"Armor",-1,-1,-1,0,0},    // 7		done
-    {"Weapon",-1,-1,-1,0,0},    // 8		done
-    {"Light",-1,-1,-1,0,0},    // 9		done
-    {"Speed",V_AGI,V_AGI,V_STR,0,0},    // 10		done
+    {"Armor",-1,-1,-1,0,0},    // 7     done
+    {"Weapon",-1,-1,-1,0,0},    // 8        done
+    {"Light",-1,-1,-1,0,0},    // 9     done
+    {"Speed",V_AGI,V_AGI,V_STR,0,0},    // 10       done
 
-    {"Pulse",V_INT,V_WIS,V_STR,1,1},    // 11		done
+    {"Pulse",V_INT,V_WIS,V_STR,1,1},    // 11       done
 
     // Primary Fighting Skills
-    {"Dagger",V_INT,V_AGI,V_STR,1,1},    // 12		done
-    {"Hand to Hand",V_AGI,V_STR,V_STR,1,1},    // 13		done
-    {"Staff",V_INT,V_AGI,V_STR,1,1},    // 14		done
-    {"Sword",V_INT,V_AGI,V_STR,1,1},    // 15		done
-    {"Two-Handed",V_AGI,V_STR,V_STR,1,1},    // 16		done
+    {"Dagger",V_INT,V_AGI,V_STR,1,1},    // 12      done
+    {"Hand to Hand",V_AGI,V_STR,V_STR,1,1},    // 13        done
+    {"Staff",V_INT,V_AGI,V_STR,1,1},    // 14       done
+    {"Sword",V_INT,V_AGI,V_STR,1,1},    // 15       done
+    {"Two-Handed",V_AGI,V_STR,V_STR,1,1},    // 16      done
 
     // Secondary Fighting Skills
-    {"Armor Skill",V_AGI,V_AGI,V_STR,1,1},    // 17		done
-    {"Attack",V_INT,V_AGI,V_STR,1,1},    // 18		done
-    {"Parry",V_INT,V_AGI,V_STR,1,1},    // 19		done
+    {"Armor Skill",V_AGI,V_AGI,V_STR,1,1},    // 17     done
+    {"Attack",V_INT,V_AGI,V_STR,1,1},    // 18      done
+    {"Parry",V_INT,V_AGI,V_STR,1,1},    // 19       done
     {"Warcry",V_INT,V_AGI,V_STR,1,1},    // 20
     {"Tactics",V_INT,V_AGI,V_STR,1,1},     // 21
     {"Surround Hit",V_INT,V_AGI,V_STR,1,1},    // 22
-    {"Body Control",V_INT,V_AGI,V_STR,1,1},    // 23		done
-    {"Speed Skill",V_INT,V_AGI,V_STR,1,1},    // 24		done
+    {"Body Control",V_INT,V_AGI,V_STR,1,1},    // 23        done
+    {"Speed Skill",V_INT,V_AGI,V_STR,1,1},    // 24     done
 
     // Misc. Skills
     {"Bartering",V_INT,V_INT,V_WIS,1,1},    // 25
-    {"Perception",V_INT,V_INT,V_WIS,1,1},    // 26		done
-    {"Stealth",V_INT,V_AGI,V_AGI,1,1},    // 27		done
+    {"Perception",V_INT,V_INT,V_WIS,1,1},    // 26      done
+    {"Stealth",V_INT,V_AGI,V_AGI,1,1},    // 27     done
 
     // Spells
-    {"Bless",V_INT,V_INT,V_WIS,1,1},    // 28		done
-    {"Heal",V_INT,V_INT,V_WIS,1,1},    // 29		done
-    {"Freeze",V_INT,V_INT,V_WIS,1,1},    // 30		done
-    {"Magic Shield",V_INT,V_INT,V_WIS,1,1},    // 31		done
-    {"Lightning",V_INT,V_INT,V_WIS,1,1},    // 32		done
-    {"Fire",V_INT,V_INT,V_WIS,1,1},    // 33		done
-    {"empty",V_INT,V_INT,V_WIS,1,1},    // 34		done
+    {"Bless",V_INT,V_INT,V_WIS,1,1},    // 28       done
+    {"Heal",V_INT,V_INT,V_WIS,1,1},    // 29        done
+    {"Freeze",V_INT,V_INT,V_WIS,1,1},    // 30      done
+    {"Magic Shield",V_INT,V_INT,V_WIS,1,1},    // 31        done
+    {"Lightning",V_INT,V_INT,V_WIS,1,1},    // 32       done
+    {"Fire",V_INT,V_INT,V_WIS,1,1},    // 33        done
+    {"empty",V_INT,V_INT,V_WIS,1,1},    // 34       done
 
-    {"Regenerate",V_STR,V_STR,V_STR,1,1},    // 35		done
-    {"Meditate",V_WIS,V_WIS,V_WIS,1,1},    // 36		done
+    {"Regenerate",V_STR,V_STR,V_STR,1,1},    // 35      done
+    {"Meditate",V_WIS,V_WIS,V_WIS,1,1},    // 36        done
     {"Immunity",V_INT,V_WIS,V_STR,1,1},    // 37
 
     {"Ancient Knowledge",V_WIS,V_INT,V_STR,1,1},    // 38
@@ -96,7 +96,7 @@ EXPORT struct skill game_skill[MOD_V_MAX] = {
 };
 
 EXPORT char *game_skilldesc[] = {
-	"Hitpoints ('life force') are reduced as you battle and sustain injury. The top red line above your head shows your Hitpoints level. If your Hitpoints level drops to zero, then you will die!",
+    "Hitpoints ('life force') are reduced as you battle and sustain injury. The top red line above your head shows your Hitpoints level. If your Hitpoints level drops to zero, then you will die!",
     "Endurance enables you to run and fight with greater speed. When your Endurance is gone, you will slow down and feel exhausted.",
     "Magic users need Mana to cast spells. If your Mana runs out, then you can no longer cast spells or perform magic. If you stand completely still for a few moments, your Mana will replenish itself.",
     "Wisdom, a base attribute, deepens your comprehension of the secrets of spells and magic; enhances all spells and some skills.",
@@ -176,7 +176,7 @@ EXPORT char *game_skilldesc[] = {
 
 EXPORT int get_skltab_index(int n) {
     static int itab[] = {
-		-1,
+        -1,
         0,1,2,                          // powers
         3,4,5,6,                        // bases
         7,8,9,10,38,41,                 // armor etc

@@ -18,22 +18,22 @@
 #define DD_LARGE_CHARSET "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,.;:+-*/~@#'\"?!&%()[]=<>|_$"
 #define DD_SMALL_CHARSET "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.+-"
 
-#define DD__SHADEFONT	128
-#define DD__FRAMEFONT	256
+#define DD__SHADEFONT   128
+#define DD__FRAMEFONT   256
 
 #define DDT             '\xB0' // draw text terminator - (zero stays one, too)
 
 #define DL_STEP 128
 
 #define DLC_STRIKE      1
-#define DLC_NUMBER	2
-#define DLC_DUMMY	3       // used to get space in the list to reduce compares ;-)
-#define DLC_PIXEL	4
-#define DLC_BLESS	5
-#define DLC_POTION	6
-#define DLC_RAIN	7
-#define DLC_PULSE	8
-#define DLC_PULSEBACK	9
+#define DLC_NUMBER  2
+#define DLC_DUMMY   3       // used to get space in the list to reduce compares ;-)
+#define DLC_PIXEL   4
+#define DLC_BLESS   5
+#define DLC_POTION  6
+#define DLC_RAIN    7
+#define DLC_PULSE   8
+#define DLC_PULSEBACK   9
 
 struct xxximage {
     unsigned short int xres;

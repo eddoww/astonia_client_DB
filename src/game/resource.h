@@ -1,3 +1,3 @@
 
-#define IDI_MOAC	1
+#define IDI_MOAC    1
 

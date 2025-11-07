@@ -69,14 +69,14 @@ int init_sound(void) {
 
         rw=SDL_RWFromConstMem(buf,len);
 
-		sound_effect[i]=Mix_LoadWAV_RW(rw,1);
-		if (!sound_effect[i]) {
-			warn("Could alloc memory for sound file %s.",sfx_name[i]);
+        sound_effect[i]=Mix_LoadWAV_RW(rw,1);
+        if (!sound_effect[i]) {
+            warn("Could alloc memory for sound file %s.",sfx_name[i]);
             sound_effect[i]=NULL; xfree(buf);
             continue;
-		}
+        }
         xfree(buf);
-	}
+    }
     zip_close(sz);
 
     return 0;
@@ -85,50 +85,50 @@ int init_sound(void) {
 void sound_exit() {
     int i;
 
-	// Free all sound effects
-	// Starting at 1 since 0 is null
-	for (i=1; i<sfx_name_cnt; i++) {
-		Mix_FreeChunk(sound_effect[i]);
-		sound_effect[i]=NULL;
-	}
+    // Free all sound effects
+    // Starting at 1 since 0 is null
+    for (i=1; i<sfx_name_cnt; i++) {
+        Mix_FreeChunk(sound_effect[i]);
+        sound_effect[i]=NULL;
+    }
 
-	return;
+    return;
 }
 
 void play_sdl_sound(int nr,int distance,int angle)
 {
-	static int sound_channel = 0;
-	uint64_t time_start;
+    static int sound_channel = 0;
+    uint64_t time_start;
 
-	// Check if sound is enabled
-	if (!(game_options&GO_SOUND)) return;
+    // Check if sound is enabled
+    if (!(game_options&GO_SOUND)) return;
 
     if (nr<1 || nr>=sfx_name_cnt || nr>=MAXSOUND) return;
 
-	// For debugging/optimization
-	time_start = SDL_GetTicks64();
+    // For debugging/optimization
+    time_start = SDL_GetTicks64();
 
 #if 0
-	note("nr = %d: %s, distance = %d, angle = %d", nr, sfx_name[nr], distance, angle);
+    note("nr = %d: %s, distance = %d, angle = %d", nr, sfx_name[nr], distance, angle);
 #endif
 
-	// Set position of sound relative to where you are
-	Mix_SetPosition(sound_channel, angle, distance);
+    // Set position of sound relative to where you are
+    Mix_SetPosition(sound_channel, angle, distance);
 
-	// Ensure volume is set for channel - Should probably be put elsewhere
-	Mix_Volume(sound_channel, sound_volume);
+    // Ensure volume is set for channel - Should probably be put elsewhere
+    Mix_Volume(sound_channel, sound_volume);
 
-	// Play sound
-	Mix_PlayChannel(sound_channel, sound_effect[nr], 0);
+    // Play sound
+    Mix_PlayChannel(sound_channel, sound_effect[nr], 0);
 
-	// Increment sound channel so the next sound played is on it's own layer and doesn't cancel this one
-	sound_channel++;
-	if (sound_channel >= MAX_SOUND_CHANNELS) sound_channel = 0;
+    // Increment sound channel so the next sound played is on it's own layer and doesn't cancel this one
+    sound_channel++;
+    if (sound_channel >= MAX_SOUND_CHANNELS) sound_channel = 0;
 
-	// For debug/optimization
-	time_play_sound += SDL_GetTicks64() - time_start;
+    // For debug/optimization
+    time_play_sound += SDL_GetTicks64() - time_start;
 
-	return;
+    return;
 }
 
 void play_sound(int nr,int vol,int p) {
@@ -148,7 +148,7 @@ void play_sound(int nr,int vol,int p) {
     angle=(int)p/10000.0*180.0;
 
 #if 0
-	note("nr = %d: %s, distance = %d, angle = %d (vol=%d, p=%d)", nr, sfx_name[nr], dist, angle, vol, p);
+    note("nr = %d: %s, distance = %d, angle = %d (vol=%d, p=%d)", nr, sfx_name[nr], dist, angle, vol, p);
 #endif
 
     play_sdl_sound(nr,dist,angle);
@@ -186,8 +186,8 @@ static char *sfx_name[]={
     "sfx/owl2.wav",            //27
     "sfx/owl3.wav",            //28
     "sfx/magic.wav",           //29
-    "sfx/flash.wav",           //30	lightning strike
-    "sfx/scarynote.wav",       //31	freeze
+    "sfx/flash.wav",           //30 lightning strike
+    "sfx/scarynote.wav",       //31 freeze
     "sfx/woman_hurt.wav",      //32
     "sfx/woman_dead.wav",      //33
     "sfx/parry1.wav",          //34

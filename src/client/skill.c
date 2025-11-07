@@ -24,57 +24,57 @@ int *game_v_max=&_game_v_max;
 struct skill _game_skill[V_MAX]={
     //  Bases          Cost W M (0=not raisable, 1=skill, 2=attribute, 3=power)
     // Powers
-    {"Hitpoints",-1,-1,-1,3,10},    // 0		done
+    {"Hitpoints",-1,-1,-1,3,10},    // 0        done
     {"Endurance",-1,-1,-1,3,10},    // 1
-    {"Mana",-1,-1,-1,3,10},    // 2		done
+    {"Mana",-1,-1,-1,3,10},    // 2     done
 
     // Attributes
-    {"Wisdom",-1,-1,-1,2,10},    // 3		done
-    {"Intuition",-1,-1,-1,2,10},    // 4		done
-    {"Agility",-1,-1,-1,2,10},    // 5		done
-    {"Strength",-1,-1,-1,2,10},    // 6		done
+    {"Wisdom",-1,-1,-1,2,10},    // 3       done
+    {"Intuition",-1,-1,-1,2,10},    // 4        done
+    {"Agility",-1,-1,-1,2,10},    // 5      done
+    {"Strength",-1,-1,-1,2,10},    // 6     done
 
     // Values
-    {"Armor",-1,-1,-1,0,0},    // 7		done
-    {"Weapon",-1,-1,-1,0,0},    // 8		done
-    {"Light",-1,-1,-1,0,0},    // 9		done
-    {"Speed",V_AGI,V_AGI,V_STR,0,0},    // 10		done
+    {"Armor",-1,-1,-1,0,0},    // 7     done
+    {"Weapon",-1,-1,-1,0,0},    // 8        done
+    {"Light",-1,-1,-1,0,0},    // 9     done
+    {"Speed",V_AGI,V_AGI,V_STR,0,0},    // 10       done
 
-    {"Pulse",V_INT,V_INT,V_WIS,1,1},    // 11		done
+    {"Pulse",V_INT,V_INT,V_WIS,1,1},    // 11       done
 
     // Primary Fighting Skills
-    {"Dagger",V_INT,V_AGI,V_STR,1,1},    // 12		done
-    {"Hand to Hand",V_AGI,V_STR,V_STR,1,1},    // 13		done
-    {"Staff",V_INT,V_AGI,V_STR,1,1},    // 14		done
-    {"Sword",V_INT,V_AGI,V_STR,1,1},    // 15		done
-    {"Two-Handed",V_AGI,V_STR,V_STR,1,1},    // 16		done
+    {"Dagger",V_INT,V_AGI,V_STR,1,1},    // 12      done
+    {"Hand to Hand",V_AGI,V_STR,V_STR,1,1},    // 13        done
+    {"Staff",V_INT,V_AGI,V_STR,1,1},    // 14       done
+    {"Sword",V_INT,V_AGI,V_STR,1,1},    // 15       done
+    {"Two-Handed",V_AGI,V_STR,V_STR,1,1},    // 16      done
 
     // Secondary Fighting Skills
-    {"Armor Skill",V_AGI,V_AGI,V_STR,1,1},    // 17		done
-    {"Attack",V_INT,V_AGI,V_STR,1,1},    // 18		done
-    {"Parry",V_INT,V_AGI,V_STR,1,1},    // 19		done
+    {"Armor Skill",V_AGI,V_AGI,V_STR,1,1},    // 17     done
+    {"Attack",V_INT,V_AGI,V_STR,1,1},    // 18      done
+    {"Parry",V_INT,V_AGI,V_STR,1,1},    // 19       done
     {"Warcry",V_INT,V_AGI,V_STR,1,1},    // 20
     {"Tactics",V_INT,V_AGI,V_STR,1,1},     // 21
     {"Surround Hit",V_INT,V_AGI,V_STR,1,1},    // 22
-    {"Body Control",V_INT,V_AGI,V_STR,1,1},    // 23		done
-    {"Speed Skill",V_INT,V_AGI,V_STR,1,1},    // 24		done
+    {"Body Control",V_INT,V_AGI,V_STR,1,1},    // 23        done
+    {"Speed Skill",V_INT,V_AGI,V_STR,1,1},    // 24     done
 
     // Misc. Skills
     {"Bartering",V_INT,V_INT,V_WIS,1,1},    // 25
-    {"Perception",V_INT,V_INT,V_WIS,1,1},    // 26		done
-    {"Stealth",V_INT,V_AGI,V_AGI,1,1},    // 27		done
+    {"Perception",V_INT,V_INT,V_WIS,1,1},    // 26      done
+    {"Stealth",V_INT,V_AGI,V_AGI,1,1},    // 27     done
 
     // Spells
-    {"Bless",V_INT,V_INT,V_WIS,1,1},    // 28		done
-    {"Heal",V_INT,V_INT,V_WIS,1,1},    // 29		done
-    {"Freeze",V_INT,V_INT,V_WIS,1,1},    // 30		done
-    {"Magic Shield",V_INT,V_INT,V_WIS,1,1},    // 31		done
-    {"Lightning",V_INT,V_INT,V_WIS,1,1},    // 32		done
-    {"Fire",V_INT,V_INT,V_WIS,1,1},    // 33		done
-    {"empty",V_INT,V_INT,V_WIS,1,1},    // 34		done
+    {"Bless",V_INT,V_INT,V_WIS,1,1},    // 28       done
+    {"Heal",V_INT,V_INT,V_WIS,1,1},    // 29        done
+    {"Freeze",V_INT,V_INT,V_WIS,1,1},    // 30      done
+    {"Magic Shield",V_INT,V_INT,V_WIS,1,1},    // 31        done
+    {"Lightning",V_INT,V_INT,V_WIS,1,1},    // 32       done
+    {"Fire",V_INT,V_INT,V_WIS,1,1},    // 33        done
+    {"empty",V_INT,V_INT,V_WIS,1,1},    // 34       done
 
-    {"Regenerate",V_STR,V_STR,V_STR,1,1},    // 35		done
-    {"Meditate",V_WIS,V_WIS,V_WIS,1,1},    // 36		done
+    {"Regenerate",V_STR,V_STR,V_STR,1,1},    // 35      done
+    {"Meditate",V_WIS,V_WIS,V_WIS,1,1},    // 36        done
     {"Immunity",V_INT,V_WIS,V_STR,1,1},    // 37
 
     {"Ancient Knowledge",V_WIS,V_INT,V_STR,1,1},    // 38

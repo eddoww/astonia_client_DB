@@ -20,95 +20,95 @@
 static int havequest=0;
 
 struct questlog _game_questlog[]={
-		{ "Lydia's Potion", 1, 2, "James", "Cameron", 15, QLF_REPEATABLE },			//0,
-		{ "Find the Magic Item", 2, 3, "Gwendylon", "Cameron", 75, QLF_REPEATABLE },		//1,
-		{ "The Second Skull", 3, 5, "Gwendylon", "Cameron", 150, QLF_REPEATABLE },		//2,
-		{ "The Third Skull", 5, 7, "Gwendylon", "Cameron", 300, QLF_REPEATABLE },		//3,
-		{ "Kill the Foul Magician", 6, 8, "Gwendylon", "Cameron", 800, QLF_REPEATABLE },	//4,
-		{ "Bear Hunt", 6, 8, "Yoakin", "Cameron", 600, QLF_REPEATABLE },			//5,
-		{ "A Fool's Request", 6, 8, "Nook", "Cameron", 400, 0 },				//6,
-		{ "Mages Gone Berserk", 6, 9, "Guiwynn", "Cameron", 800, QLF_REPEATABLE },		//7,
-		{ "The Recipe for Happiness", 7, 10, "Guiwynn", "Cameron", 900, QLF_REPEATABLE },	//8,
-		{ "Knightly Troubles", 7, 10, "Logain", "Cameron", 1200, QLF_REPEATABLE },		//9,
-		{ "Loisan's House", 9, 12, "Seymour", "Aston", 850, 0 },				//10,
-		{ "The Silver Skull", 10, 13, "Seymour", "Aston", 1000, 0 },				//11,
-		{ "Find Loisan", 11, 15, "Seymour", "Aston", 1500, QLF_REPEATABLE },			//12,
-		{ "Jeepers Creepers", 12, 18, "Kelly", "Aston", 1850, QLF_REPEATABLE },			//13,
-		{ "Underground Park Shrines", 15, 20, "Kelly", "Aston", 0, 0 },				//14, special case: exp awarded in driver, 4500 exp total
-		{ "In Search of Clara", 20, 27, "Kelly", "Aston", 2500, 0 },				//15,
-		{ "The Astronomer's Notes", 15, 20, "Gerassimo", "Aston", 5000, QLF_REPEATABLE },	//16,
-		{ "The Unwanted Tenants", 9, 12, "Reskin", "Cameron", 1250, 0 },			//17,
-		{ "The Toughest Monster", 20, 25, "Sir Jones", "Aston", 7500, 0 },			//18,
-		{ "The Toughestest Monster", 20, 26, "Sir Jones", "Aston", 12000, 0 },			//19,
-		{ "Wanted: Occult Staff", 30, 36, "Carlos", "Aston", 40000, QLF_REPEATABLE },		//20,
-		{ "Slay the Swampbeast", 23, 30, "Clara", "Swamp", 22500, 0 },				//21,
-		{ "Impish Bear Hunt", 20, 27, "William/Imp", "Forest", 12500, 0 },			//22,
-		{ "Praying Mantis Stew", 20, 27, "William", "Forest", 15000, 0 },			//23,
-		{ "The Spider Queen", 25, 30, "Hermit", "Forest", 25000, 0 },				//24,
-		{ "Earning the Lockpick", 25, 30, "Guildmaster", "Exkordon", 0, QLF_XREPEAT },		//25, exp awarded in driver, amount depends on robbers killed. range: 5000 to 20000
-		{ "Extortion", 25, 30, "Guildmaster", "Exkordon", 0, QLF_XREPEAT },			//26, exp awarded in driver, 5000 or 10000
-		{ "Price Fix Exposed", 25, 30, "Guildmaster", "Exkordon", 15000, QLF_XREPEAT },		//27,
-		{ "The Golden Lockpick", 26, 33, "Guildmaster", "Exkordon", 15000, QLF_XREPEAT },	//28,
-		{ "Dirty Hands", 26, 33, "Sanwyn", "Exkordon", 0, 0 },					//29, exp awarded in driver, 45000 total
-		{ "The Old Governor's Cross", 33, 40, "Skeleton", "Exkordon", 30000, QLF_REPEATABLE },	//30,
-		{ "Spider Poison", 30, 40, "Cervik", "Exkordon", 30000, QLF_REPEATABLE },		//31,
-		{ "Join the Tribe", 63, 80, "Kalanur", "Nomad Plains", 10000, 0 },			//32,
-		{ "Searching Sarkilar", 63, 80, "Kir Laas", "Nomad Plains", 450000, 0 },		//33,
-		{ "A Golden Statue", 72, 90, "Kir Garan", "Nomad Plains", 280000, 0 },			//34,
-		{ "Smuggler Book", 10, 15, "Imp. Commander", "Below Aston 2", 1000, QLF_REPEATABLE },	//35,
-		{ "Contraband", 10, 15, "Imp. Commander", "Below Aston 2", 0, 0 },			//36, exp awarded in driver, 5000 total
-		{ "Smuggler Leader", 10, 15, "Imp. Commander", "Below Aston 2", 2000, QLF_REPEATABLE },	//37,
-		{ "The Family Heirloom", 32, 40, "Aristocrat", "Bran. Forest", 40000, QLF_REPEATABLE },	//38,
-		{ "Bear Hunt - Again", 32, 36, "Yoatin", "Bran. Forest", 40000, QLF_REPEATABLE },	//39,
-		{ "The Jewels of Brannington ", 34, 40, "Count B.", "Brannington", 0, QLF_REPEATABLE },	//40, exp awarded in driver, 120k total
-		{ "A Grolm's Spoils", 33, 42, "Brenneth", "Brannington", 15000, QLF_REPEATABLE },	//41,
-		{ "A Thief's Loot ", 33, 42, "Brenneth", "Brannington", 15000, QLF_REPEATABLE },	//42,
-		{ "A Necromancer's Notes", 33, 42, "Brenneth", "Brannington", 15000, QLF_REPEATABLE },	//43,
-		{ "A Rest Disturbed", 36, 43, "Spirit", "Brannington", 60000, QLF_REPEATABLE },		//44,
-		{ "Searching a Miner's Tool", 42, 48, "Broklin", "Brannington", 60000, QLF_REPEATABLE },//45,
-		{ "A Miner's Vengeance", 44, 50, "Broklin", "Brannington", 60000, 0 },			//46,
-		{ "A Miner's Misery", 85, 95, "Dwarven Chief", "Grimroot", 285000, 0 },			//47,
-		{ "A Miner's Bane", 95, 105, "Dwarven Chief", "Grimroot", 395000, 0 },			//48,
-		{ "A Miner's Anguish", 105, 115, "Dwarven Chief", "Grimroot", 525000, 0 },		//49,
-		{ "A Miner Lost", 115, 125, "Dwarven Chief", "Grimroot", 680000, 0 },			//50,
-		{ "Lizard's Teeth", 95, 105, "Dwarven Shaman", "Grimroot", 395000, 0 },			//51,
-		{ "Collecting Berries", 100, 110, "Dwarven Shaman", "Grimroot", 455000, 0 },		//52,
-		{ "Elitist Head", 105, 115, "Dwarven Shaman", "Grimroot", 525000, 0 },			//53,
-		{ "Looking for Caligar", 55, 65, "Kelly", "Aston", 80000, 0 },				//54,
-		{ "Fighting Styles", 55, 65, "Glori", "Caligar", 80000, 0 },				//55,
-		{ "Obelisk Hunt", 55, 65, "Glori", "Caligar", 80000, 0 },				//56,
-		{ "Find the Keyparts", 55, 65, "Glori", "Caligar", 80000, 0 },				//57,
-		{ "Assemble the Key", 55, 65, "Glori", "Caligar", 80000, 0 },				//58,
-		{ "Amazon Invaders", 55, 65, "Homdem", "Caligar", 80000, 0 },				//59,
-		{ "The Emperor's Plaque", 55, 65, "Kelly", "Aston", 240000, 0 },			//60,
+        { "Lydia's Potion", 1, 2, "James", "Cameron", 15, QLF_REPEATABLE },         //0,
+        { "Find the Magic Item", 2, 3, "Gwendylon", "Cameron", 75, QLF_REPEATABLE },        //1,
+        { "The Second Skull", 3, 5, "Gwendylon", "Cameron", 150, QLF_REPEATABLE },      //2,
+        { "The Third Skull", 5, 7, "Gwendylon", "Cameron", 300, QLF_REPEATABLE },       //3,
+        { "Kill the Foul Magician", 6, 8, "Gwendylon", "Cameron", 800, QLF_REPEATABLE },    //4,
+        { "Bear Hunt", 6, 8, "Yoakin", "Cameron", 600, QLF_REPEATABLE },            //5,
+        { "A Fool's Request", 6, 8, "Nook", "Cameron", 400, 0 },                //6,
+        { "Mages Gone Berserk", 6, 9, "Guiwynn", "Cameron", 800, QLF_REPEATABLE },      //7,
+        { "The Recipe for Happiness", 7, 10, "Guiwynn", "Cameron", 900, QLF_REPEATABLE },   //8,
+        { "Knightly Troubles", 7, 10, "Logain", "Cameron", 1200, QLF_REPEATABLE },      //9,
+        { "Loisan's House", 9, 12, "Seymour", "Aston", 850, 0 },                //10,
+        { "The Silver Skull", 10, 13, "Seymour", "Aston", 1000, 0 },                //11,
+        { "Find Loisan", 11, 15, "Seymour", "Aston", 1500, QLF_REPEATABLE },            //12,
+        { "Jeepers Creepers", 12, 18, "Kelly", "Aston", 1850, QLF_REPEATABLE },         //13,
+        { "Underground Park Shrines", 15, 20, "Kelly", "Aston", 0, 0 },             //14, special case: exp awarded in driver, 4500 exp total
+        { "In Search of Clara", 20, 27, "Kelly", "Aston", 2500, 0 },                //15,
+        { "The Astronomer's Notes", 15, 20, "Gerassimo", "Aston", 5000, QLF_REPEATABLE },   //16,
+        { "The Unwanted Tenants", 9, 12, "Reskin", "Cameron", 1250, 0 },            //17,
+        { "The Toughest Monster", 20, 25, "Sir Jones", "Aston", 7500, 0 },          //18,
+        { "The Toughestest Monster", 20, 26, "Sir Jones", "Aston", 12000, 0 },          //19,
+        { "Wanted: Occult Staff", 30, 36, "Carlos", "Aston", 40000, QLF_REPEATABLE },       //20,
+        { "Slay the Swampbeast", 23, 30, "Clara", "Swamp", 22500, 0 },              //21,
+        { "Impish Bear Hunt", 20, 27, "William/Imp", "Forest", 12500, 0 },          //22,
+        { "Praying Mantis Stew", 20, 27, "William", "Forest", 15000, 0 },           //23,
+        { "The Spider Queen", 25, 30, "Hermit", "Forest", 25000, 0 },               //24,
+        { "Earning the Lockpick", 25, 30, "Guildmaster", "Exkordon", 0, QLF_XREPEAT },      //25, exp awarded in driver, amount depends on robbers killed. range: 5000 to 20000
+        { "Extortion", 25, 30, "Guildmaster", "Exkordon", 0, QLF_XREPEAT },         //26, exp awarded in driver, 5000 or 10000
+        { "Price Fix Exposed", 25, 30, "Guildmaster", "Exkordon", 15000, QLF_XREPEAT },     //27,
+        { "The Golden Lockpick", 26, 33, "Guildmaster", "Exkordon", 15000, QLF_XREPEAT },   //28,
+        { "Dirty Hands", 26, 33, "Sanwyn", "Exkordon", 0, 0 },                  //29, exp awarded in driver, 45000 total
+        { "The Old Governor's Cross", 33, 40, "Skeleton", "Exkordon", 30000, QLF_REPEATABLE },  //30,
+        { "Spider Poison", 30, 40, "Cervik", "Exkordon", 30000, QLF_REPEATABLE },       //31,
+        { "Join the Tribe", 63, 80, "Kalanur", "Nomad Plains", 10000, 0 },          //32,
+        { "Searching Sarkilar", 63, 80, "Kir Laas", "Nomad Plains", 450000, 0 },        //33,
+        { "A Golden Statue", 72, 90, "Kir Garan", "Nomad Plains", 280000, 0 },          //34,
+        { "Smuggler Book", 10, 15, "Imp. Commander", "Below Aston 2", 1000, QLF_REPEATABLE },   //35,
+        { "Contraband", 10, 15, "Imp. Commander", "Below Aston 2", 0, 0 },          //36, exp awarded in driver, 5000 total
+        { "Smuggler Leader", 10, 15, "Imp. Commander", "Below Aston 2", 2000, QLF_REPEATABLE }, //37,
+        { "The Family Heirloom", 32, 40, "Aristocrat", "Bran. Forest", 40000, QLF_REPEATABLE }, //38,
+        { "Bear Hunt - Again", 32, 36, "Yoatin", "Bran. Forest", 40000, QLF_REPEATABLE },   //39,
+        { "The Jewels of Brannington ", 34, 40, "Count B.", "Brannington", 0, QLF_REPEATABLE }, //40, exp awarded in driver, 120k total
+        { "A Grolm's Spoils", 33, 42, "Brenneth", "Brannington", 15000, QLF_REPEATABLE },   //41,
+        { "A Thief's Loot ", 33, 42, "Brenneth", "Brannington", 15000, QLF_REPEATABLE },    //42,
+        { "A Necromancer's Notes", 33, 42, "Brenneth", "Brannington", 15000, QLF_REPEATABLE },  //43,
+        { "A Rest Disturbed", 36, 43, "Spirit", "Brannington", 60000, QLF_REPEATABLE },     //44,
+        { "Searching a Miner's Tool", 42, 48, "Broklin", "Brannington", 60000, QLF_REPEATABLE },//45,
+        { "A Miner's Vengeance", 44, 50, "Broklin", "Brannington", 60000, 0 },          //46,
+        { "A Miner's Misery", 85, 95, "Dwarven Chief", "Grimroot", 285000, 0 },         //47,
+        { "A Miner's Bane", 95, 105, "Dwarven Chief", "Grimroot", 395000, 0 },          //48,
+        { "A Miner's Anguish", 105, 115, "Dwarven Chief", "Grimroot", 525000, 0 },      //49,
+        { "A Miner Lost", 115, 125, "Dwarven Chief", "Grimroot", 680000, 0 },           //50,
+        { "Lizard's Teeth", 95, 105, "Dwarven Shaman", "Grimroot", 395000, 0 },         //51,
+        { "Collecting Berries", 100, 110, "Dwarven Shaman", "Grimroot", 455000, 0 },        //52,
+        { "Elitist Head", 105, 115, "Dwarven Shaman", "Grimroot", 525000, 0 },          //53,
+        { "Looking for Caligar", 55, 65, "Kelly", "Aston", 80000, 0 },              //54,
+        { "Fighting Styles", 55, 65, "Glori", "Caligar", 80000, 0 },                //55,
+        { "Obelisk Hunt", 55, 65, "Glori", "Caligar", 80000, 0 },               //56,
+        { "Find the Keyparts", 55, 65, "Glori", "Caligar", 80000, 0 },              //57,
+        { "Assemble the Key", 55, 65, "Glori", "Caligar", 80000, 0 },               //58,
+        { "Amazon Invaders", 55, 65, "Homdem", "Caligar", 80000, 0 },               //59,
+        { "The Emperor's Plaque", 55, 65, "Kelly", "Aston", 240000, 0 },            //60,
 
-		{ "The Imperial Vault", 26, 28, "Carlos", "Aston", 20000, 0 },				//61,
-		{ "Tunnel Magics", 26, 28, "Rouven", "Imperial Vault", 10000, 0 },			//62,
-		{ "Chronicles of Seyan", 26, 28, "Rouven", "Imperial Vault", 10000, 0 },		//63,
+        { "The Imperial Vault", 26, 28, "Carlos", "Aston", 20000, 0 },              //61,
+        { "Tunnel Magics", 26, 28, "Rouven", "Imperial Vault", 10000, 0 },          //62,
+        { "Chronicles of Seyan", 26, 28, "Rouven", "Imperial Vault", 10000, 0 },        //63,
 
-		{ "Finding Arkhata", 47, 55, "Guard", "Brannington", 60000, 0 },			//64,
-		{ "Rammy's Crown", 48, 58, "Rammy", "Arkhata", 60000, 0 },				//65,
-		{ "Ishtar's Bracelet", 49, 59, "Jaz", "Arkhata", 60000, 0 },				//66,
-		{ "Queen Fiona's Ring", 50, 60, "Queen Fiona", "Arkhata", 60000, 0 },			//67,
-		{ "A Shopkeeper's Fright", 51, 61, "Ramin", "Arkhata", 60000, 0 },			//68,
-		{ "The Monks' Request", 52, 62, "Johnatan", "Arkhata", 60000, 0 },			//69,
-		{ "The Book Eater", 53, 63, "Tracy", "Arkhata", 60000, 0 },				//70,
-		{ "Entrance Passes", 54, 64, "Rammy", "Arkhata", 90000, 0 },				//71,
-		{ "The Source", 60, 70, "Jada", "Arkhata", 120000, 0 },					//72,
-		{ "Ceremonial Pot", 48, 58, "Pot Maker", "Arkhata", 60000, 0 },				//73,
-		{ "The Lost Secrets", 49, 59, "Thai Pan", "Arkhata", 60000, 0 },			//74,
-		{ "A Kidnapped Student", 53, 63, "Trainer", "Arkhata", 60000, 0 },			//75,
-		{ "The Traitors", 53, 63, "Clerk", "Arkhata", 60000, 0 },				//76,
-		{ "The Blue Harpy", 58, 68, "Hunter", "Arkhata", 60000, 0 },				//77,
-		{ "The Mysterious Language", 60, 65, "Johnatan", "Arkhata", 60000, 0 },			//78,
+        { "Finding Arkhata", 47, 55, "Guard", "Brannington", 60000, 0 },            //64,
+        { "Rammy's Crown", 48, 58, "Rammy", "Arkhata", 60000, 0 },              //65,
+        { "Ishtar's Bracelet", 49, 59, "Jaz", "Arkhata", 60000, 0 },                //66,
+        { "Queen Fiona's Ring", 50, 60, "Queen Fiona", "Arkhata", 60000, 0 },           //67,
+        { "A Shopkeeper's Fright", 51, 61, "Ramin", "Arkhata", 60000, 0 },          //68,
+        { "The Monks' Request", 52, 62, "Johnatan", "Arkhata", 60000, 0 },          //69,
+        { "The Book Eater", 53, 63, "Tracy", "Arkhata", 60000, 0 },             //70,
+        { "Entrance Passes", 54, 64, "Rammy", "Arkhata", 90000, 0 },                //71,
+        { "The Source", 60, 70, "Jada", "Arkhata", 120000, 0 },                 //72,
+        { "Ceremonial Pot", 48, 58, "Pot Maker", "Arkhata", 60000, 0 },             //73,
+        { "The Lost Secrets", 49, 59, "Thai Pan", "Arkhata", 60000, 0 },            //74,
+        { "A Kidnapped Student", 53, 63, "Trainer", "Arkhata", 60000, 0 },          //75,
+        { "The Traitors", 53, 63, "Clerk", "Arkhata", 60000, 0 },               //76,
+        { "The Blue Harpy", 58, 68, "Hunter", "Arkhata", 60000, 0 },                //77,
+        { "The Mysterious Language", 60, 65, "Johnatan", "Arkhata", 60000, 0 },         //78,
 
-		{ "The Robber Operations", 6, 9, "Jessica", "Cameron", 750, QLF_REPEATABLE },         //79,
-		{ "Cleansing the Sanctuary", 39, 45, "Jiu", "Cameron", 50000, 0 },         		//80,
-		{ "The dying forest", 39, 45, "Brithildie", "Cameron", 50000, 0 },         		//81,
+        { "The Robber Operations", 6, 9, "Jessica", "Cameron", 750, QLF_REPEATABLE },         //79,
+        { "Cleansing the Sanctuary", 39, 45, "Jiu", "Cameron", 50000, 0 },              //80,
+        { "The dying forest", 39, 45, "Brithildie", "Cameron", 50000, 0 },              //81,
 
-		{ "Bear Control Hunt", 9, 15, "Hermit", "Cameron", 1000, 0 },         			//82,
-		{ "Bear Tooth Necklace", 9, 15, "Hermit", "Cameron", 1000, QLF_REPEATABLE },    //83,
-		{ "Defeating the Robber Leader", 6, 9, "Jessica", "Cameron", 750, QLF_REPEATABLE },         //84,
+        { "Bear Control Hunt", 9, 15, "Hermit", "Cameron", 1000, 0 },                   //82,
+        { "Bear Tooth Necklace", 9, 15, "Hermit", "Cameron", 1000, QLF_REPEATABLE },    //83,
+        { "Defeating the Robber Leader", 6, 9, "Jessica", "Cameron", 750, QLF_REPEATABLE },         //84,
 };
 
 EXPORT struct questlog *game_questlog=_game_questlog;
@@ -117,20 +117,20 @@ EXPORT int *game_questcount=&_game_questcount;
 
 int questonscreen[10];
 //Ruby Bit definitions
-#define BIT_ZOMBIE		(1u<<0)
-#define BIT_SHROOM1		(1u<<1)
-#define BIT_SHROOM2		(1u<<2)
-#define BIT_SHROOM3		(1u<<3)
-#define BIT_OCRYSTAL	(1u<<4)
-#define BIT_RCRYSTAL	(1u<<5)
-#define BIT_FSCROLL		(1u<<6)
-#define BIT_ISLENA		(1u<<7)
-#define BIT_TORCH		(1u<<8)
-#define BIT_SWAMP		(1u<<9)
-#define BIT_FOREST		(1u<<10)
-#define BIT_GOVERNOR	(1u<<11)
-#define BIT_WRONG1		(1u<<12)
-#define BIT_ALLSHROOMS	(BIT_SHROOM1|BIT_SHROOM2|BIT_SHROOM3)
+#define BIT_ZOMBIE      (1u<<0)
+#define BIT_SHROOM1     (1u<<1)
+#define BIT_SHROOM2     (1u<<2)
+#define BIT_SHROOM3     (1u<<3)
+#define BIT_OCRYSTAL    (1u<<4)
+#define BIT_RCRYSTAL    (1u<<5)
+#define BIT_FSCROLL     (1u<<6)
+#define BIT_ISLENA      (1u<<7)
+#define BIT_TORCH       (1u<<8)
+#define BIT_SWAMP       (1u<<9)
+#define BIT_FOREST      (1u<<10)
+#define BIT_GOVERNOR    (1u<<11)
+#define BIT_WRONG1      (1u<<12)
+#define BIT_ALLSHROOMS  (BIT_SHROOM1|BIT_SHROOM2|BIT_SHROOM3)
 
 int questproz(int cnt) {
     int n;
@@ -202,23 +202,23 @@ EXPORT int _do_display_random(void) {
             if (welding[n]<shrine.continuity) x=dd_drawtext_fmt(x,y,graycolor,0,"%d ",welding[n]);
         }
     }
-	y += 12;
+    y += 12;
 
-	if(!hardcoreFlag) {
-		x = dd_drawtext(10, y, graycolor, 0, "LOE: ");
-		for (n = 1; n < 10; n++) {
-			m = n + 30;
-			idx = m / 32;
-			bit = 1U << (m & 31);
-			if (shrine.used[idx] & bit) {
-				x = dd_drawtext(x, y, graycolor, 0, "- ");
-			} else {
-				if (edge[n] < shrine.continuity)
-					x = dd_drawtext_fmt(x, y, graycolor, 0, "%d ", edge[n]);
-			}
-		}
-		y += 12;
-	}
+    if(!hardcoreFlag) {
+        x = dd_drawtext(10, y, graycolor, 0, "LOE: ");
+        for (n = 1; n < 10; n++) {
+            m = n + 30;
+            idx = m / 32;
+            bit = 1U << (m & 31);
+            if (shrine.used[idx] & bit) {
+                x = dd_drawtext(x, y, graycolor, 0, "- ");
+            } else {
+                if (edge[n] < shrine.continuity)
+                    x = dd_drawtext_fmt(x, y, graycolor, 0, "%d ", edge[n]);
+            }
+        }
+        y += 12;
+    }
     x=dd_drawtext(dotx(DOT_HLP)+10,y,graycolor,0,"Kindness: ");
     for (n=1; n<3; n++) {
         m=n+40;
@@ -280,89 +280,89 @@ EXPORT int _do_display_random(void) {
 }
 
 int do_display_gov_mission(void) {
-	int y = 223, x, n, idx, bit, m;
+    int y = 223, x, n, idx, bit, m;
 
-	dd_drawtext((10 + 204) / 2, y, whitecolor, DD_CENTER, "Governor Mission"); y += 24;
+    dd_drawtext((10 + 204) / 2, y, whitecolor, DD_CENTER, "Governor Mission"); y += 24;
 
-	if (military.solved_mission) {
-		dd_drawtext(10, y, graycolor, 0, "Thou hast solved thine governor mission. Visit the governor to claim thine reward."); y += 12;
-	}
-	else if (military.took_mission && !military.solved_mission) {
-		//Is on a mission, which type?
+    if (military.solved_mission) {
+        dd_drawtext(10, y, graycolor, 0, "Thou hast solved thine governor mission. Visit the governor to claim thine reward."); y += 12;
+    }
+    else if (military.took_mission && !military.solved_mission) {
+        //Is on a mission, which type?
 
-		switch (military.mis.type) {
-			case 1:	//Pent mission
-			case 2: //Ratling kill
-				dd_drawtext_fmt(10, y, graycolor, 0, "Mission kill, %d to go.", military.mis.opt1); y += 12;
-				break;
+        switch (military.mis.type) {
+            case 1: //Pent mission
+            case 2: //Ratling kill
+                dd_drawtext_fmt(10, y, graycolor, 0, "Mission kill, %d to go.", military.mis.opt1); y += 12;
+                break;
 
-			case 3:	//Silver mission
-				dd_drawtext_fmt(10, y, graycolor, 0, "Mission silver, %d to go.", military.mis.opt1); y += 12;
-				break;
-		}
-	}
-	else {
-		if (!military.took_mission) {
-			dd_drawtext(10, y, graycolor, 0, "Thou hast no military mission."); y += 12;
-		}
-	}
+            case 3: //Silver mission
+                dd_drawtext_fmt(10, y, graycolor, 0, "Mission silver, %d to go.", military.mis.opt1); y += 12;
+                break;
+        }
+    }
+    else {
+        if (!military.took_mission) {
+            dd_drawtext(10, y, graycolor, 0, "Thou hast no military mission."); y += 12;
+        }
+    }
 
-	return y;
+    return y;
 }
 
 int do_display_ruby(void){
-	int y=55,x,n,idx,bit,m;
+    int y=55,x,n,idx,bit,m;
 
-	dd_drawtext((10+204)/2,y,whitecolor,DD_CENTER,"Ruby Sidestory"); y+=24;
+    dd_drawtext((10+204)/2,y,whitecolor,DD_CENTER,"Ruby Sidestory"); y+=24;
 
-	if(!rubyBits){
-		dd_drawtext(10, y, graycolor, 0, "Thou didn't solve any Ruby quest so far."); y += 12;
-	}else{
-		//Check the Ruby Quests
+    if(!rubyBits){
+        dd_drawtext(10, y, graycolor, 0, "Thou didn't solve any Ruby quest so far."); y += 12;
+    }else{
+        //Check the Ruby Quests
 
-		x=dd_drawtext(10,y,graycolor,0,"Zombies: ");
-		if (rubyBits & BIT_ZOMBIE) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
-		y+=12;
+        x=dd_drawtext(10,y,graycolor,0,"Zombies: ");
+        if (rubyBits & BIT_ZOMBIE) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
+        y+=12;
 
-		x=dd_drawtext(10,y,graycolor,0,"Mines: ");
-		if (rubyBits & BIT_TORCH) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
-		y+=12;
+        x=dd_drawtext(10,y,graycolor,0,"Mines: ");
+        if (rubyBits & BIT_TORCH) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
+        y+=12;
 
-		x=dd_drawtext(10,y,graycolor,0,"Swamps: ");
-		if (rubyBits & BIT_SWAMP) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
-		y+=12;
+        x=dd_drawtext(10,y,graycolor,0,"Swamps: ");
+        if (rubyBits & BIT_SWAMP) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
+        y+=12;
 
-		x=dd_drawtext(10,y,graycolor,0,"Earth Underground: ");
-		if (rubyBits & BIT_OCRYSTAL) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
-		y+=12;
+        x=dd_drawtext(10,y,graycolor,0,"Earth Underground: ");
+        if (rubyBits & BIT_OCRYSTAL) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
+        y+=12;
 
-		x=dd_drawtext(10,y,graycolor,0,"Exkordon Forest: ");
-		if (rubyBits & BIT_FOREST) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
-		y+=12;
+        x=dd_drawtext(10,y,graycolor,0,"Exkordon Forest: ");
+        if (rubyBits & BIT_FOREST) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
+        y+=12;
 
-		x=dd_drawtext(10,y,graycolor,0,"Fire Underground: ");
-		if (rubyBits & BIT_RCRYSTAL) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
-		y+=12;
+        x=dd_drawtext(10,y,graycolor,0,"Fire Underground: ");
+        if (rubyBits & BIT_RCRYSTAL) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
+        y+=12;
 
-		x=dd_drawtext(10,y,graycolor,0,"Seewers: ");
-		if (rubyBits & BIT_ALLSHROOMS) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
-		y+=12;
+        x=dd_drawtext(10,y,graycolor,0,"Seewers: ");
+        if (rubyBits & BIT_ALLSHROOMS) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
+        y+=12;
 
-		x=dd_drawtext(10,y,graycolor,0,"Exkordon: ");
-		if (rubyBits & BIT_GOVERNOR) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
-		y+=12;
+        x=dd_drawtext(10,y,graycolor,0,"Exkordon: ");
+        if (rubyBits & BIT_GOVERNOR) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
+        y+=12;
 
-		x=dd_drawtext(10,y,graycolor,0,"Ice Underground: ");
-		if (rubyBits & BIT_FSCROLL) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
-		y+=12;
+        x=dd_drawtext(10,y,graycolor,0,"Ice Underground: ");
+        if (rubyBits & BIT_FSCROLL) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
+        y+=12;
 
-		x=dd_drawtext(10,y,graycolor,0,"Ice Palace: ");
-		if (rubyBits & BIT_ISLENA) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
-		y+=12;
+        x=dd_drawtext(10,y,graycolor,0,"Ice Palace: ");
+        if (rubyBits & BIT_ISLENA) dd_drawtext(x,y,graycolor,0,"Successfully done."); else dd_drawtext(x,y,graycolor,0,"Not yet done.");
+        y+=12;
 
-	}
+    }
 
-	return y;
+    return y;
 }
 
 int do_display_questlog(int nr) {
@@ -382,8 +382,8 @@ int do_display_questlog(int nr) {
 
     for (n=0; n<10; n++) questonscreen[n]=-1;
 
-	if (nr==10) return do_display_ruby();
-	if (nr==11) return do_display_random();
+    if (nr==10) return do_display_ruby();
+    if (nr==11) return do_display_random();
 
     off=(nr-1)*9;
 

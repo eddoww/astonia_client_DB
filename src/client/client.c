@@ -543,8 +543,8 @@ int is_char_ceffect(int type) {
         case 15:        return 0;
         case 16:        return 0;
         case 17:        return 0;
-        case 22:	return 1;
-        case 23:	return 1;
+        case 22:    return 1;
+        case 23:    return 1;
 
     }
     return 0;
@@ -569,33 +569,33 @@ int sv_ceffect(unsigned char *buf) {
     type=((struct cef_generic *)(buf+2))->type;
 
     switch (type) {
-        case 1:		len=sizeof(struct cef_shield); break;
-        case 2:		len=sizeof(struct cef_ball); break;
-        case 3:		len=sizeof(struct cef_strike); break;
-        case 4:		len=sizeof(struct cef_fireball); break;
-        case 5:		len=sizeof(struct cef_flash); break;
+        case 1:     len=sizeof(struct cef_shield); break;
+        case 2:     len=sizeof(struct cef_ball); break;
+        case 3:     len=sizeof(struct cef_strike); break;
+        case 4:     len=sizeof(struct cef_fireball); break;
+        case 5:     len=sizeof(struct cef_flash); break;
 
-        case 7:		len=sizeof(struct cef_explode); break;
-        case 8:		len=sizeof(struct cef_warcry); break;
-        case 9:		len=sizeof(struct cef_bless); break;
-        case 10:	len=sizeof(struct cef_heal); break;
-        case 11:	len=sizeof(struct cef_freeze); break;
-        case 12:	len=sizeof(struct cef_burn); break;
-        case 13:	len=sizeof(struct cef_mist); break;
-        case 14:	len=sizeof(struct cef_potion); break;
-        case 15:	len=sizeof(struct cef_earthrain); break;
-        case 16:	len=sizeof(struct cef_earthmud); break;
-        case 17:	len=sizeof(struct cef_edemonball); break;
-        case 18:	len=sizeof(struct cef_curse); break;
-        case 19:	len=sizeof(struct cef_cap); break;
-        case 20:	len=sizeof(struct cef_lag); break;
-        case 21:	len=sizeof(struct cef_pulse); break;
-        case 22:	len=sizeof(struct cef_pulseback); break;
-        case 23:	len=sizeof(struct cef_firering); break;
-        case 24:	len=sizeof(struct cef_bubble); break;
+        case 7:     len=sizeof(struct cef_explode); break;
+        case 8:     len=sizeof(struct cef_warcry); break;
+        case 9:     len=sizeof(struct cef_bless); break;
+        case 10:    len=sizeof(struct cef_heal); break;
+        case 11:    len=sizeof(struct cef_freeze); break;
+        case 12:    len=sizeof(struct cef_burn); break;
+        case 13:    len=sizeof(struct cef_mist); break;
+        case 14:    len=sizeof(struct cef_potion); break;
+        case 15:    len=sizeof(struct cef_earthrain); break;
+        case 16:    len=sizeof(struct cef_earthmud); break;
+        case 17:    len=sizeof(struct cef_edemonball); break;
+        case 18:    len=sizeof(struct cef_curse); break;
+        case 19:    len=sizeof(struct cef_cap); break;
+        case 20:    len=sizeof(struct cef_lag); break;
+        case 21:    len=sizeof(struct cef_pulse); break;
+        case 22:    len=sizeof(struct cef_pulseback); break;
+        case 23:    len=sizeof(struct cef_firering); break;
+        case 24:    len=sizeof(struct cef_bubble); break;
 
 
-        default:	note("unknown effect %d",type); break;
+        default:    note("unknown effect %d",type); break;
     }
 
     if (nr<0 || nr>=MAXEF) { fail("sv_ceffect: invalid nr %d\n",nr); exit(-1); }
@@ -623,33 +623,33 @@ int svl_ceffect(unsigned char *buf) {
     type=((struct cef_generic *)(buf+2))->type;
 
     switch (type) {
-        case 1:		len=sizeof(struct cef_shield); break;
-        case 2:		len=sizeof(struct cef_ball); break;
-        case 3:		len=sizeof(struct cef_strike); break;
-        case 4:		len=sizeof(struct cef_fireball); break;
-        case 5:		len=sizeof(struct cef_flash); break;
+        case 1:     len=sizeof(struct cef_shield); break;
+        case 2:     len=sizeof(struct cef_ball); break;
+        case 3:     len=sizeof(struct cef_strike); break;
+        case 4:     len=sizeof(struct cef_fireball); break;
+        case 5:     len=sizeof(struct cef_flash); break;
 
-        case 7:		len=sizeof(struct cef_explode); break;
-        case 8:		len=sizeof(struct cef_warcry); break;
-        case 9:		len=sizeof(struct cef_bless); break;
-        case 10:	len=sizeof(struct cef_heal); break;
-        case 11:	len=sizeof(struct cef_freeze); break;
-        case 12:	len=sizeof(struct cef_burn); break;
-        case 13:	len=sizeof(struct cef_mist); break;
-        case 14:	len=sizeof(struct cef_potion); break;
-        case 15:	len=sizeof(struct cef_earthrain); break;
-        case 16:	len=sizeof(struct cef_earthmud); break;
-        case 17:	len=sizeof(struct cef_edemonball); break;
-        case 18:	len=sizeof(struct cef_curse); break;
-        case 19:	len=sizeof(struct cef_cap); break;
-        case 20:	len=sizeof(struct cef_lag); break;
-        case 21:	len=sizeof(struct cef_pulse); break;
-        case 22:	len=sizeof(struct cef_pulseback); break;
-        case 23:	len=sizeof(struct cef_firering); break;
-        case 24:	len=sizeof(struct cef_bubble); break;
+        case 7:     len=sizeof(struct cef_explode); break;
+        case 8:     len=sizeof(struct cef_warcry); break;
+        case 9:     len=sizeof(struct cef_bless); break;
+        case 10:    len=sizeof(struct cef_heal); break;
+        case 11:    len=sizeof(struct cef_freeze); break;
+        case 12:    len=sizeof(struct cef_burn); break;
+        case 13:    len=sizeof(struct cef_mist); break;
+        case 14:    len=sizeof(struct cef_potion); break;
+        case 15:    len=sizeof(struct cef_earthrain); break;
+        case 16:    len=sizeof(struct cef_earthmud); break;
+        case 17:    len=sizeof(struct cef_edemonball); break;
+        case 18:    len=sizeof(struct cef_curse); break;
+        case 19:    len=sizeof(struct cef_cap); break;
+        case 20:    len=sizeof(struct cef_lag); break;
+        case 21:    len=sizeof(struct cef_pulse); break;
+        case 22:    len=sizeof(struct cef_pulseback); break;
+        case 23:    len=sizeof(struct cef_firering); break;
+        case 24:    len=sizeof(struct cef_bubble); break;
 
 
-        default:	note("unknown effect %d",type); break;
+        default:    note("unknown effect %d",type); break;
 
     }
 
@@ -766,8 +766,8 @@ void sv_special(unsigned char *buf) {
     opt2=*(unsigned int *)(buf+9);
 
     switch (type) {
-        case 0:		display_gfx=opt1; display_time=tick; break;
-        default:	if (type>0 && type<1000) play_sound(type,opt1,opt2);
+        case 0:     display_gfx=opt1; display_time=tick; break;
+        default:    if (type>0 && type<1000) play_sound(type,opt1,opt2);
             break;
     }
 }
@@ -809,9 +809,9 @@ void sv_questlog(unsigned char *buf) {
 
     memcpy(quest,buf+1,size);
     memcpy(&shrine,buf+1+size,sizeof(struct shrine_ppd));
-	memcpy(&rubyBits,buf+1+size+sizeof(struct shrine_ppd),sizeof(unsigned int));
-	memcpy(&hardcoreFlag, buf + (size += sizeof(unsigned int)),sizeof(unsigned char));
-	memcpy(&military, buf + (size += sizeof(unsigned char)),sizeof(struct military_questlog));
+    memcpy(&rubyBits,buf+1+size+sizeof(struct shrine_ppd),sizeof(unsigned int));
+    memcpy(&hardcoreFlag, buf + (size += sizeof(unsigned int)),sizeof(unsigned char));
+    memcpy(&military, buf + (size += sizeof(unsigned char)),sizeof(struct military_questlog));
 }
 
 #ifdef PLATFORM_WINDOWS
@@ -879,8 +879,8 @@ void process(unsigned char *buf,int size) {
                 case SV_SETHP:                  sv_sethp(buf); len=3; break;
                 case SV_SETMANA:                sv_setmana(buf); len=3; break;
                 case SV_SETRAGE:                sv_setrage(buf); len=3; break;
-                case SV_ENDURANCE:		        sv_endurance(buf); len=3; break;
-                case SV_LIFESHIELD:		        sv_lifeshield(buf); len=3; break;
+                case SV_ENDURANCE:              sv_endurance(buf); len=3; break;
+                case SV_LIFESHIELD:             sv_lifeshield(buf); len=3; break;
 
                 case SV_SETITEM:                sv_setitem(buf); len=10; break;
 
@@ -890,44 +890,44 @@ void process(unsigned char *buf,int size) {
 
                 case SV_ACT:                    if (!(game_options&GO_PREDICT)) sv_act(buf);
                                                 len=7; break;
-                case SV_EXIT:			        len=sv_exit(buf); break;
+                case SV_EXIT:                   len=sv_exit(buf); break;
                 case SV_TEXT:                   len=sv_text(buf); break;
 
-                case SV_NAME:			        len=sv_name(buf); break;
+                case SV_NAME:                   len=sv_name(buf); break;
 
-                case SV_CONTAINER:		        sv_container(buf); len=6; break;
-                case SV_PRICE:			        sv_price(buf); len=6; break;
-                case SV_CPRICE:			        sv_cprice(buf); len=5; break;
-                case SV_CONCNT:			        sv_concnt(buf); len=2; break;
-                case SV_ITEMPRICE:		        sv_itemprice(buf); len=6; break;
-                case SV_CONTYPE:		        sv_contype(buf); len=2; break;
-                case SV_CONNAME:		        len=sv_conname(buf); break;
+                case SV_CONTAINER:              sv_container(buf); len=6; break;
+                case SV_PRICE:                  sv_price(buf); len=6; break;
+                case SV_CPRICE:                 sv_cprice(buf); len=5; break;
+                case SV_CONCNT:                 sv_concnt(buf); len=2; break;
+                case SV_ITEMPRICE:              sv_itemprice(buf); len=6; break;
+                case SV_CONTYPE:                sv_contype(buf); len=2; break;
+                case SV_CONNAME:                len=sv_conname(buf); break;
 
-                case SV_GOLD:			        sv_gold(buf); len=5; break;
+                case SV_GOLD:                   sv_gold(buf); len=5; break;
 
-                case SV_EXP:	 		        sv_exp(buf); len=5; break;
-                case SV_EXP_USED:		        sv_exp_used(buf); len=5; break;
-                case SV_MIL_EXP:	 	        sv_mil_exp(buf); len=5; break;
-                case SV_LOOKINV:		        sv_lookinv(buf); len=17+12*4; break;
-                case SV_CYCLES:			        sv_cycles(buf); len=5; break;
-                case SV_CEFFECT:		        len=sv_ceffect(buf); break;
-                case SV_UEFFECT:		        sv_ueffect(buf); len=9; break;
+                case SV_EXP:                    sv_exp(buf); len=5; break;
+                case SV_EXP_USED:               sv_exp_used(buf); len=5; break;
+                case SV_MIL_EXP:                sv_mil_exp(buf); len=5; break;
+                case SV_LOOKINV:                sv_lookinv(buf); len=17+12*4; break;
+                case SV_CYCLES:                 sv_cycles(buf); len=5; break;
+                case SV_CEFFECT:                len=sv_ceffect(buf); break;
+                case SV_UEFFECT:                sv_ueffect(buf); len=9; break;
 
-                case SV_SERVER:			        sv_server(buf); len=7; break;
+                case SV_SERVER:                 sv_server(buf); len=7; break;
 
                 case SV_REALTIME:               sv_realtime(buf); len=5; break;
 
-                case SV_SPEEDMODE:		        sv_speedmode(buf); len=2; break;
-                case SV_FIGHTMODE:		        sv_fightmode(buf); len=2; break;
-                case SV_LOGINDONE:		        sv_logindone(); len=1; break;
-                case SV_SPECIAL:		        sv_special(buf); len=13; break;
-                case SV_TELEPORT:		        sv_teleport(buf); len=13; break;
+                case SV_SPEEDMODE:              sv_speedmode(buf); len=2; break;
+                case SV_FIGHTMODE:              sv_fightmode(buf); len=2; break;
+                case SV_LOGINDONE:              sv_logindone(); len=1; break;
+                case SV_SPECIAL:                sv_special(buf); len=13; break;
+                case SV_TELEPORT:               sv_teleport(buf); len=13; break;
 
                 case SV_MIRROR:                 sv_mirror(buf); len=5; break;
-                case SV_PROF:			        sv_prof(buf); len=21; break;
-                case SV_PING:			        len=sv_ping(buf); break;
-                case SV_UNIQUE:			        sv_unique(buf); len=5; break;
-		        case SV_QUESTLOG:               sv_questlog(buf); len=1+sizeof(struct quest)*MAXQUEST+sizeof(struct shrine_ppd)+sizeof(unsigned int)+sizeof(unsigned char)+sizeof(struct military_questlog); break;
+                case SV_PROF:                   sv_prof(buf); len=21; break;
+                case SV_PING:                   len=sv_ping(buf); break;
+                case SV_UNIQUE:                 sv_unique(buf); len=5; break;
+                case SV_QUESTLOG:               sv_questlog(buf); len=1+sizeof(struct quest)*MAXQUEST+sizeof(struct shrine_ppd)+sizeof(unsigned int)+sizeof(unsigned char)+sizeof(struct military_questlog); break;
                 case SV_PROTOCOL:               sv_protocol(buf); len=2; break;
 
                 default:                        len=amod_process(buf);
@@ -970,8 +970,8 @@ int prefetch(unsigned char *buf,int size) {
                 case SV_SETHP:                  len=3; break;
                 case SV_SETMANA:                len=3; break;
                 case SV_SETRAGE:                len=3; break;
-                case SV_ENDURANCE:		        len=3; break;
-                case SV_LIFESHIELD:		        len=3; break;
+                case SV_ENDURANCE:              len=3; break;
+                case SV_LIFESHIELD:             len=3; break;
 
                 case SV_SETITEM:                if (game_options&GO_PREDICT) sv_setitem(buf);
                                                 len=10; break;
@@ -987,39 +987,39 @@ int prefetch(unsigned char *buf,int size) {
                 case SV_TEXT:                   len=svl_text(buf); break;
                 case SV_EXIT:                   len=svl_exit(buf); break;
 
-                case SV_NAME:			        len=svl_name(buf); break;
+                case SV_NAME:                   len=svl_name(buf); break;
 
-                case SV_CONTAINER:		        len=6; break;
-                case SV_PRICE:			        len=6; break;
-                case SV_CPRICE:			        len=5; break;
-                case SV_CONCNT:			        len=2; break;
-                case SV_ITEMPRICE:		        len=6; break;
-                case SV_CONTYPE:		        len=2; break;
-                case SV_CONNAME:		        len=svl_conname(buf); break;
+                case SV_CONTAINER:              len=6; break;
+                case SV_PRICE:                  len=6; break;
+                case SV_CPRICE:                 len=5; break;
+                case SV_CONCNT:                 len=2; break;
+                case SV_ITEMPRICE:              len=6; break;
+                case SV_CONTYPE:                len=2; break;
+                case SV_CONNAME:                len=svl_conname(buf); break;
 
                 case SV_MIRROR:                 len=5; break;
 
-                case SV_GOLD:			        len=5; break;
+                case SV_GOLD:                   len=5; break;
 
-                case SV_EXP:	 		        len=5; break;
-                case SV_EXP_USED:		        len=5; break;
-                case SV_MIL_EXP:		        len=5; break;
-                case SV_LOOKINV:		        len=17+12*4; break;
-                case SV_CYCLES:			        len=5; break;
-                case SV_CEFFECT:		        len=svl_ceffect(buf); break;
-                case SV_UEFFECT:		        len=9; break;
+                case SV_EXP:                    len=5; break;
+                case SV_EXP_USED:               len=5; break;
+                case SV_MIL_EXP:                len=5; break;
+                case SV_LOOKINV:                len=17+12*4; break;
+                case SV_CYCLES:                 len=5; break;
+                case SV_CEFFECT:                len=svl_ceffect(buf); break;
+                case SV_UEFFECT:                len=9; break;
 
-                case SV_SERVER:			        len=7; break;
+                case SV_SERVER:                 len=7; break;
                 case SV_REALTIME:               len=5; break;
-                case SV_SPEEDMODE:		        len=2; break;
-                case SV_FIGHTMODE:		        len=2; break;
+                case SV_SPEEDMODE:              len=2; break;
+                case SV_FIGHTMODE:              len=2; break;
                 case SV_LOGINDONE:              bzero(map2,sizeof(map2)); len=1; break;
-                case SV_SPECIAL:		        len=13; break;
-                case SV_TELEPORT:		        len=13; break;
-                case SV_PROF:			        len=21; break;
-                case SV_PING:			        len=svl_ping(buf); break;
-                case SV_UNIQUE:			        len=5; break;
-		        case SV_QUESTLOG:                len=1+sizeof(struct quest)*MAXQUEST+sizeof(struct shrine_ppd)+sizeof(unsigned int)+sizeof(unsigned char)+sizeof(struct military_questlog); break;
+                case SV_SPECIAL:                len=13; break;
+                case SV_TELEPORT:               len=13; break;
+                case SV_PROF:                   len=21; break;
+                case SV_PING:                   len=svl_ping(buf); break;
+                case SV_UNIQUE:                 len=5; break;
+                case SV_QUESTLOG:                len=1+sizeof(struct quest)*MAXQUEST+sizeof(struct shrine_ppd)+sizeof(unsigned int)+sizeof(unsigned char)+sizeof(struct military_questlog); break;
                 case SV_PROTOCOL:               len=2; break;
 
                 default:                        len=amod_prefetch(buf);
@@ -1427,7 +1427,7 @@ int close_client(void) {
     return 0;
 }
 
-#define MAXPASSWORD	16
+#define MAXPASSWORD 16
 void decrypt(char *name,char *password) {
     int i;
     static char secret[4][MAXPASSWORD]={

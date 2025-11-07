@@ -50,8 +50,8 @@ char *game_email_cash="<no one>";
 char *game_url="<nowhere>";
 
 int amod_init(void) {
-	HMODULE dll_instance=NULL;
-	void *tmp;
+    HMODULE dll_instance=NULL;
+    void *tmp;
     char fname[80];
 
     for (int i=0; i<MAXMOD; i++) {

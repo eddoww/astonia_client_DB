@@ -13,7 +13,7 @@
 #define DD_LARGE        0
 #define DD_SMALL        8
 #define DD_FRAME        16
-#define DD_BIG        	32
+#define DD_BIG          32
 #define DD_NOCACHE      64
 #define DD_WFRAME       (DD_FRAME|512)
 

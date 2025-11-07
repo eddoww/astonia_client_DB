@@ -678,15 +678,15 @@ int dd_char_len(char c) {
 
 
 // ---------------------> Chat Window <-----------------------------
-#define MAXTEXTLINES		256
-#define MAXTEXTLETTERS		256
+#define MAXTEXTLINES        256
+#define MAXTEXTLETTERS      256
 
-#define TEXTDISPLAY_DY		(textdisplay_dy)
+#define TEXTDISPLAY_DY      (textdisplay_dy)
 
-#define TEXTDISPLAY_SX		396
-#define TEXTDISPLAY_SY		(__textdisplay_sy)
+#define TEXTDISPLAY_SX      396
+#define TEXTDISPLAY_SY      (__textdisplay_sy)
 
-#define TEXTDISPLAYLINES	(TEXTDISPLAY_SY/TEXTDISPLAY_DY)
+#define TEXTDISPLAYLINES    (TEXTDISPLAY_SY/TEXTDISPLAY_DY)
 
 int textnextline=0,textdisplayline=0,textlines=0;
 
@@ -714,12 +714,12 @@ void dd_init_text(void) {
 
     palette[9]=IRGB(24,24,16);    // chat - auction
     palette[10]=IRGB(24,16,24);    // chat - grats
-    palette[11]=IRGB(16,24,24);    // chat	- mirror
+    palette[11]=IRGB(16,24,24);    // chat  - mirror
     palette[12]=IRGB(31,24,16);    // chat - info
     palette[13]=IRGB(31,16,24);    // chat - area
     palette[14]=IRGB(16,31,24);    // chat - v2, games
     palette[15]=IRGB(24,31,16);    // chat - public clan
-    palette[16]=IRGB(24,16,31);    // chat	- internal clan
+    palette[16]=IRGB(24,16,31);    // chat  - internal clan
 
     palette[17]=IRGB(31,31,31);    // fake white text (hidden links)
 }
@@ -727,8 +727,8 @@ void dd_init_text(void) {
 void dd_set_textfont(int nr) {
 
     switch (nr) {
-        case 0:	textfont=fonta; textdisplay_dy=10; break;
-        case 1:	textfont=fontc; textdisplay_dy=12; break;
+        case 0: textfont=fonta; textdisplay_dy=10; break;
+        case 1: textfont=fontc; textdisplay_dy=12; break;
     }
     bzero(text,MAXTEXTLINES*MAXTEXTLETTERS*sizeof(struct letter));
     textnextline=textdisplayline=textlines=0;
@@ -759,16 +759,16 @@ void dd_display_text(void) {
             }
 
             if (text[pos].c<32) {
-				int i;
+                int i;
 
-				x=((int)text[pos].c)*12+dotx(DOT_TXT);
+                x=((int)text[pos].c)*12+dotx(DOT_TXT);
 
-				// better display for numbers
-				for (i=pos+1; isdigit(text[i].c) || text[i].c=='-'; i++) {
-					x-=textfont[text[i].c].dim;
-				}
-				continue;
-			}
+                // better display for numbers
+                for (i=pos+1; isdigit(text[i].c) || text[i].c=='-'; i++) {
+                    x-=textfont[text[i].c].dim;
+                }
+                continue;
+            }
 
             *bp++=text[pos].c;
         }
@@ -794,7 +794,7 @@ void dd_add_text(char *ptr) {
         while (*ptr==DDT) {
             ptr++;
             switch (*ptr) {
-                case 'c':	tmp=atoi(ptr+1);
+                case 'c':   tmp=atoi(ptr+1);
                     if (tmp==18) link=0;
                     else if (tmp!=17) { color=tmp; link=0; }
                     if (tmp==4) link=1;
@@ -802,7 +802,7 @@ void dd_add_text(char *ptr) {
                     ptr++;
                     while (isdigit(*ptr)) ptr++;
                     break;
-                default:	ptr++; break;
+                default:    ptr++; break;
             }
         }
         while (*ptr==' ') ptr++;

@@ -19,8 +19,8 @@
 #include "../../src/game.h"
 #include "../../src/modder.h"
 
-#define MAXCMDLINE	199
-#define MAXHIST		20
+#define MAXCMDLINE  199
+#define MAXHIST     20
 
 static char cmdline[MAXCMDLINE+1]={""};
 static char *history[MAXHIST];
@@ -90,20 +90,20 @@ int client_cmd(char *buf) {
         return 1;
     }
     if (!strncmp(buf, "#sound ", 7)) {
-    	play_sound(atoi(&buf[7]),0,0);
-    	return 1;
+        play_sound(atoi(&buf[7]),0,0);
+        return 1;
     }
     if (!strncmp(buf, "#volume ", 8) || !strncmp(buf, "/volume ", 8)) {
-    	int new_sound_volume = atoi(&buf[8]);
-    	if (new_sound_volume < 0) new_sound_volume = 0;
-    	if (new_sound_volume >= 128) new_sound_volume = 128;
-    	sound_volume = new_sound_volume;
-    	addline("Volume is now at %d", sound_volume);
-    	return 1;
+        int new_sound_volume = atoi(&buf[8]);
+        if (new_sound_volume < 0) new_sound_volume = 0;
+        if (new_sound_volume >= 128) new_sound_volume = 128;
+        sound_volume = new_sound_volume;
+        addline("Volume is now at %d", sound_volume);
+        return 1;
     }
     if (!strncmp(buf, "#version", 5) || !strncmp(buf, "/version", 5)) {
         cmd_version();
-    	return 1;
+        return 1;
     }
     if (!strncmp(buf,"#set ",5) || !strncmp(buf,"/set ",5)) {
         int what,key;
@@ -189,7 +189,7 @@ void cmd_proc(int key) {
     if (context_key(key)) return;
 
     switch (key) {
-        case CMD_BACK:	if (cmdcursor<1) break;
+        case CMD_BACK:  if (cmdcursor<1) break;
             memmove(cmdline+cmdcursor-1,cmdline+cmdcursor,MAXCMDLINE-cmdcursor);
             cmdline[MAXCMDLINE-1]=0;
             cmdcursor--;
@@ -199,19 +199,19 @@ void cmd_proc(int key) {
             cmdline[MAXCMDLINE-1]=0;
             break;
 
-        case CMD_LEFT:	if (cmdcursor>0) cmdcursor--;
+        case CMD_LEFT:  if (cmdcursor>0) cmdcursor--;
             break;
 
-        case CMD_RIGHT:	if (cmdcursor<MAXCMDLINE-1) {
+        case CMD_RIGHT: if (cmdcursor<MAXCMDLINE-1) {
                 if (cmdline[cmdcursor]==0) cmdline[cmdcursor]=' ';
                 cmdcursor++;
             }
             break;
 
-        case CMD_HOME:	cmdcursor=0;
+        case CMD_HOME:  cmdcursor=0;
             break;
 
-        case CMD_END:	for (cmdcursor=MAXCMDLINE-2; cmdcursor>=0; cmdcursor--) if (cmdline[cmdcursor]) break; cmdcursor++;
+        case CMD_END:   for (cmdcursor=MAXCMDLINE-2; cmdcursor>=0; cmdcursor--) if (cmdline[cmdcursor]) break; cmdcursor++;
             break;
 
         case CMD_UP:
@@ -223,7 +223,7 @@ void cmd_proc(int key) {
             cmdcursor++;
             break;
 
-        case CMD_DOWN:	if (histpos>0) histpos--;
+        case CMD_DOWN:  if (histpos>0) histpos--;
             else { bzero(cmdline,sizeof(cmdline)); cmdcursor=0; histpos=-1; break; }
             bzero(cmdline,sizeof(cmdline));
             strcpy(cmdline,history[histpos]);
@@ -242,13 +242,13 @@ void cmd_proc(int key) {
             bzero(cmdline,sizeof(cmdline));
             break;
 
-        case 9:		bzero(cmdline,sizeof(cmdline));
+        case 9:     bzero(cmdline,sizeof(cmdline));
             cmd_fetch(cmdline);
             for (cmdcursor=MAXCMDLINE-2; cmdcursor>=0; cmdcursor--) if (cmdline[cmdcursor]) break;
             cmdcursor++;
             break;
 
-        default:	if (key<32 || key>127) { /* addline("%d",key); */ break; }
+        default:    if (key<32 || key>127) { /* addline("%d",key); */ break; }
             if (cmdcursor<MAXCMDLINE-1) {
                 memmove(cmdline+cmdcursor+1,cmdline+cmdcursor,MAXCMDLINE-cmdcursor-1);
                 cmdline[cmdcursor++]=key;

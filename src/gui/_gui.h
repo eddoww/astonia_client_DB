@@ -35,17 +35,17 @@
 #define BUT_MOD_WALK1   70
 #define BUT_MOD_WALK2   71
 
-#define BUT_TEL		    72
-#define BUT_HELP_NEXT	73
-#define BUT_HELP_PREV	74
-#define BUT_HELP_MISC	75
-#define BUT_HELP_CLOSE	76
-#define BUT_EXIT	    77
-#define BUT_HELP	    78
-#define BUT_NOLOOK	    79
-#define BUT_COLOR	    80
-#define BUT_SKL_LOOK	81
-#define BUT_QUEST	    82
+#define BUT_TEL         72
+#define BUT_HELP_NEXT   73
+#define BUT_HELP_PREV   74
+#define BUT_HELP_MISC   75
+#define BUT_HELP_CLOSE  76
+#define BUT_EXIT        77
+#define BUT_HELP        78
+#define BUT_NOLOOK      79
+#define BUT_COLOR       80
+#define BUT_SKL_LOOK    81
+#define BUT_QUEST       82
 #define BUT_HELP_DRAG   83
 
 #define BUT_TEL_MISC    84
@@ -65,15 +65,15 @@
 #define BUTF_RECT       (1<<4)  // editor - button is a rectangle
 #define BUTF_TOPOFF     (1<<5)  // button moves with top bar
 
-#define CMD_RETURN	256
-#define CMD_DELETE	257
-#define CMD_BACK	258
-#define CMD_LEFT	259
-#define CMD_RIGHT	260
-#define CMD_HOME	261
-#define CMD_END		262
-#define CMD_UP		263
-#define CMD_DOWN	264
+#define CMD_RETURN  256
+#define CMD_DELETE  257
+#define CMD_BACK    258
+#define CMD_LEFT    259
+#define CMD_RIGHT   260
+#define CMD_HOME    261
+#define CMD_END     262
+#define CMD_UP      263
+#define CMD_DOWN    264
 
 
 #define CMD_NONE                0
@@ -118,9 +118,9 @@
 #define CMD_MAP_CAST_R          32
 #define CMD_ITM_CAST_R          33
 #define CMD_CHR_CAST_R          34
-#define CMD_MAP_CAST_K        	35
-#define CMD_CHR_CAST_K        	36
-#define CMD_SLF_CAST_K        	37
+#define CMD_MAP_CAST_K          35
+#define CMD_CHR_CAST_K          36
+#define CMD_SLF_CAST_K          37
 
 //#define CMD_SPL_SET_L           38
 //#define CMD_SPL_SET_R           39
@@ -152,30 +152,30 @@
 #define CMD_SPEED1              56
 #define CMD_SPEED2              57
 
-#define CMD_CON_FASTTAKE	    61
-#define CMD_CON_FASTBUY		    62
-#define CMD_CON_FASTSELL	    63
-#define CMD_TELEPORT		    64
-#define CMD_CON_FASTDROP	    65
+#define CMD_CON_FASTTAKE        61
+#define CMD_CON_FASTBUY         62
+#define CMD_CON_FASTSELL        63
+#define CMD_TELEPORT            64
+#define CMD_CON_FASTDROP        65
 
 #define CMD_HELP_NEXT           66
 #define CMD_HELP_PREV           67
 #define CMD_HELP_MISC           68
-#define CMD_HELP_CLOSE		    69
-#define CMD_EXIT		        70
-#define CMD_HELP		        71
-#define CMD_NOLOOK		        72
+#define CMD_HELP_CLOSE          69
+#define CMD_EXIT                70
+#define CMD_HELP                71
+#define CMD_NOLOOK              72
 
-#define CMD_COLOR		        73
-#define CMD_SKL_LOOK		    74
-#define CMD_QUEST		        75
+#define CMD_COLOR               73
+#define CMD_SKL_LOOK            74
+#define CMD_QUEST               75
 #define CMD_HELP_DRAG           76
 
 #define CMD_ACTION              77
 #define CMD_ACTION_CANCEL       78
 
-#define CMD_ACTION_LOCK	        79
-#define CMD_ACTION_OPEN	        80
+#define CMD_ACTION_LOCK         79
+#define CMD_ACTION_OPEN         80
 
 #define CMD_WEAR_LOCK           81
 

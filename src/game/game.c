@@ -173,10 +173,10 @@ DL* dl_call_pulse(int layer,int x,int y,int nr,int size,int color) {
 
     dl->x=x;
     switch (nr) {
-        case 0:		dl->x=x+20; dl->y=y+10; break;
-        case 1:		dl->x=x+20; dl->y=y-10; break;
-        case 2:		dl->x=x-20; dl->y=y-10; break;
-        case 3:		dl->x=x-20; dl->y=y+10; break;
+        case 0:     dl->x=x+20; dl->y=y+10; break;
+        case 1:     dl->x=x+20; dl->y=y-10; break;
+        case 2:     dl->x=x-20; dl->y=y-10; break;
+        case 3:     dl->x=x-20; dl->y=y+10; break;
 
 
     }
@@ -467,8 +467,8 @@ void sprites_colorbalance(struct map *cmap,int mn,int r,int g,int b) {
     cmap[mn].rc.cb=min(120,cmap[mn].rc.cb+b);
 }
 
-#define RANDOM(a)	(rand()%(a))
-#define MAXBUB		100
+#define RANDOM(a)   (rand()%(a))
+#define MAXBUB      100
 struct bubble {
     int type;
     int origx,origy;
@@ -1501,12 +1501,12 @@ void display_pents(void) {
 
     for (n=0; n<7; n++) {
         switch (pent_str[n][0]) {
-            case '0':	col=graycolor; break;
-            case '1':	col=redcolor; break;
-            case '2':	col=greencolor; break;
-            case '3':	col=bluecolor; break;
+            case '0':   col=graycolor; break;
+            case '1':   col=redcolor; break;
+            case '2':   col=greencolor; break;
+            case '3':   col=bluecolor; break;
 
-            default:	continue;
+            default:    continue;
         }
         if (context_action_enabled()) yoff=30;
         else yoff=0;

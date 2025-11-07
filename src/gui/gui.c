@@ -25,8 +25,8 @@ uint64_t gui_time_misc=0;
 
 EXPORT int game_slowdown=0;
 
-#define MAXHELP		24
-#define MAXQUEST2	11
+#define MAXHELP     24
+#define MAXQUEST2   11
 
 void cmd_add_text(char *buf,int typ);
 
@@ -868,7 +868,7 @@ static void set_cmd_cursor(int cmd) {
         case CMD_WEA_DROP:      cursor=SDL_CUR_c_drop; break;
 
         case CMD_CON_TAKE:      cursor=SDL_CUR_c_take; break;
-        case CMD_CON_FASTTAKE:	cursor=SDL_CUR_c_take; break;   // needs different cursor!!!
+        case CMD_CON_FASTTAKE:  cursor=SDL_CUR_c_take; break;   // needs different cursor!!!
 
         case CMD_CON_BUY:       cursor=SDL_CUR_c_buy; break;
         case CMD_CON_FASTBUY:   cursor=SDL_CUR_c_buy; break;    // needs different cursor!!!
@@ -907,23 +907,23 @@ static void set_cmd_cursor(int cmd) {
         case CMD_SPEED1:
         case CMD_SPEED2:        cursor=SDL_CUR_c_set; break;
 
-        case CMD_TELEPORT:	    cursor=SDL_CUR_c_take; break;
+        case CMD_TELEPORT:      cursor=SDL_CUR_c_take; break;
 
         case CMD_HELP_NEXT:
         case CMD_HELP_PREV:
-        case CMD_HELP_CLOSE:	cursor=SDL_CUR_c_use; break;
+        case CMD_HELP_CLOSE:    cursor=SDL_CUR_c_use; break;
 
-        case CMD_HELP_MISC:	    if (helpsel!=-1) cursor=SDL_CUR_c_use;
+        case CMD_HELP_MISC:     if (helpsel!=-1) cursor=SDL_CUR_c_use;
                                 else if (questsel!=-1) cursor=SDL_CUR_c_use;
                                 else cursor=SDL_CUR_c_only;
                                 break;
 
-        case CMD_HELP:		    cursor=SDL_CUR_c_use; break;
-        case CMD_QUEST:		    cursor=SDL_CUR_c_use; break;
-        case CMD_EXIT:		    cursor=SDL_CUR_c_use; break;
-        case CMD_NOLOOK:	    cursor=SDL_CUR_c_use; break;
+        case CMD_HELP:          cursor=SDL_CUR_c_use; break;
+        case CMD_QUEST:         cursor=SDL_CUR_c_use; break;
+        case CMD_EXIT:          cursor=SDL_CUR_c_use; break;
+        case CMD_NOLOOK:        cursor=SDL_CUR_c_use; break;
 
-        case CMD_COLOR:		    cursor=SDL_CUR_c_use; break;
+        case CMD_COLOR:         cursor=SDL_CUR_c_use; break;
 
         case CMD_ACTION:        cursor=SDL_CUR_c_use; break;
 
@@ -1220,8 +1220,8 @@ static int is_fkey_use_item(int i) {
         case 50208:
         case 50209:
         case 50211:
-        case 50212:	return 0;
-        default:	return item_flags[i]&IF_USE;
+        case 50212: return 0;
+        default:    return item_flags[i]&IF_USE;
     }
 }
 
@@ -1702,7 +1702,7 @@ static void exec_cmd(int cmd,int a) {
         case CMD_CON_DROP:      //return;
         case CMD_CON_SELL:      cmd_con(consel); return;
         case CMD_CON_FASTTAKE:
-        case CMD_CON_FASTBUY:	cmd_con_fast(consel); return;
+        case CMD_CON_FASTBUY:   cmd_con_fast(consel); return;
 
         case CMD_MAP_LOOK:      cmd_look_map(originx-MAPDX/2+mapsel%MAPDX,originy-MAPDY/2+mapsel/MAPDX); return;
         case CMD_ITM_LOOK:      cmd_look_item(originx-MAPDX/2+itmsel%MAPDX,originy-MAPDY/2+itmsel/MAPDX); return;
@@ -1718,7 +1718,7 @@ static void exec_cmd(int cmd,int a) {
         case CMD_ITM_CAST_R:    cmd_some_spell(CL_BALL,originx-MAPDX/2+itmsel%MAPDX,originy-MAPDY/2+itmsel/MAPDX,0); break;
         case CMD_CHR_CAST_R:    cmd_some_spell(CL_BALL,0,0,map[chrsel].cn); break;
 
-        case CMD_SLF_CAST_K:	cmd_some_spell(a,0,0,map[plrmn].cn); break;
+        case CMD_SLF_CAST_K:    cmd_some_spell(a,0,0,map[plrmn].cn); break;
         case CMD_MAP_CAST_K:    cmd_some_spell(a,originx-MAPDX/2+mapsel%MAPDX,originy-MAPDY/2+mapsel/MAPDX,0); break;
         case CMD_CHR_CAST_K:    cmd_some_spell(a,0,0,map[chrsel].cn); break;
 
@@ -1738,7 +1738,7 @@ static void exec_cmd(int cmd,int a) {
 
         case CMD_SAY_HITSEL:    cmd_add_text(hitsel,hittype); break;
 
-        case CMD_USE_FKEYITEM:	cmd_use_inv(fkeyitem[a]); return;
+        case CMD_USE_FKEYITEM:  cmd_use_inv(fkeyitem[a]); return;
 
         case CMD_DROP_GOLD:     cmd_drop_gold(); return;
         case CMD_TAKE_GOLD:     cmd_take_gold(takegold); return;
@@ -1749,35 +1749,35 @@ static void exec_cmd(int cmd,int a) {
         case CMD_SPEED1:        if (pspeed!=1) cmd_speed(1); return;
         case CMD_SPEED2:        if (pspeed!=2) cmd_speed(2); return;
 
-        case CMD_TELEPORT:	if (telsel==1042) clan_offset=16-clan_offset;
+        case CMD_TELEPORT:  if (telsel==1042) clan_offset=16-clan_offset;
             else {
                 if (telsel>=64 && telsel<=100) cmd_teleport(telsel+clan_offset);
                 else cmd_teleport(telsel);
             }
             return;
-        case CMD_COLOR:		cmd_color(colsel); return;
-        case CMD_SKL_LOOK:	cmd_look_skill(skl_look_sel); return;
+        case CMD_COLOR:     cmd_color(colsel); return;
+        case CMD_SKL_LOOK:  cmd_look_skill(skl_look_sel); return;
 
-        case CMD_HELP_NEXT:	if (display_help) { display_help++; if (display_help>MAXHELP) display_help=1; }
+        case CMD_HELP_NEXT: if (display_help) { display_help++; if (display_help>MAXHELP) display_help=1; }
             if (display_quest) { display_quest++; if (display_quest>MAXQUEST2) display_quest=1; }
             return;
-        case CMD_HELP_PREV:	if (display_help) { display_help--; if (display_help<1) display_help=MAXHELP; }
+        case CMD_HELP_PREV: if (display_help) { display_help--; if (display_help<1) display_help=MAXHELP; }
             if (display_quest) { display_quest--; if (display_quest<1) display_quest=MAXQUEST2; }
             return;
-        case CMD_HELP_CLOSE:	display_help=0; display_quest=0; return;
-        case CMD_HELP_MISC:	if (helpsel>0 && helpsel<=MAXHELP && display_help) display_help=helpsel;
+        case CMD_HELP_CLOSE:    display_help=0; display_quest=0; return;
+        case CMD_HELP_MISC: if (helpsel>0 && helpsel<=MAXHELP && display_help) display_help=helpsel;
             if (questsel!=-1) quest_select(questsel);
             return;
         case CMD_HELP_DRAG:     help_drag(); return;
-        case CMD_HELP:		if (display_help) display_help=0;
+        case CMD_HELP:      if (display_help) display_help=0;
             else { display_help=1; display_quest=0; }
             return;
-        case CMD_QUEST:		if (display_quest) display_quest=0;
+        case CMD_QUEST:     if (display_quest) display_quest=0;
             else { display_quest=1; display_help=0; }
             return;
 
-        case CMD_EXIT:		quit=1; return;
-        case CMD_NOLOOK:	show_look=0; return;
+        case CMD_EXIT:      quit=1; return;
+        case CMD_NOLOOK:    show_look=0; return;
 
         case CMD_ACTION:    cmd_action(); return;
         case CMD_ACTION_CANCEL: return; // action gets cancelled on top
@@ -1815,17 +1815,17 @@ void gui_sdl_keyproc(int wparam) {
         case SDLK_F3:           if (fkeyitem[2]) exec_cmd(CMD_USE_FKEYITEM,2); return;
         case SDLK_F4:           if (fkeyitem[3]) exec_cmd(CMD_USE_FKEYITEM,3); return;
 
-        case SDLK_F5:		    cmd_speed(1); return;
+        case SDLK_F5:           cmd_speed(1); return;
         case SDLK_F6:           cmd_speed(0); return;
         case SDLK_F7:           cmd_speed(2); return;
 
-        case SDLK_F8:		    nocut^=1; return;
+        case SDLK_F8:           nocut^=1; return;
 
-        case SDLK_F9:		    if (display_quest) display_quest=0;
+        case SDLK_F9:           if (display_quest) display_quest=0;
                                 else { display_help=0; display_quest=1; }
                                 return;
 
-        case SDLK_F10:		    display_vc^=1; list_mem(); dd_list_text(); return;
+        case SDLK_F10:          display_vc^=1; list_mem(); dd_list_text(); return;
 
         case SDLK_F11:          if (display_help) display_help=0;
                                 else { display_quest=0; display_help=1; }
@@ -2055,23 +2055,23 @@ void gui_sdl_mouseproc(int x,int y,int what,int clicks) {
 
             if (amod_mouse_click(0,delta,what)) break;
 
-            if (mousex>=dotx(DOT_SKL) && mousex<dotx(DOT_SK2) && mousey>=doty(DOT_SKL) && mousey<doty(DOT_SK2)) {	// skill / depot / merchant
-				while (delta>0) { if (!con_cnt) set_skloff(0,skloff-1); else set_conoff(0,conoff-1); delta--; }
-				while (delta<0) { if (!con_cnt) set_skloff(0,skloff+1); else set_conoff(0,conoff+1); delta++; }
-				break;
-			}
+            if (mousex>=dotx(DOT_SKL) && mousex<dotx(DOT_SK2) && mousey>=doty(DOT_SKL) && mousey<doty(DOT_SK2)) {   // skill / depot / merchant
+                while (delta>0) { if (!con_cnt) set_skloff(0,skloff-1); else set_conoff(0,conoff-1); delta--; }
+                while (delta<0) { if (!con_cnt) set_skloff(0,skloff+1); else set_conoff(0,conoff+1); delta++; }
+                break;
+            }
 
-			if (mousex>=dotx(DOT_TXT) && mousex<dotx(DOT_TX2) && mousey>=doty(DOT_TXT) && mousey<doty(DOT_TX2)) {	// chat
-				while (delta>0) { dd_text_lineup(); dd_text_lineup(); dd_text_lineup(); delta--; }
-				while (delta<0) { dd_text_linedown(); dd_text_linedown(); dd_text_linedown(); delta++; }
-				break;
-			}
+            if (mousex>=dotx(DOT_TXT) && mousex<dotx(DOT_TX2) && mousey>=doty(DOT_TXT) && mousey<doty(DOT_TX2)) {   // chat
+                while (delta>0) { dd_text_lineup(); dd_text_lineup(); dd_text_lineup(); delta--; }
+                while (delta<0) { dd_text_linedown(); dd_text_linedown(); dd_text_linedown(); delta++; }
+                break;
+            }
 
-			if (mousex>=dotx(DOT_IN1) && mousex<dotx(DOT_IN2) && mousey>=doty(DOT_IN1) && mousey<doty(DOT_IN2)) {	// inventory
-				while (delta>0) { set_invoff(0,invoff-1); delta--; }
-				while (delta<0) { set_invoff(0,invoff+1); delta++; }
-				break;
-			}
+            if (mousex>=dotx(DOT_IN1) && mousex<dotx(DOT_IN2) && mousey>=doty(DOT_IN1) && mousey<doty(DOT_IN2)) {   // inventory
+                while (delta>0) { set_invoff(0,invoff-1); delta--; }
+                while (delta<0) { set_invoff(0,invoff+1); delta++; }
+                break;
+            }
 
             if (game_options&GO_WHEEL) {
                 while (delta>0) { vk_special_inc(); delta--; }

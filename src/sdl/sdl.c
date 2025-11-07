@@ -104,7 +104,7 @@ int sdl_init(int width,int height,char *title) {
 
     if (SDL_Init(SDL_INIT_VIDEO|((game_options&GO_SOUND)?SDL_INIT_AUDIO:0)) != 0){
         fail("SDL_Init Error: %s",SDL_GetError());
-	    return 0;
+        return 0;
     }
 
     SDL_SetHint(SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH,"1");
@@ -121,7 +121,7 @@ int sdl_init(int width,int height,char *title) {
     if (!sdlwnd) {
         fail("SDL_Init Error: %s",SDL_GetError());
         SDL_Quit();
-	    return 0;
+        return 0;
     }
 
     if (game_options&GO_FULL) {
@@ -840,9 +840,9 @@ static inline uint32_t sdl_freeze(int freeze,uint32_t irgb) {
 }
 
 
-#define REDCOL		(0.40)
-#define GREENCOL	(0.70)
-#define BLUECOL		(0.70)
+#define REDCOL      (0.40)
+#define GREENCOL    (0.70)
+#define BLUECOL     (0.70)
 
 #define OGET_R(c) ((((unsigned short int)(c))>>10)&0x1F)
 #define OGET_G(c) ((((unsigned short int)(c))>>5)&0x1F)
@@ -1757,11 +1757,11 @@ void sdl_blit(int stx,int sx,int sy,int clipsx,int clipsy,int clipex,int clipey,
 #define DD_LARGE        0
 #define DD_SMALL        8
 #define DD_FRAME        16
-#define DD_BIG        	32
+#define DD_BIG          32
 #define DD_NOCACHE      64
 
-#define DD__SHADEFONT	128
-#define DD__FRAMEFONT	256
+#define DD__SHADEFONT   128
+#define DD__FRAMEFONT   256
 
 #define R16TO32(color)  (int)((((color>>10)&31)/31.0f)*255.0f)
 #define G16TO32(color)  (int)((((color>>5) &31)/31.0f)*255.0f)
@@ -2190,7 +2190,7 @@ void sdl_loop(void) {
                     int x, y;
                     Uint32 mouseState = SDL_GetMouseState(&x, &y);
                     if (mouseState&SDL_BUTTON(SDL_BUTTON_LEFT)) {
-                        gui_sdl_draghack();                        
+                        gui_sdl_draghack();
                     }
                 }
                 break;
@@ -2636,7 +2636,7 @@ int sdl_tex_yres(int stx) {
 }
 
 void sdl_render_circle(int32_t centreX, int32_t centreY, int32_t radius,uint32_t color) {
-    
+
     SDL_Point pts[((radius * 8 * 35 / 49) + (8 - 1)) & -8];
     int32_t dC = 0;
 
@@ -2647,7 +2647,7 @@ void sdl_render_circle(int32_t centreX, int32_t centreY, int32_t radius,uint32_t
     int32_t ty = 1;
     int32_t error = (tx - diameter);
 
-    while (x >= y) {        
+    while (x >= y) {
         pts[dC].x = centreX + x; pts[dC].y = centreY - y; dC++;
         pts[dC].x = centreX + x; pts[dC].y = centreY + y; dC++;
         pts[dC].x = centreX - x; pts[dC].y = centreY - y; dC++;
@@ -2656,7 +2656,7 @@ void sdl_render_circle(int32_t centreX, int32_t centreY, int32_t radius,uint32_t
         pts[dC].x = centreX + y; pts[dC].y = centreY + x; dC++;
         pts[dC].x = centreX - y; pts[dC].y = centreY - x; dC++;
         pts[dC].x = centreX - y; pts[dC].y = centreY + x; dC++;
-         
+
         if (error <= 0) {
             ++y;
             error += ty;

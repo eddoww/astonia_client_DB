@@ -11,7 +11,7 @@
 #endif
 
 #ifndef abs
-#define abs(a)	((a)<0 ? (-(a)) : (a))
+#define abs(a)  ((a)<0 ? (-(a)) : (a))
 #endif
 
 #ifndef ARRAYSIZE
@@ -20,15 +20,15 @@
 
 #define bzero(ptr,size) memset(ptr,0,size)
 
-#define V_MAX	        200
-#define DIST		    25
-#define MAPDX			(DIST*2+1)
-#define MAPDY			(DIST*2+1)
+#define V_MAX           200
+#define DIST            25
+#define MAPDX           (DIST*2+1)
+#define MAPDY           (DIST*2+1)
 #define MAXMN           (MAPDX*MAPDY)
-#define INVENTORYSIZE	110
-#define CONTAINERSIZE	(INVENTORYSIZE)
-#define MAXCHARS	    2048
-#define MAXEF		    64
+#define INVENTORYSIZE   110
+#define CONTAINERSIZE   (INVENTORYSIZE)
+#define MAXCHARS        2048
+#define MAXEF           64
 
 #define DD_OFFSET        0       // this has to be zero, so bzero on the structures default this
 #define DD_CENTER        1       // also used in dd_drawtext
@@ -41,7 +41,7 @@
 #define DD_LARGE        0
 #define DD_SMALL        8
 #define DD_FRAME        16
-#define DD_BIG        	32
+#define DD_BIG          32
 #define DD_NOCACHE      64
 
 #define IGET_R(c) ((((unsigned short int)(c))>>10)&0x1F)
@@ -83,59 +83,59 @@
 #define DOT_TUT         31      // tutor window top left
 #define MAX_DOT         32
 
-#define V_HP		0
-#define V_ENDURANCE	1
-#define V_MANA		2
+#define V_HP        0
+#define V_ENDURANCE 1
+#define V_MANA      2
 
-#define V_WIS         	3
+#define V_WIS           3
 #undef  V_INT           // everyone likes windoof
-#define V_INT          	4
-#define V_AGI         	5
-#define V_STR       	6
+#define V_INT           4
+#define V_AGI           5
+#define V_STR           6
 
-#define V_ARMOR		7
-#define V_WEAPON	8
-#define V_LIGHT		9
-#define V_SPEED		10
+#define V_ARMOR     7
+#define V_WEAPON    8
+#define V_LIGHT     9
+#define V_SPEED     10
 
-#define V_PULSE		11
-#define V_DAGGER       	12
-#define V_HAND         	13
-#define V_STAFF        	14
-#define V_SWORD        	15
-#define V_TWOHAND      	16
+#define V_PULSE     11
+#define V_DAGGER        12
+#define V_HAND          13
+#define V_STAFF         14
+#define V_SWORD         15
+#define V_TWOHAND       16
 
-#define V_ARMORSKILL   	17
-#define V_ATTACK       	18
-#define V_PARRY	       	19
-#define V_WARCRY       	20
-#define V_TACTICS      	21
-#define V_SURROUND     	22
-#define V_BODYCONTROL	23
-#define V_SPEEDSKILL	24
+#define V_ARMORSKILL    17
+#define V_ATTACK        18
+#define V_PARRY         19
+#define V_WARCRY        20
+#define V_TACTICS       21
+#define V_SURROUND      22
+#define V_BODYCONTROL   23
+#define V_SPEEDSKILL    24
 
-#define V_BARTER       	25
-#define V_PERCEPT      	26
-#define V_STEALTH      	27
+#define V_BARTER        25
+#define V_PERCEPT       26
+#define V_STEALTH       27
 
-#define V_BLESS		28
-#define V_HEAL		29
-#define V_FREEZE	30
-#define V_MAGICSHIELD	31
-#define V_FLASH		32
+#define V_BLESS     28
+#define V_HEAL      29
+#define V_FREEZE    30
+#define V_MAGICSHIELD   31
+#define V_FLASH     32
 
-#define V_FIREBALL	33
-//#define V_BALL		34
+#define V_FIREBALL  33
+//#define V_BALL        34
 
-#define V_REGENERATE	35
-#define V_MEDITATE	36
-#define V_IMMUNITY	37
+#define V_REGENERATE    35
+#define V_MEDITATE  36
+#define V_IMMUNITY  37
 
-#define V_DEMON		38
+#define V_DEMON     38
 #define V_DURATION  39
-#define V_RAGE		40
-#define V_COLD		41
-#define V_PROFESSION	42
+#define V_RAGE      40
+#define V_COLD      41
+#define V_PROFESSION    42
 
 #define SDL_MOUM_LUP        1
 #define SDL_MOUM_LDOWN      2
@@ -145,15 +145,15 @@
 #define SDL_MOUM_MDOWN      6
 #define SDL_MOUM_WHEEL      7
 
-#define MAXSHRINE	256
-#define MAXQUEST	100
+#define MAXSHRINE   256
+#define MAXQUEST    100
 
-#define CMF_LIGHT	(1+2+4+8)
-#define CMF_VISIBLE	16
-#define CMF_TAKE	32
-#define CMF_USE		64
-#define CMF_INFRA	128
-#define CMF_UNDERWATER	256
+#define CMF_LIGHT   (1+2+4+8)
+#define CMF_VISIBLE 16
+#define CMF_TAKE    32
+#define CMF_USE     64
+#define CMF_INFRA   128
+#define CMF_UNDERWATER  256
 
 #define MMF_SIGHTBLOCK  (1<<1)  // indicates sight block (set_map_lights)
 #define MMF_DOOR        (1<<2)  // a door - helpful when cutting sprites - (set_map_sprites)
@@ -470,8 +470,8 @@ union ceffect {
     struct cef_bubble bubble;
 };
 
-#define QLF_REPEATABLE	(1u<<0)
-#define QLF_XREPEAT	(1u<<1)
+#define QLF_REPEATABLE  (1u<<0)
+#define QLF_XREPEAT (1u<<1)
 
 struct questlog {
     char *name;
