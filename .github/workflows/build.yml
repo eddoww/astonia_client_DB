@@ -1,0 +1,250 @@
+name: Build Astonia Client
+
+on:
+  push:
+    branches: [ main, develop, 'claude/**' ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  build-linux:
+    name: Build Linux (Ubuntu)
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        lfs: true
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          build-essential \
+          cmake \
+          libsdl2-dev \
+          libsdl2-net-dev \
+          libsdl2-mixer-dev \
+          zlib1g-dev \
+          libpng-dev \
+          libzip-dev
+
+    - name: Create build directory
+      run: mkdir -p build
+
+    - name: Configure CMake
+      run: |
+        cd build
+        cmake -DCMAKE_BUILD_TYPE=Release ..
+
+    - name: Build
+      run: |
+        cd build
+        make -j$(nproc)
+
+    - name: Create artifact directory
+      run: |
+        mkdir -p artifact/linux/lib
+        cp bin/moac artifact/linux/
+        cp -r res artifact/linux/ || true
+        cp README_BUILD.md artifact/linux/ || true
+        cp eula.txt artifact/linux/ || true
+
+        # Copy all required shared libraries
+        cp /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0* artifact/linux/lib/ || true
+        cp /usr/lib/x86_64-linux-gnu/libSDL2_net-2.0.so.0* artifact/linux/lib/ || true
+        cp /usr/lib/x86_64-linux-gnu/libSDL2_mixer-2.0.so.0* artifact/linux/lib/ || true
+        cp /lib/x86_64-linux-gnu/libpng16.so.16* artifact/linux/lib/ || true
+        cp /lib/x86_64-linux-gnu/libz.so.1* artifact/linux/lib/ || true
+        cp /lib/x86_64-linux-gnu/libzip.so.4* artifact/linux/lib/ || true
+        cp /lib/x86_64-linux-gnu/libzip.so.5* artifact/linux/lib/ || true
+
+        # List what we copied for debugging
+        ls -lh artifact/linux/lib/
+
+        # Create launch script
+        cat > artifact/linux/moac.sh << 'EOF'
+        #!/bin/bash
+        DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+        export LD_LIBRARY_PATH="$DIR/lib:$LD_LIBRARY_PATH"
+        exec "$DIR/moac" "$@"
+        EOF
+        chmod +x artifact/linux/moac.sh
+
+    - name: Upload Linux artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: astonia-client-linux-x64
+        path: artifact/linux/
+        retention-days: 30
+
+  build-macos:
+    name: Build macOS
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        lfs: true
+
+    - name: Install dependencies
+      run: |
+        brew install \
+          cmake \
+          sdl2 \
+          sdl2_net \
+          sdl2_mixer \
+          libpng \
+          zlib \
+          libzip
+
+    - name: Create build directory
+      run: mkdir -p build
+
+    - name: Configure CMake
+      run: |
+        cd build
+        cmake -DCMAKE_BUILD_TYPE=Release ..
+
+    - name: Build
+      run: |
+        cd build
+        make -j$(sysctl -n hw.ncpu)
+
+    - name: Create artifact directory
+      run: |
+        mkdir -p artifact/macos/lib
+        cp bin/moac artifact/macos/
+        cp -r res artifact/macos/ || true
+        cp README_BUILD.md artifact/macos/ || true
+        cp eula.txt artifact/macos/ || true
+
+        # Copy all required shared libraries from homebrew
+        BREW_PREFIX=$(brew --prefix)
+        cp $BREW_PREFIX/lib/libSDL2-2.0.0.dylib artifact/macos/lib/ || true
+        cp $BREW_PREFIX/lib/libSDL2_net-2.0.0.dylib artifact/macos/lib/ || true
+        cp $BREW_PREFIX/lib/libSDL2_mixer-2.0.0.dylib artifact/macos/lib/ || true
+        cp $BREW_PREFIX/lib/libpng16.16.dylib artifact/macos/lib/ || true
+        cp $BREW_PREFIX/lib/libz.1.dylib artifact/macos/lib/ || true
+        cp $BREW_PREFIX/lib/libzip.*.dylib artifact/macos/lib/ || true
+
+        # List what we copied for debugging
+        ls -lh artifact/macos/lib/
+
+        # Create launch script
+        cat > artifact/macos/moac.sh << 'EOF'
+        #!/bin/bash
+        DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+        export DYLD_LIBRARY_PATH="$DIR/lib:$DYLD_LIBRARY_PATH"
+        exec "$DIR/moac" "$@"
+        EOF
+        chmod +x artifact/macos/moac.sh
+
+    - name: Upload macOS artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: astonia-client-macos-x64
+        path: artifact/macos/
+        retention-days: 30
+
+  build-windows:
+    name: Build Windows (MSYS2)
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        lfs: true
+
+    - name: Setup MSYS2
+      uses: msys2/setup-msys2@v2
+      with:
+        msys2: MINGW64
+        update: true
+        install: >-
+          mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-cmake
+          mingw-w64-x86_64-make
+          mingw-w64-x86_64-SDL2
+          mingw-w64-x86_64-SDL2_net
+          mingw-w64-x86_64-SDL2_mixer
+          mingw-w64-x86_64-zlib
+          mingw-w64-x86_64-libpng
+          mingw-w64-x86_64-libzip
+
+    - name: Create build directory
+      run: mkdir -p build
+
+    - name: Configure CMake
+      run: |
+        cd build
+        cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..
+
+    - name: Build
+      run: |
+        cd build
+        mingw32-make -j$(nproc)
+
+    - name: Collect DLL dependencies
+      run: |
+        mkdir -p artifact/windows
+        cp bin/moac.exe artifact/windows/
+
+        # Copy required DLLs from MSYS2
+        ldd bin/moac.exe | grep mingw | awk '{print $3}' | xargs -I{} cp {} artifact/windows/ || true
+
+        # Copy resources
+        cp -r res artifact/windows/ || true
+        cp README_BUILD.md artifact/windows/
+        cp eula.txt artifact/windows/ || true
+
+    - name: Upload Windows artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: astonia-client-windows-x64
+        path: artifact/windows/
+        retention-days: 30
+
+  create-release:
+    name: Create Release Package
+    runs-on: ubuntu-latest
+    needs: [build-linux, build-macos, build-windows]
+    if: startsWith(github.ref, 'refs/tags/')
+
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+
+    - name: Create release archives
+      run: |
+        cd astonia-client-linux-x64
+        tar -czf ../astonia-client-linux-x64.tar.gz *
+        cd ..
+
+        cd astonia-client-macos-x64
+        tar -czf ../astonia-client-macos-x64.tar.gz *
+        cd ..
+
+        cd astonia-client-windows-x64
+        zip -r ../astonia-client-windows-x64.zip *
+        cd ..
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          astonia-client-linux-x64.tar.gz
+          astonia-client-macos-x64.tar.gz
+          astonia-client-windows-x64.zip
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

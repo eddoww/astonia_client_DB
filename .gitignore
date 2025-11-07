@@ -12,3 +12,5 @@ moac.*
 moac_gcc.*
 sdlt.txt
 
+build-test/
+build/

@@ -282,7 +282,7 @@ extern int __invdy;
 extern int fkeyitem[4];
 
 extern int lcmd;
-extern int rcmd;
+extern int gui_rcmd;
 
 extern int takegold;                   // the amout of gold to take
 

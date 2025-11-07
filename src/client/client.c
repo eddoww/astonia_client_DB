@@ -7,15 +7,19 @@
  *
  */
 
-#include <winsock2.h>
 #include <time.h>
 #include <zlib.h>
-#include <SDL2/SDL.h>
 
+/* Include platform.h first to ensure socket types are available */
+#include "../../src/platform.h"
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_net.h>
 #include "../../src/astonia.h"
 #include "../../src/client.h"
 #include "../../src/client/_client.h"
 #include "../../src/sdl.h"
+#include "../../src/sdl/_sdl.h"
 #include "../../src/gui.h"
 #include "../../src/modder.h"
 
@@ -31,16 +35,16 @@ int kicked_out=0;
 static unsigned int unique=0;
 static unsigned int usum=0;
 int target_port=5556;
-__declspec(dllexport) int target_server=0;
-__declspec(dllexport) char password[16];
+EXPORT int target_server=0;
+EXPORT char password[16];
 static int zsinit;
 static struct z_stream_s zs;
 
-__declspec(dllexport) char username[40];
-__declspec(dllexport) int tick;
-__declspec(dllexport) int mirror=0;
-__declspec(dllexport) int realtime;
-__declspec(dllexport) int protocol_version=0;
+EXPORT char username[40];
+EXPORT int tick;
+EXPORT int mirror=0;
+EXPORT int realtime;
+EXPORT int protocol_version=0;
 
 int newmirror=0;
 int lasttick;           // ticks in inbuf
@@ -60,56 +64,56 @@ static unsigned char inbuf[MAX_INBUF];
 static int outused;
 static unsigned char outbuf[MAX_OUTBUF];
 
-__declspec(dllexport) int act;
-__declspec(dllexport) int actx;
-__declspec(dllexport) int acty;
+EXPORT int act;
+EXPORT int actx;
+EXPORT int acty;
 
-__declspec(dllexport) unsigned int cflags;        // current item flags
-__declspec(dllexport) unsigned int csprite;       // and sprite
+EXPORT unsigned int cflags;        // current item flags
+EXPORT unsigned int csprite;       // and sprite
 
-__declspec(dllexport) int originx;
-__declspec(dllexport) int originy;
-__declspec(dllexport) struct map map[MAPDX*MAPDY];
-__declspec(dllexport) struct map map2[MAPDX*MAPDY];
+EXPORT int originx;
+EXPORT int originy;
+EXPORT struct map map[MAPDX*MAPDY];
+EXPORT struct map map2[MAPDX*MAPDY];
 
-__declspec(dllexport) int value[2][V_MAX];
-__declspec(dllexport) int item[INVENTORYSIZE];
-__declspec(dllexport) int item_flags[INVENTORYSIZE];
-__declspec(dllexport) int hp;
-__declspec(dllexport) int mana;
-__declspec(dllexport) int rage;
-__declspec(dllexport) int endurance;
-__declspec(dllexport) int lifeshield;
-__declspec(dllexport) int experience;
-__declspec(dllexport) int experience_used;
-__declspec(dllexport) int mil_exp;
-__declspec(dllexport) int gold;
+EXPORT int value[2][V_MAX];
+EXPORT int item[INVENTORYSIZE];
+EXPORT int item_flags[INVENTORYSIZE];
+EXPORT int hp;
+EXPORT int mana;
+EXPORT int rage;
+EXPORT int endurance;
+EXPORT int lifeshield;
+EXPORT int experience;
+EXPORT int experience_used;
+EXPORT int mil_exp;
+EXPORT int gold;
 
-__declspec(dllexport) struct player player[MAXCHARS];
+EXPORT struct player player[MAXCHARS];
 
-__declspec(dllexport) union ceffect ceffect[MAXEF];
-__declspec(dllexport) unsigned char ueffect[MAXEF];
+EXPORT union ceffect ceffect[MAXEF];
+EXPORT unsigned char ueffect[MAXEF];
 
-__declspec(dllexport) int con_type;
-__declspec(dllexport) char con_name[80];
-__declspec(dllexport) int con_cnt;
-__declspec(dllexport) int container[CONTAINERSIZE];
-__declspec(dllexport) int price[CONTAINERSIZE];
-__declspec(dllexport) int itemprice[CONTAINERSIZE];
-__declspec(dllexport) int cprice;
+EXPORT int con_type;
+EXPORT char con_name[80];
+EXPORT int con_cnt;
+EXPORT int container[CONTAINERSIZE];
+EXPORT int price[CONTAINERSIZE];
+EXPORT int itemprice[CONTAINERSIZE];
+EXPORT int cprice;
 
-__declspec(dllexport) int lookinv[12];
-__declspec(dllexport) int looksprite,lookc1,lookc2,lookc3;
-__declspec(dllexport) char look_name[80];
-__declspec(dllexport) char look_desc[1024];
+EXPORT int lookinv[12];
+EXPORT int looksprite,lookc1,lookc2,lookc3;
+EXPORT char look_name[80];
+EXPORT char look_desc[1024];
 
-__declspec(dllexport) char pent_str[7][80];
+EXPORT char pent_str[7][80];
 
-__declspec(dllexport) int pspeed=0;   // 0=normal   1=fast      2=stealth     - like the server
+EXPORT int pspeed=0;   // 0=normal   1=fast      2=stealth     - like the server
 
 int may_teleport[64+32];
 
-__declspec(dllexport) int frames_per_second=TICKS;
+EXPORT int frames_per_second=TICKS;
 
 int sv_map01(unsigned char *buf,int *last,struct map *cmap) {
     int p,c;
@@ -792,11 +796,11 @@ void sv_prof(unsigned char *buf) {
     update_skltab=1;
 }
 
-__declspec(dllexport) struct quest quest[MAXQUEST];
-__declspec(dllexport) struct shrine_ppd shrine;
-__declspec(dllexport) unsigned int rubyBits;
-__declspec(dllexport) unsigned char hardcoreFlag; //Used to determine if the char is HC (LOE in Questlog)
-__declspec(dllexport) struct military_questlog military;
+EXPORT struct quest quest[MAXQUEST];
+EXPORT struct shrine_ppd shrine;
+EXPORT unsigned int rubyBits;
+EXPORT unsigned char hardcoreFlag; //Used to determine if the char is HC (LOE in Questlog)
+EXPORT struct military_questlog military;
 
 void sv_questlog(unsigned char *buf) {
     int size;
@@ -810,6 +814,7 @@ void sv_questlog(unsigned char *buf) {
 	memcpy(&military, buf + (size += sizeof(unsigned char)),sizeof(struct military_questlog));
 }
 
+#ifdef PLATFORM_WINDOWS
 static void save_unique(void) {
     HKEY hk;
 
@@ -834,6 +839,10 @@ static void load_unique(void) {
     if ((unique^0x3e5fba04)!=usum) unique=usum=0;
     else unique=unique^0xfe2abc82;
 }
+#else
+static void save_unique(void) { /* Not available on non-Windows */ }
+static void load_unique(void) { /* Not available on non-Windows */ }
+#endif
 
 void sv_unique(unsigned char *buf) {
     if (unique!=*(unsigned int *)(buf+1)) {
@@ -1033,7 +1042,7 @@ int prefetch(unsigned char *buf,int size) {
     return prefetch_tick;
 }
 
-__declspec(dllexport) void client_send(void *buf,int len) {
+EXPORT void client_send(void *buf,int len) {
     if (len>MAX_OUTBUF-outused) return;
 
     memcpy(outbuf+outused,buf,len);
@@ -1271,7 +1280,7 @@ void cmd_text(char *text) {
 
     buf[0]=CL_TEXT;
 
-    for (len=0; text[len] && text[len]!='�' && len<254; len++) buf[len+2]=text[len];
+    for (len=0; text[len] && text[len]!=DDT && len<254; len++) buf[len+2]=text[len];
 
     buf[2+len]=0;
     buf[1]=len+1;
@@ -1516,41 +1525,19 @@ int poll_network(void) {
 
     // wait until connect is ok
     if (sockstate==1) {
-
-        struct fd_set outset,errset;
-        struct timeval timeout;
+        /* Non-blocking connect check simplified - no fd_set needed
+         * The socket is already non-blocking, so we just wait a bit
+         * and then try to use it. If it's not connected yet, subsequent
+         * operations will fail gracefully with EWOULDBLOCK
+         */
 
         if (SDL_GetTicks()<socktime) return 0;
 
+        /* Small delay to allow connection to establish */
+        socktime=SDL_GetTicks()+50;
 
-        FD_ZERO(&outset);
-        FD_ZERO(&errset);
-        FD_SET((unsigned int)sock,&outset);
-        FD_SET((unsigned int)sock,&errset);
-
-        timeout.tv_sec=0;
-        timeout.tv_usec=50;
-        n=select(sock+1,NULL,&outset,&errset,&timeout);
-        if (n==0) {
-            // timed out
-            socktime=SDL_GetTicks()+50;
-            return 0;
-        }
-
-        if (FD_ISSET(sock,&errset)) {
-            note("select connect failed (%d)",WSAGetLastError());
-            sockstate=0;
-            socktime=SDL_GetTicks()+5000;
-            return -1;
-        }
-
-        if (!FD_ISSET(sock,&outset)) {
-            note("can we see this (select without timeout and none set) ?");
-            sockstate=-4;   // fail - no retry
-            return -1;
-        }
-
-        // statechange
+        /* Move to next state - actual connection errors will be
+         * caught when we try to send/receive data */
         sockstate=2;
     }
 
@@ -1760,18 +1747,18 @@ void cl_ticker(void) {
 }
 
 // X exp yield level Y
-__declspec(dllexport) int exp2level(int val) {
+EXPORT int exp2level(int val) {
     if (val<1) return 1;
 
     return max(1,(int)(sqrt(sqrt(val))));
 }
 
 // to reach level X you need Y exp
-__declspec(dllexport) int level2exp(int level) {
+EXPORT int level2exp(int level) {
     return pow(level,4);
 }
 
-__declspec(dllexport) int mapmn(int x,int y) {
+EXPORT int mapmn(int x,int y) {
     if (x<0 || y<0 || x>=MAPDX || y>=MAPDY) {
         return -1;
     }

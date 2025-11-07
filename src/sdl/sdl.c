@@ -15,6 +15,7 @@
 #include <png.h>
 #include <zip.h>
 
+#include "../../src/platform.h"
 #include "../../src/astonia.h"
 #include "../../src/sdl.h"
 #include "../../src/sdl/_sdl.h"
@@ -47,10 +48,10 @@ long long sdl_time_pre1=0;
 long long sdl_time_pre2=0;
 long long sdl_time_pre3=0;
 
-__declspec(dllexport) int sdl_scale=1;
-__declspec(dllexport) int sdl_frames=0;
-__declspec(dllexport) int sdl_multi=4;
-__declspec(dllexport) int sdl_cache_size=8000;
+EXPORT int sdl_scale=1;
+EXPORT int sdl_frames=0;
+EXPORT int sdl_multi=4;
+EXPORT int sdl_cache_size=8000;
 
 static zip_t *sdl_zip1=NULL;
 static zip_t *sdl_zip2=NULL;
@@ -64,7 +65,7 @@ static zip_t *sdl_zip2m=NULL;
 static SDL_sem *prework=NULL;
 static SDL_mutex *premutex=NULL;
 
-__declspec(dllexport) int __yres=YRES0;
+EXPORT int __yres=YRES0;
 
 static int sdlm_sprite=0;
 static int sdlm_scale=0;
@@ -408,7 +409,7 @@ struct png_helper {
     png_infop info_ptr;
 };
 
-void png_helper_read(png_struct *ps,unsigned char *buf,long long unsigned len) {
+void png_helper_read(png_struct *ps,unsigned char *buf,png_size_t len) {
     zip_fread(png_get_io_ptr(ps),buf,len);
 }
 

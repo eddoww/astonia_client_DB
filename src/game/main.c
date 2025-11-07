@@ -8,15 +8,13 @@
  *
  */
 
-#include <windows.h>
-#include <shlobj.h>
 #include <stdint.h>
 #include <fcntl.h>
 #include <time.h>
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
-#include <dwarfstack.h>
 
+#include "../../src/platform.h"
 #include "../../src/astonia.h"
 #include "../../src/game.h"
 #include "../../src/game/_game.h"
@@ -33,7 +31,7 @@ static int panic_reached=0;
 static int xmemcheck_failed=0;
 char user_keys[10]={'Q','W','E','A','S','D','Z','X','C','V'};
 
-__declspec(dllexport) uint64_t game_options=GO_NOTSET;
+EXPORT uint64_t game_options=GO_NOTSET;
 
 static char memcheck_failed_str[]={"memcheck failed"};
 static char panic_reached_str[]={"panic failure"};
@@ -59,7 +57,7 @@ void main_dump(FILE *fp) {
 
 // note, warn, fail, paranoia, addline
 
-__declspec(dllexport) int note(const char *format,...) {
+EXPORT int note(const char *format,...) {
     va_list va;
     char buf[1024];
 
@@ -77,7 +75,7 @@ __declspec(dllexport) int note(const char *format,...) {
     return 0;
 }
 
-__declspec(dllexport) int warn(const char *format,...) {
+EXPORT int warn(const char *format,...) {
     va_list va;
     char buf[1024];
 
@@ -93,7 +91,7 @@ __declspec(dllexport) int warn(const char *format,...) {
     return 0;
 }
 
-__declspec(dllexport) int fail(const char *format,...) {
+EXPORT int fail(const char *format,...) {
     va_list va;
     char buf[1024];
 
@@ -111,7 +109,7 @@ __declspec(dllexport) int fail(const char *format,...) {
     return -1;
 }
 
-__declspec(dllexport) void paranoia(const char *format,...) {
+EXPORT void paranoia(const char *format,...) {
     va_list va;
 
     fprintf(errorfp,"PARANOIA EXIT in ");
@@ -149,7 +147,7 @@ void addlinesep(void) {
     _addlinesep=1;
 }
 
-__declspec(dllexport) void addline(const char *format,...) {
+EXPORT void addline(const char *format,...) {
     va_list va;
     char buf[1024];
 
@@ -201,7 +199,6 @@ char* load_ascii_file(char *filename,int ID) {
 //#define realloc_proc(ptr,size) GlobalReAlloc(ptr,size,GMEM_MOVEABLE)
 //#define free_proc(ptr) GlobalFree(ptr)
 
-HANDLE myheap;
 #define malloc_proc(size) myheapalloc(size)
 #define realloc_proc(ptr,size) myheaprealloc(ptr,size)
 #define free_proc(ptr) myheapfree(ptr)
@@ -252,29 +249,29 @@ void* myheapalloc(int size) {
     void *ptr;
 
     memptrused++;
-    ptr=HeapAlloc(myheap,HEAP_ZERO_MEMORY,size);
-    memused+=HeapSize(myheap,0,ptr);
+    ptr=platform_heap_alloc(size);
+    memused+=platform_heap_size(ptr);
 
     return ptr;
 }
 
 void* myheaprealloc(void *ptr,int size) {
-    memused-=HeapSize(myheap,0,ptr);
-    ptr=HeapReAlloc(myheap,HEAP_ZERO_MEMORY,ptr,size);
-    memused+=HeapSize(myheap,0,ptr);
+    memused-=platform_heap_size(ptr);
+    ptr=platform_heap_realloc(ptr,size);
+    memused+=platform_heap_size(ptr);
 
     return ptr;
 }
 
 void myheapfree(void *ptr) {
     memptrused--;
-    memused-=HeapSize(myheap,0,ptr);
-    HeapFree(myheap,0,ptr);
+    memused-=platform_heap_size(ptr);
+    platform_heap_free(ptr);
 }
 
 void list_mem(void) {
     int i,flag=0;
-    MEMORYSTATUS ms;
+    platform_memory_status ms;
     extern long long mem_tex;
 
     note("--mem----------------------");
@@ -289,13 +286,11 @@ void list_mem(void) {
     note("---------------------------");
     note("Texture Cache: %.2fMB",mem_tex/(1024.0*1024.0));
 
-    bzero(&ms,sizeof(ms));
-    ms.dwLength=sizeof(ms);
-    GlobalMemoryStatus(&ms);
+    platform_get_memory_status(&ms);
 
-    note("UsedMem=%.2fG of %.2fG",(memused+mem_tex)/1024.0/1024.0/1024.0,ms.dwTotalPhys/1024.0/1024.0/1024.0);
+    note("UsedMem=%.2fG of %.2fG",(memused+mem_tex)/1024.0/1024.0/1024.0,ms.total_phys/1024.0/1024.0/1024.0);
 
-    i=HeapValidate(myheap,0,NULL);
+    i=platform_heap_validate(platform_heap);
     if (!i) note("validate says: %d",i);
 
 }
@@ -332,7 +327,7 @@ void* xmalloc(int size,int ID) {
     if (!memcheckset) {
         for (memcheckset=0; memcheckset<sizeof(memcheck); memcheckset++) memcheck[memcheckset]=rrand(256);
         sprintf(memcheck,"!MEMCKECK MIGHT FAIL!");
-        myheap=HeapCreate(0,0,0);
+        platform_heap=platform_heap_create();
     }
 
     if (!size) return NULL;
@@ -515,24 +510,21 @@ int rrand(int range) {
     return (range*r/(RAND_MAX+1));
 }
 
-// wsa network
+// network
 
 int net_init(void) {
-    WSADATA wsadata;
-
-    if (WSAStartup(0x0002,&wsadata)) return -1;
-    return 0;
+    return platform_net_init();
 }
 
 int net_exit(void) {
-    WSACleanup();
+    platform_net_cleanup();
     return 0;
 }
 
 // parsing command line
 
 void display_messagebox(char *title,char *text) {
-    MessageBox(NULL,text,title,MB_APPLMODAL|MB_OK|MB_ICONEXCLAMATION);
+    platform_show_message_box(title,text,0);
 }
 
 void display_usage(void) {
@@ -551,7 +543,7 @@ void display_usage(void) {
     buf+=sprintf(buf,"Bit 6 enables sound.\nBit 7 the large font.\nBit 8 true full screen mode.\nBit 9 enables the legacy mouse wheel logic.\n");
     buf+=sprintf(buf,"Bit 10 enables out-of-order execution (read: faster) of inventory access and command feedback.\n");
     buf+=sprintf(buf,"Bit 11 reduces the animation buffer for faster reactions and more stutter.\n");
-    buf+=sprintf(buf,"Bit 12 writes application files to %%appdata%% instead of the current folder.\n");
+    buf+=sprintf(buf,"Bit 12 writes application files to config directory instead of the current folder.\n");
     buf+=sprintf(buf,"Bit 13 enables the loading and saving of minimaps.\n");
     buf+=sprintf(buf,"Bit 14 and 15 increase gamma.\n");
     buf+=sprintf(buf,"Bit 16 makes the sliding top bar less sensitive.\n");
@@ -561,17 +553,17 @@ void display_usage(void) {
     buf+=sprintf(buf,"cachesize is the size of the texture cache. Default is 8000. Lower numbers might crash!\n\n");
     buf+=sprintf(buf,"framespersecond will set the display rate in frames per second.\n\n");
 
-    MessageBox(NULL,txt,"Usage",MB_APPLMODAL|MB_OK|MB_ICONEXCLAMATION);
+    platform_show_message_box("Usage",txt,0);
 
     printf("%s",txt);
 
     free(txt);
 }
 
-__declspec(dllexport) char server_url[256];
-__declspec(dllexport) int server_port=0;
-__declspec(dllexport) int want_width=0;
-__declspec(dllexport) int want_height=0;
+EXPORT char server_url[256];
+EXPORT int server_port=0;
+EXPORT int want_width=0;
+EXPORT int want_height=0;
 
 int parse_cmd(char *s) {
     int n;
@@ -645,7 +637,7 @@ void save_options(void) {
     int handle;
     char filename[MAX_PATH];
 
-    if (game_options&GO_APPDATA) sprintf(filename,"%s\\Astonia\\%s",localdata,"moac.dat");
+    if (game_options&GO_APPDATA) sprintf(filename,"%s%cAstonia%c%s",localdata,PATH_SEPARATOR,PATH_SEPARATOR,"moac.dat");
     else sprintf(filename,"%s","bin/data/moac.dat");
 
     handle=open(filename,O_WRONLY|O_CREAT|O_TRUNC|O_BINARY,0666);
@@ -662,7 +654,7 @@ void load_options(void) {
     int handle;
     char filename[MAX_PATH];
 
-    if (game_options&GO_APPDATA) sprintf(filename,"%s\\Astonia\\%s",localdata,"moac.dat");
+    if (game_options&GO_APPDATA) sprintf(filename,"%s%cAstonia%c%s",localdata,PATH_SEPARATOR,PATH_SEPARATOR,"moac.dat");
     else sprintf(filename,"%s","bin/data/moac.dat");
 
     handle=open(filename,O_RDONLY|O_BINARY);
@@ -691,55 +683,8 @@ void convert_cmd_line(char *d,int argc,char *args[],int maxsize) {
     *d=0;
 }
 
-static void errPrint(uint64_t addr,const char *filename,int lineno,const char *funcname,void *context,int columnno) {
-  int *count = context;
-  const char *delim = strrchr( filename,'/' );
-  if( delim ) filename = delim + 1;
-  delim = strrchr( filename,'\\' );
-  if( delim ) filename = delim + 1;
-
-  void *ptr = (void*)(uintptr_t)addr;
-  switch( lineno )
-  {
-    case DWST_BASE_ADDR:
-      fprintf( stderr,"base address: 0x%p (%s)\n",ptr,filename );
-      fprintf( errorfp,"base address: 0x%p (%s)\n",ptr,filename );
-      break;
-
-    case DWST_NOT_FOUND:
-    case DWST_NO_DBG_SYM:
-    case DWST_NO_SRC_FILE:
-      fprintf( stderr,"    stack %02d: 0x%p (%s)\n",(*count),ptr,filename );
-      fprintf( errorfp,"    stack %02d: 0x%p (%s)\n",(*count),ptr,filename );
-      (*count)++;
-      break;
-
-    default:
-      if( ptr ) {
-        fprintf( stderr,"    stack %02d: 0x%p",(*count),ptr );
-        fprintf( errorfp,"    stack %02d: 0x%p",(*count),ptr );
-        (*count)++;
-      } else {
-        fprintf( stderr,"                %*s",(int)sizeof(void*)*2,"" );
-        fprintf( errorfp,"                %*s",(int)sizeof(void*)*2,"" );
-      }
-      fprintf( stderr," (%s:%d",filename,lineno );
-      fprintf( errorfp," (%s:%d",filename,lineno );
-      if( columnno>0 ) {
-        fprintf( stderr, ":%d",columnno );
-        fprintf( errorfp, ":%d",columnno );
-      }
-      fprintf( stderr, ")" );
-      fprintf( errorfp, ")" );
-      if( funcname ) {
-        fprintf( stderr," [%s]",funcname );
-        fprintf( errorfp," [%s]",funcname );
-      }
-      fprintf( stderr,"\n" );
-      fprintf( errorfp,"\n" );
-      break;
-  }
-}
+#ifdef PLATFORM_WINDOWS
+// Note: Stack trace functionality removed (dwarfstack library not available)
 
 static LONG WINAPI exceptionPrinter( LPEXCEPTION_POINTERS ep )
 {
@@ -796,20 +741,21 @@ static LONG WINAPI exceptionPrinter( LPEXCEPTION_POINTERS ep )
         fprintf( errorfp,"%s violation at 0x%p\n",flag==8?"data execution prevention":(flag?"write access":"read access"),(void*)addr );
     }
 
-    int count=0;
-    dwstOfException(ep->ContextRecord,&errPrint,&count);
+    fprintf( stderr,"\nStack trace not available (dwarfstack library not linked)\n");
+    fprintf( errorfp,"\nStack trace not available (dwarfstack library not linked)\n");
 
     fflush( stderr );
     fflush( errorfp ); fclose(errorfp);
 
-    if (game_options&GO_APPDATA) sprintf(filename,"Details written to %s\\Astonia\\%s",localdata,"moac.log");
+    if (game_options&GO_APPDATA) sprintf(filename,"Details written to %s%cAstonia%c%s",localdata,PATH_SEPARATOR,PATH_SEPARATOR,"moac.log");
     else sprintf(filename,"Details written to %s","moac.log");
-    display_messagebox("Application Crashed",filename);
+    platform_show_message_box("Application Crashed",filename,1);
 
     sdl_dump_spritecache();
 
     return( EXCEPTION_EXECUTE_HANDLER );
 }
+#endif /* PLATFORM_WINDOWS */
 
 // main
 int main(int argc,char *args[]) {
@@ -822,17 +768,21 @@ int main(int argc,char *args[]) {
     if ((ret=parse_cmd(buffer))!=0) return -1;
 
     if (game_options&GO_APPDATA) {
-        SHGetFolderPath(NULL,CSIDL_APPDATA,NULL,0,localdata);
-        sprintf(filename,"%s\\Astonia",localdata);
-        mkdir(filename);
+        char *pref_path = platform_get_pref_path("Astonia", "Client");
+        strncpy(localdata, pref_path, MAX_PATH - 1);
+        localdata[MAX_PATH - 1] = '\0';
+        sprintf(filename,"%s%cAstonia",localdata,PATH_SEPARATOR);
+        platform_mkdir(filename);
 
-        sprintf(filename,"%s\\Astonia\\%s",localdata,"moac.log");
+        sprintf(filename,"%s%cAstonia%c%s",localdata,PATH_SEPARATOR,PATH_SEPARATOR,"moac.log");
     } else sprintf(filename,"%s","moac.log");
 
     errorfp=fopen(filename,"a");
     if (!errorfp) errorfp=stderr;
 
+#ifdef PLATFORM_WINDOWS
     SetUnhandledExceptionFilter(exceptionPrinter);
+#endif
 
     amod_init();
     sharedmem_init();
@@ -845,13 +795,13 @@ int main(int argc,char *args[]) {
         return 0;
     }
 
-    xlog(errorfp,"Client started with -h%d -w%d -o%d",want_height,want_width,game_options);
+    xlog(errorfp,"Client started with -h%d -w%d -o%llu",want_height,want_width,game_options);
 
-    SetProcessDPIAware(); // I hate Windows very much.
+    platform_set_dpi_aware();
 
     // next init (only once)
     if (net_init()==-1) {
-        MessageBox(NULL,"Can't Initialize Windows Networking Libraries.","Error",MB_APPLMODAL|MB_OK|MB_ICONSTOP);
+        platform_show_message_box("Error","Can't Initialize Networking Libraries.",1);
         return -1;
     }
 
@@ -919,8 +869,8 @@ int main(int argc,char *args[]) {
 
     list_mem();
 
-    if (panic_reached) MessageBox(NULL,panic_reached_str,"recursion panic",MB_APPLMODAL|MB_OK|MB_ICONSTOP);
-    if (xmemcheck_failed) MessageBox(NULL,memcheck_failed_str,"memory panic",MB_APPLMODAL|MB_OK|MB_ICONSTOP);
+    if (panic_reached) platform_show_message_box("recursion panic",panic_reached_str,1);
+    if (xmemcheck_failed) platform_show_message_box("memory panic",memcheck_failed_str,1);
 
     net_exit();
 

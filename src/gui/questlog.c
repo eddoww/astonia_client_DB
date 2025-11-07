@@ -111,9 +111,9 @@ struct questlog _game_questlog[]={
 		{ "Defeating the Robber Leader", 6, 9, "Jessica", "Cameron", 750, QLF_REPEATABLE },         //84,
 };
 
-__declspec(dllexport) struct questlog *game_questlog=_game_questlog;
+EXPORT struct questlog *game_questlog=_game_questlog;
 int _game_questcount=ARRAYSIZE(_game_questlog);
-__declspec(dllexport) int *game_questcount=&_game_questcount;
+EXPORT int *game_questcount=&_game_questcount;
 
 int questonscreen[10];
 //Ruby Bit definitions
@@ -152,7 +152,7 @@ int questcmp(const void *a,const void *b) {
 }
 
 int (*do_display_random)(void)=_do_display_random;
-__declspec(dllexport) int _do_display_random(void) {
+EXPORT int _do_display_random(void) {
     int y=doty(DOT_HLP)+15,x,n,idx,bit,m;
     static short indec[10]={0,11,24,38,43,57,64,76,83,96};
     static short bribes[10]={0,15,22,34,48,54,67,78,86,93};

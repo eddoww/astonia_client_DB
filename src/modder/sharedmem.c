@@ -4,17 +4,20 @@
  * Shared Memory
  *
  * Shared some data with (non-DLL) mods.
+ * NOTE: This feature is Windows-only and disabled on other platforms.
  */
 
 #include <stdint.h>
 #include <stdio.h>
-#include <windows.h>
 
+#include "../../src/platform.h"
 #include "../../src/astonia.h"
 #include "../../src/modder.h"
 #include "../../src/modder/_modder.h"
 #include "../../src/client.h"
 #include "../../src/gui.h"
+
+#ifdef PLATFORM_WINDOWS
 
 struct sharedmem {
     unsigned int pid;
@@ -113,4 +116,21 @@ void sharedmem_update(void) {
     sm->end=endup;
 }
 
+#else /* !PLATFORM_WINDOWS */
+
+/* Stub implementations for non-Windows platforms */
+int sharedmem_init(void) {
+    /* Shared memory feature not available on this platform */
+    return 0;
+}
+
+void sharedmem_exit(void) {
+    /* No-op */
+}
+
+void sharedmem_update(void) {
+    /* No-op */
+}
+
+#endif /* PLATFORM_WINDOWS */
 
