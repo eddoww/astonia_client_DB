@@ -2,6 +2,7 @@
  * Part of Astonia Client (c) Daniel Brockhaus. Please read license.txt.
  */
 
+#include "../../src/platform.h"
 #include "amod_structs.h"
 
 void amod_init(void);
@@ -31,155 +32,155 @@ int amod_is_playersprite(int sprite);
 // --------- Client exported functions -----------
 
 // basics
-__declspec(dllimport) int note(const char *format,...) __attribute__((format(printf, 1, 2)));
-__declspec(dllimport) int warn(const char *format,...) __attribute__((format(printf, 1, 2)));
-__declspec(dllimport) int fail(const char *format,...) __attribute__((format(printf, 1, 2)));
-__declspec(dllimport) void paranoia(const char *format,...) __attribute__((format(printf, 1, 2)));
-__declspec(dllimport) void addline(const char *format,...) __attribute__((format(printf, 1, 2)));
+IMPORT int note(const char *format,...) __attribute__((format(printf, 1, 2)));
+IMPORT int warn(const char *format,...) __attribute__((format(printf, 1, 2)));
+IMPORT int fail(const char *format,...) __attribute__((format(printf, 1, 2)));
+IMPORT void paranoia(const char *format,...) __attribute__((format(printf, 1, 2)));
+IMPORT void addline(const char *format,...) __attribute__((format(printf, 1, 2)));
 // game, drawing
-__declspec(dllimport) void dd_push_clip(void);
-__declspec(dllimport) void dd_pop_clip(void);
-__declspec(dllimport) void dd_more_clip(int sx,int sy,int ex,int ey);
-__declspec(dllimport) void dd_copysprite(int sprite,int scrx,int scry,int light,int align);
-__declspec(dllimport) int dd_copysprite_fx(DDFX *ddfx,int scrx,int scry);
-__declspec(dllimport) void dd_rect(int sx,int sy,int ex,int ey,unsigned short int color);
-__declspec(dllimport) void dd_line(int fx,int fy,int tx,int ty,unsigned short col);
-__declspec(dllimport) int dd_textlength(int flags,const char *text);
-__declspec(dllimport) int dd_drawtext(int sx,int sy,unsigned short int color,int flags,const char *text);
-__declspec(dllimport) int dd_drawtext_break(int x,int y,int breakx,unsigned short color,int flags,const char *ptr);
-__declspec(dllimport) int dd_drawtext_break_length(int x,int y,int breakx,unsigned short color,int flags,const char *ptr);
-__declspec(dllimport) void dd_pixel(int x,int y,unsigned short col);
-__declspec(dllimport) int dd_drawtext_fmt(int sx,int sy,unsigned short int color,int flags,const char *format,...);
-__declspec(dllimport) int dd_drawtext_break_fmt(int sx,int sy,int breakx,unsigned short int color,int flags,const char *format,...);
-__declspec(dllimport) int dd_drawtext_nl(int x,int y,int unsigned short color,int flags,const char *ptr);
+IMPORT void dd_push_clip(void);
+IMPORT void dd_pop_clip(void);
+IMPORT void dd_more_clip(int sx,int sy,int ex,int ey);
+IMPORT void dd_copysprite(int sprite,int scrx,int scry,int light,int align);
+IMPORT int dd_copysprite_fx(DDFX *ddfx,int scrx,int scry);
+IMPORT void dd_rect(int sx,int sy,int ex,int ey,unsigned short int color);
+IMPORT void dd_line(int fx,int fy,int tx,int ty,unsigned short col);
+IMPORT int dd_textlength(int flags,const char *text);
+IMPORT int dd_drawtext(int sx,int sy,unsigned short int color,int flags,const char *text);
+IMPORT int dd_drawtext_break(int x,int y,int breakx,unsigned short color,int flags,const char *ptr);
+IMPORT int dd_drawtext_break_length(int x,int y,int breakx,unsigned short color,int flags,const char *ptr);
+IMPORT void dd_pixel(int x,int y,unsigned short col);
+IMPORT int dd_drawtext_fmt(int sx,int sy,unsigned short int color,int flags,const char *format,...);
+IMPORT int dd_drawtext_break_fmt(int sx,int sy,int breakx,unsigned short int color,int flags,const char *format,...);
+IMPORT int dd_drawtext_nl(int x,int y,int unsigned short color,int flags,const char *ptr);
 // gui, dots and buttons
-__declspec(dllimport) int dotx(int didx);
-__declspec(dllimport) int doty(int didx);
-__declspec(dllimport) int butx(int bidx);
-__declspec(dllimport) int buty(int bidx);
+IMPORT int dotx(int didx);
+IMPORT int doty(int didx);
+IMPORT int butx(int bidx);
+IMPORT int buty(int bidx);
 // gui helperls
-__declspec(dllimport) int get_near_ground(int x,int y);
-__declspec(dllimport) int get_near_item(int x,int y,int flag,int looksize);
-__declspec(dllimport) int get_near_char(int x,int y,int looksize);
-__declspec(dllimport) int mapmn(int x,int y);
+IMPORT int get_near_ground(int x,int y);
+IMPORT int get_near_item(int x,int y,int flag,int looksize);
+IMPORT int get_near_char(int x,int y,int looksize);
+IMPORT int mapmn(int x,int y);
 // misc
-__declspec(dllimport) void set_teleport(int idx,int x,int y);
-__declspec(dllimport) int exp2level(int val);
-__declspec(dllimport) int level2exp(int level);
-__declspec(dllimport) int mil_rank(int exp);
+IMPORT void set_teleport(int idx,int x,int y);
+IMPORT int exp2level(int val);
+IMPORT int level2exp(int level);
+IMPORT int mil_rank(int exp);
 // client / server communication
-__declspec(dllimport) void client_send(void *buf,int len);
+IMPORT void client_send(void *buf,int len);
 
 
 // ---------- Client exported data structures -------------
-__declspec(dllimport) extern int skltab_cnt;
-__declspec(dllimport) extern struct skltab *skltab;
-__declspec(dllimport) extern int item_flags[];
-__declspec(dllimport) extern int weatab[];
-__declspec(dllimport) int act;
-__declspec(dllimport) int actx;
-__declspec(dllimport) int acty;
-__declspec(dllimport) extern int __yres;
+IMPORT extern int skltab_cnt;
+IMPORT extern struct skltab *skltab;
+IMPORT extern int item_flags[];
+IMPORT extern int weatab[];
+IMPORT int act;
+IMPORT int actx;
+IMPORT int acty;
+IMPORT extern int __yres;
 
-__declspec(dllimport) int vk_shift,vk_control,vk_alt;
+IMPORT int vk_shift,vk_control,vk_alt;
 
-__declspec(dllimport) unsigned int cflags;        // current item flags
-__declspec(dllimport) unsigned int csprite;       // and sprite
+IMPORT unsigned int cflags;        // current item flags
+IMPORT unsigned int csprite;       // and sprite
 
-__declspec(dllimport) int originx;
-__declspec(dllimport) int originy;
-__declspec(dllimport) struct map map[MAPDX*MAPDY];
-__declspec(dllimport) struct map map2[MAPDX*MAPDY];
+IMPORT int originx;
+IMPORT int originy;
+IMPORT struct map map[MAPDX*MAPDY];
+IMPORT struct map map2[MAPDX*MAPDY];
 
-__declspec(dllimport) int value[2][V_MAX];
-__declspec(dllimport) int item[INVENTORYSIZE];
-__declspec(dllimport) int item_flags[INVENTORYSIZE];
-__declspec(dllimport) int hp;
-__declspec(dllimport) int mana;
-__declspec(dllimport) int rage;
-__declspec(dllimport) int endurance;
-__declspec(dllimport) int lifeshield;
-__declspec(dllimport) int experience;
-__declspec(dllimport) int experience_used;
-__declspec(dllimport) int mil_exp;
-__declspec(dllimport) int gold;
-__declspec(dllimport) struct player player[MAXCHARS];
-__declspec(dllimport) union ceffect ceffect[MAXEF];
-__declspec(dllimport) unsigned char ueffect[MAXEF];
-__declspec(dllimport) int con_type;
-__declspec(dllimport) char con_name[80];
-__declspec(dllimport) int con_cnt;
-__declspec(dllimport) int container[CONTAINERSIZE];
-__declspec(dllimport) int price[CONTAINERSIZE];
-__declspec(dllimport) int itemprice[CONTAINERSIZE];
-__declspec(dllimport) int cprice;
-__declspec(dllimport) int lookinv[12];
-__declspec(dllimport) int looksprite,lookc1,lookc2,lookc3;
-__declspec(dllimport) char look_name[80];
-__declspec(dllimport) char look_desc[1024];
-__declspec(dllimport) char pent_str[7][80];
-__declspec(dllimport) int pspeed;
-__declspec(dllimport) int protocol_version;
+IMPORT int value[2][V_MAX];
+IMPORT int item[INVENTORYSIZE];
+IMPORT int item_flags[INVENTORYSIZE];
+IMPORT int hp;
+IMPORT int mana;
+IMPORT int rage;
+IMPORT int endurance;
+IMPORT int lifeshield;
+IMPORT int experience;
+IMPORT int experience_used;
+IMPORT int mil_exp;
+IMPORT int gold;
+IMPORT struct player player[MAXCHARS];
+IMPORT union ceffect ceffect[MAXEF];
+IMPORT unsigned char ueffect[MAXEF];
+IMPORT int con_type;
+IMPORT char con_name[80];
+IMPORT int con_cnt;
+IMPORT int container[CONTAINERSIZE];
+IMPORT int price[CONTAINERSIZE];
+IMPORT int itemprice[CONTAINERSIZE];
+IMPORT int cprice;
+IMPORT int lookinv[12];
+IMPORT int looksprite,lookc1,lookc2,lookc3;
+IMPORT char look_name[80];
+IMPORT char look_desc[1024];
+IMPORT char pent_str[7][80];
+IMPORT int pspeed;
+IMPORT int protocol_version;
 
-__declspec(dllimport) unsigned short int healthcolor,manacolor,endurancecolor,shieldcolor;
-__declspec(dllimport) unsigned short int whitecolor,lightgraycolor,graycolor,darkgraycolor,blackcolor;
-__declspec(dllimport) unsigned short int lightredcolor,redcolor,darkredcolor;
-__declspec(dllimport) unsigned short int lightgreencolor,greencolor,darkgreencolor;
-__declspec(dllimport) unsigned short int lightbluecolor,bluecolor,darkbluecolor;
-__declspec(dllimport) unsigned short int lightorangecolor,orangecolor,darkorangecolor;
-__declspec(dllimport) unsigned short int textcolor;
+IMPORT unsigned short int healthcolor,manacolor,endurancecolor,shieldcolor;
+IMPORT unsigned short int whitecolor,lightgraycolor,graycolor,darkgraycolor,blackcolor;
+IMPORT unsigned short int lightredcolor,redcolor,darkredcolor;
+IMPORT unsigned short int lightgreencolor,greencolor,darkgreencolor;
+IMPORT unsigned short int lightbluecolor,bluecolor,darkbluecolor;
+IMPORT unsigned short int lightorangecolor,orangecolor,darkorangecolor;
+IMPORT unsigned short int textcolor;
 
-__declspec(dllimport) struct quest quest[MAXQUEST];
-__declspec(dllimport) struct shrine_ppd shrine;
+IMPORT struct quest quest[MAXQUEST];
+IMPORT struct shrine_ppd shrine;
 
-__declspec(dllimport) char hover_bless_text[120];
-__declspec(dllimport) char hover_freeze_text[120];
-__declspec(dllimport) char hover_potion_text[120];
-__declspec(dllimport) char hover_rage_text[120];
-__declspec(dllimport) char hover_level_text[120];
-__declspec(dllimport) char hover_rank_text[120];
-__declspec(dllimport) char hover_time_text[120];
+IMPORT char hover_bless_text[120];
+IMPORT char hover_freeze_text[120];
+IMPORT char hover_potion_text[120];
+IMPORT char hover_rage_text[120];
+IMPORT char hover_level_text[120];
+IMPORT char hover_rank_text[120];
+IMPORT char hover_time_text[120];
 
-__declspec(dllimport) int target_server;
+IMPORT int target_server;
 
-__declspec(dllimport) char password[16];
-__declspec(dllimport) char username[40];
-__declspec(dllimport) int tick;
-__declspec(dllimport) int mirror;
-__declspec(dllimport) int realtime;
-__declspec(dllimport) char server_url[256];
-__declspec(dllimport) int server_port;
-__declspec(dllimport) int want_width;
-__declspec(dllimport) int want_height;
-__declspec(dllimport) int sdl_scale;
-__declspec(dllimport) int sdl_frames;
-__declspec(dllimport) int sdl_multi;
-__declspec(dllimport) int sdl_cache_size;
-__declspec(dllimport) int frames_per_second;
-__declspec(dllimport) uint64_t game_options;
-__declspec(dllimport) int game_slowdown;
+IMPORT char password[16];
+IMPORT char username[40];
+IMPORT int tick;
+IMPORT int mirror;
+IMPORT int realtime;
+IMPORT char server_url[256];
+IMPORT int server_port;
+IMPORT int want_width;
+IMPORT int want_height;
+IMPORT int sdl_scale;
+IMPORT int sdl_frames;
+IMPORT int sdl_multi;
+IMPORT int sdl_cache_size;
+IMPORT int frames_per_second;
+IMPORT uint64_t game_options;
+IMPORT int game_slowdown;
 
 
 // ---------------- override-able functions, also exported from client ----------------
-__declspec(dllimport) int _is_cut_sprite(int sprite);
-__declspec(dllimport) int _is_mov_sprite(int sprite,int itemhint);
-__declspec(dllimport) int _is_door_sprite(int sprite);
-__declspec(dllimport) int _is_yadd_sprite(int sprite);
-__declspec(dllimport) int _get_chr_height(int csprite);
-__declspec(dllimport) int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,unsigned char *pcr,unsigned char *pcg,unsigned char *pcb,unsigned char *plight,unsigned char *psat,unsigned short *pc1,unsigned short *pc2,unsigned short *pc3,unsigned short *pshine);
-__declspec(dllimport) int _trans_charno(int csprite,int *pscale,int *pcr,int *pcg,int *pcb,int *plight,int *psat,int *pc1,int *pc2,int *pc3,int *pshine,int attick);
-__declspec(dllimport) int _get_player_sprite(int nr,int zdir,int action,int step,int duration,int attick);
-__declspec(dllimport) void _trans_csprite(int mn,struct map *cmap,int attick);
-__declspec(dllimport) int _get_lay_sprite(int sprite,int lay);
-__declspec(dllimport) int _get_offset_sprite(int sprite,int *px,int *py);
-__declspec(dllimport) int _additional_sprite(int sprite,int attick);
-__declspec(dllimport) int _opt_sprite(int sprite);
-__declspec(dllimport) int _no_lighting_sprite(int sprite);
-__declspec(dllimport) int _get_skltab_sep(int i);
-__declspec(dllimport) int _get_skltab_index(int n);
-__declspec(dllimport) int _get_skltab_show(int i);
-__declspec(dllimport) int _do_display_random(void);
-__declspec(dllimport) int _do_display_help(int nr);
+IMPORT int _is_cut_sprite(int sprite);
+IMPORT int _is_mov_sprite(int sprite,int itemhint);
+IMPORT int _is_door_sprite(int sprite);
+IMPORT int _is_yadd_sprite(int sprite);
+IMPORT int _get_chr_height(int csprite);
+IMPORT int _trans_asprite(int mn,int sprite,int attick,unsigned char *pscale,unsigned char *pcr,unsigned char *pcg,unsigned char *pcb,unsigned char *plight,unsigned char *psat,unsigned short *pc1,unsigned short *pc2,unsigned short *pc3,unsigned short *pshine);
+IMPORT int _trans_charno(int csprite,int *pscale,int *pcr,int *pcg,int *pcb,int *plight,int *psat,int *pc1,int *pc2,int *pc3,int *pshine,int attick);
+IMPORT int _get_player_sprite(int nr,int zdir,int action,int step,int duration,int attick);
+IMPORT void _trans_csprite(int mn,struct map *cmap,int attick);
+IMPORT int _get_lay_sprite(int sprite,int lay);
+IMPORT int _get_offset_sprite(int sprite,int *px,int *py);
+IMPORT int _additional_sprite(int sprite,int attick);
+IMPORT int _opt_sprite(int sprite);
+IMPORT int _no_lighting_sprite(int sprite);
+IMPORT int _get_skltab_sep(int i);
+IMPORT int _get_skltab_index(int n);
+IMPORT int _get_skltab_show(int i);
+IMPORT int _do_display_random(void);
+IMPORT int _do_display_help(int nr);
 
 // ------------ declarations for functions the mod might provide -------------------
 int is_cut_sprite(int sprite);

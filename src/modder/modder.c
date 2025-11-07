@@ -9,8 +9,8 @@
 
 #include <stdint.h>
 #include <stdio.h>
-#include <windows.h>
 
+#include "../../src/platform.h"
 #include "../../src/astonia.h"
 #include "../../src/modder.h"
 #include "../../src/modder/_modder.h"
@@ -50,71 +50,77 @@ char *game_email_cash="<no one>";
 char *game_url="<nowhere>";
 
 int amod_init(void) {
-	HMODULE dll_instance=NULL;
-	void *tmp;
+    HMODULE dll_instance=NULL;
+    void *tmp;
     char fname[80];
 
     for (int i=0; i<MAXMOD; i++) {
-        sprintf(fname,"bin\\%cmod.dll",i+'a');
-        dll_instance=LoadLibrary(fname);
-        if (!dll_instance) continue;;
+#ifdef PLATFORM_WINDOWS
+        sprintf(fname,"bin%c%cmod.dll",PATH_SEPARATOR,i+'a');
+#elif defined(__APPLE__)
+        sprintf(fname,"bin%c%cmod.dylib",PATH_SEPARATOR,i+'a');
+#else
+        sprintf(fname,"bin%c%cmod.so",PATH_SEPARATOR,i+'a');
+#endif
+        dll_instance=platform_load_library(fname);
+        if (!dll_instance) continue;
 
         mod[i].loaded=1;
 
         // amod
-        if ((tmp=GetProcAddress(dll_instance,"amod_init"))) mod[i]._amod_init=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_exit"))) mod[i]._amod_exit=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_gamestart"))) mod[i]._amod_gamestart=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_frame"))) mod[i]._amod_frame=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_tick"))) mod[i]._amod_tick=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_mouse_move"))) mod[i]._amod_mouse_move=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_mouse_click"))) mod[i]._amod_mouse_click=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_mouse_capture"))) mod[i]._amod_mouse_capture=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_areachange"))) mod[i]._amod_areachange=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_keydown"))) mod[i]._amod_keydown=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_keyup"))) mod[i]._amod_keyup=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_update_hover_texts"))) mod[i]._amod_update_hover_texts=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_client_cmd"))) mod[i]._amod_client_cmd=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_version"))) mod[i]._amod_version=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_init"))) mod[i]._amod_init=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_exit"))) mod[i]._amod_exit=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_gamestart"))) mod[i]._amod_gamestart=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_frame"))) mod[i]._amod_frame=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_tick"))) mod[i]._amod_tick=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_mouse_move"))) mod[i]._amod_mouse_move=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_mouse_click"))) mod[i]._amod_mouse_click=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_mouse_capture"))) mod[i]._amod_mouse_capture=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_areachange"))) mod[i]._amod_areachange=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_keydown"))) mod[i]._amod_keydown=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_keyup"))) mod[i]._amod_keyup=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_update_hover_texts"))) mod[i]._amod_update_hover_texts=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_client_cmd"))) mod[i]._amod_client_cmd=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_version"))) mod[i]._amod_version=tmp;
         if (i!=0) continue; // only amod is allowed to override client stuff, the others can only add stuff
 
-        if ((tmp=GetProcAddress(dll_instance,"amod_process"))) _amod_process=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_prefetch"))) _amod_prefetch=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_display_skill_line"))) _amod_display_skill_line=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"amod_is_playersprite"))) _amod_is_playersprite=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_process"))) _amod_process=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_prefetch"))) _amod_prefetch=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_display_skill_line"))) _amod_display_skill_line=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"amod_is_playersprite"))) _amod_is_playersprite=tmp;
 
         // client functions
-        if ((tmp=GetProcAddress(dll_instance,"is_cut_sprite"))) is_cut_sprite=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"is_mov_sprite"))) is_mov_sprite=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"is_door_sprite"))) is_door_sprite=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"is_yadd_sprite"))) is_yadd_sprite=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"get_chr_height"))) get_chr_height=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"trans_asprite"))) trans_asprite=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"trans_charno"))) trans_charno=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"get_player_sprite"))) get_player_sprite=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"trans_csprite"))) trans_csprite=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"get_lay_sprite"))) get_lay_sprite=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"get_offset_sprite"))) get_offset_sprite=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"additional_sprite"))) additional_sprite=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"opt_sprite"))) opt_sprite=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"get_skltab_index"))) get_skltab_index=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"get_skltab_sep"))) get_skltab_sep=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"get_skltab_show"))) get_skltab_show=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"do_display_random"))) do_display_random=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"do_display_help"))) do_display_help=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"is_cut_sprite"))) is_cut_sprite=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"is_mov_sprite"))) is_mov_sprite=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"is_door_sprite"))) is_door_sprite=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"is_yadd_sprite"))) is_yadd_sprite=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"get_chr_height"))) get_chr_height=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"trans_asprite"))) trans_asprite=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"trans_charno"))) trans_charno=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"get_player_sprite"))) get_player_sprite=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"trans_csprite"))) trans_csprite=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"get_lay_sprite"))) get_lay_sprite=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"get_offset_sprite"))) get_offset_sprite=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"additional_sprite"))) additional_sprite=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"opt_sprite"))) opt_sprite=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"get_skltab_index"))) get_skltab_index=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"get_skltab_sep"))) get_skltab_sep=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"get_skltab_show"))) get_skltab_show=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"do_display_random"))) do_display_random=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"do_display_help"))) do_display_help=tmp;
 
         // client variables
-        if ((tmp=GetProcAddress(dll_instance,"game_email_main"))) game_email_main=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"game_email_cash"))) game_email_cash=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"game_url"))) game_url=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"game_rankname"))) game_rankname=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"game_rankcount"))) game_rankcount=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"game_v_max"))) game_v_max=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"game_skill"))) game_skill=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"game_skilldesc"))) game_skilldesc=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"game_v_profbase"))) game_v_profbase=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"game_questlog"))) game_questlog=tmp;
-        if ((tmp=GetProcAddress(dll_instance,"game_questcount"))) game_questcount=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"game_email_main"))) game_email_main=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"game_email_cash"))) game_email_cash=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"game_url"))) game_url=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"game_rankname"))) game_rankname=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"game_rankcount"))) game_rankcount=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"game_v_max"))) game_v_max=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"game_skill"))) game_skill=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"game_skilldesc"))) game_skilldesc=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"game_v_profbase"))) game_v_profbase=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"game_questlog"))) game_questlog=tmp;
+        if ((tmp=platform_get_proc_address(dll_instance,"game_questcount"))) game_questcount=tmp;
     }
 
     for (int i=0; i<MAXMOD; i++) {

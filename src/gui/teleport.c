@@ -18,24 +18,24 @@
 int teleporter=0;
 
 static int tele[64*2]={
-    133,229,    //0	Cameron
+    133,229,    //0 Cameron
     -1,-1,      //1
-    143,206,    //2	Aston
-    370,191,    //3	Tribe of the Isara
-    370,179,    //4	Tribe of the Cerasa
-    370,167,    //5	Cerasa Maze
-    370,155,    //6	Cerasa Tunnels
-    370,143,    //7	Zalina Entrance
-    370,131,    //8	Tribe of the Zalina
-    130,123,    //9	Teufelheim
+    143,206,    //2 Aston
+    370,191,    //3 Tribe of the Isara
+    370,179,    //4 Tribe of the Cerasa
+    370,167,    //5 Cerasa Maze
+    370,155,    //6 Cerasa Tunnels
+    370,143,    //7 Zalina Entrance
+    370,131,    //8 Tribe of the Zalina
+    130,123,    //9 Teufelheim
     -1,-1,      //10
     -1,-1,      //11
-    458,108,    //12	Ice 8
-    458,96,     //13	Ice 7
-    458,84,     //14	Ice 6
-    458,72,     //15	Ice 5
-    458,60,     //16	Ice 4
-    225,123,    //17	Nomad Plains
+    458,108,    //12    Ice 8
+    458,96,     //13    Ice 7
+    458,84,     //14    Ice 6
+    458,72,     //15    Ice 5
+    458,60,     //16    Ice 4
+    225,123,    //17    Nomad Plains
     -1,-1,      //18
     -1,-1,      //19
     162,180,    // 20 forest
@@ -81,7 +81,7 @@ static int mirror_pos[26*2]={
 
 int clan_offset=0;
 
-__declspec(dllexport) void set_teleport(int idx,int x,int y) {
+EXPORT void set_teleport(int idx,int x,int y) {
     if (idx<0 || idx>=64) return;
 
     tele[idx*2]=x;

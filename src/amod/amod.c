@@ -21,15 +21,15 @@
 #include "quests.c"
 #endif
 
-__declspec(dllexport) char *amod_version(void) {
+EXPORT char *amod_version(void) {
     return "Restart Demo 0.4";
 }
 
-__declspec(dllexport) void amod_gamestart(void) {
+EXPORT void amod_gamestart(void) {
     note("Restart Client Demo v0.4 loaded.");
 }
 
-__declspec(dllexport) int amod_client_cmd(char *buf) {
+EXPORT int amod_client_cmd(char *buf) {
     static unsigned long long option_ovr=0;
 
     if (!strncmp(buf, "#slow",5)) {
@@ -38,9 +38,9 @@ __declspec(dllexport) int amod_client_cmd(char *buf) {
     }
 
     if (!strncmp(buf, "#option ", 8)) {
-    	option_ovr=strtoull(&buf[8],NULL,10);
+        option_ovr=strtoull(&buf[8],NULL,10);
         addline("Old options=%llu, new options=%llu",game_options,option_ovr);
-    	return 1;
+        return 1;
     }
 
     if (!strncmp(buf,"#reset",6)) {
@@ -66,24 +66,24 @@ __declspec(dllexport) int amod_client_cmd(char *buf) {
 
     if (!strncmp(buf,"#echo",5)) {
         addline("Echo from mod!");
-    	return -1;
+        return -1;
     }
     return 0;
 }
 
-__declspec(dllexport) int amod_keydown(int key) {
+EXPORT int amod_keydown(int key) {
     return 0;
 }
-__declspec(dllexport) int amod_keyup(int key) {
+EXPORT int amod_keyup(int key) {
     return 0;
 }
 
-__declspec(dllexport) int amod_is_playersprite(int sprite) {
+EXPORT int amod_is_playersprite(int sprite) {
     return (sprite==800 || sprite==801);
 }
 
 
-__declspec(dllexport) int amod_process(char *buf) {
+EXPORT int amod_process(char *buf) {
     switch (buf[0]) {
         case SV_MOD1:
             addline("process got sv_mod1");
@@ -91,18 +91,18 @@ __declspec(dllexport) int amod_process(char *buf) {
     }
     return 0;
 }
-__declspec(dllexport) int amod_prefetch(char *buf) {
+EXPORT int amod_prefetch(char *buf) {
     switch (buf[0]) {
         case SV_MOD1:   return 5;
     }
     return 0;
 }
 
-__declspec(dllexport) void amod_frame(void) {
+EXPORT void amod_frame(void) {
 
 }
 
-__declspec(dllexport) int do_display_help(int nr) {
+EXPORT int do_display_help(int nr) {
     int x=dotx(DOT_HLP)+10,y=doty(DOT_HLP)+8;
 
     switch (nr) {

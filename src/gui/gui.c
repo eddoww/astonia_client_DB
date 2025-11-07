@@ -8,11 +8,11 @@
  *
  */
 
-#include <windows.h>
-#include <psapi.h>
 #include <time.h>
+#include <inttypes.h>
 #include <SDL2/SDL.h>
 
+#include "../../src/platform.h"
 #include "../../src/astonia.h"
 #include "../../src/gui.h"
 #include "../../src/gui/_gui.h"
@@ -23,10 +23,10 @@
 
 uint64_t gui_time_misc=0;
 
-__declspec(dllexport) int game_slowdown=0;
+EXPORT int game_slowdown=0;
 
-#define MAXHELP		24
-#define MAXQUEST2	11
+#define MAXHELP     24
+#define MAXQUEST2   11
 
 void cmd_add_text(char *buf,int typ);
 
@@ -47,19 +47,19 @@ int show_look=0;
 
 int gui_topoff;     // offset of the top bar *above* the top of the window (0 ... -38)
 
-__declspec(dllexport) unsigned short int healthcolor,manacolor,endurancecolor,shieldcolor;
-__declspec(dllexport) unsigned short int whitecolor,lightgraycolor,graycolor,darkgraycolor,blackcolor;
-__declspec(dllexport) unsigned short int lightredcolor,redcolor,darkredcolor;
-__declspec(dllexport) unsigned short int lightgreencolor,greencolor,darkgreencolor;
-__declspec(dllexport) unsigned short int lightbluecolor,bluecolor,darkbluecolor;
-__declspec(dllexport) unsigned short int textcolor;
-__declspec(dllexport) unsigned short int lightorangecolor,orangecolor,darkorangecolor;
+EXPORT unsigned short int healthcolor,manacolor,endurancecolor,shieldcolor;
+EXPORT unsigned short int whitecolor,lightgraycolor,graycolor,darkgraycolor,blackcolor;
+EXPORT unsigned short int lightredcolor,redcolor,darkredcolor;
+EXPORT unsigned short int lightgreencolor,greencolor,darkgreencolor;
+EXPORT unsigned short int lightbluecolor,bluecolor,darkbluecolor;
+EXPORT unsigned short int textcolor;
+EXPORT unsigned short int lightorangecolor,orangecolor,darkorangecolor;
 
 unsigned int now;
 
 int cur_cursor=0;
 int mousex=300,mousey=300,vk_rbut,vk_lbut,shift_override=0,control_override=0;
-__declspec(dllexport) int vk_shift,vk_control,vk_alt;
+EXPORT int vk_shift,vk_control,vk_alt;
 int mousedx,mousedy;
 int vk_item,vk_char,vk_spell;
 
@@ -67,7 +67,7 @@ int vk_special=0,vk_special_time=0;
 
 // globals wea
 
-__declspec(dllexport) int weatab[12]={9,6,8,11,0,1,2,4,5,3,7,10};
+EXPORT int weatab[12]={9,6,8,11,0,1,2,4,5,3,7,10};
 char weaname[12][32]={"RING","HAND","HAND","RING","NECK","HEAD","BACK","BODY","BELT","ARMS","LEGS","FEET"};
 
 KEYTAB keytab[]={
@@ -167,9 +167,9 @@ int takegold;                   // the amout of gold to take
 char hitsel[256];               // something in the text (dx_drawtext()) is selected
 int hittype=0;
 
-__declspec(dllexport) SKLTAB *skltab=NULL;
+EXPORT SKLTAB *skltab=NULL;
 int skltab_max=0;
-__declspec(dllexport) int skltab_cnt=0;
+EXPORT int skltab_cnt=0;
 
 int invoff,max_invoff;
 int conoff,max_conoff;
@@ -178,7 +178,7 @@ int __skldy;
 int __invdy;
 
 int lcmd;
-int rcmd;
+int gui_rcmd;
 
 // transformation
 
@@ -232,10 +232,11 @@ int stom(int scrx,int scry,int *mapx,int *mapy) {
 
 int gui_keymode(void) {
     int ret=0;
+    SDL_Keymod modstate = SDL_GetModState();
 
-    if (GetAsyncKeyState(VK_SHIFT)&0x8000) ret|=SDL_KEYM_SHIFT;
-    if (GetAsyncKeyState(VK_CONTROL)&0x8000) ret|=SDL_KEYM_CTRL;
-    if (GetAsyncKeyState(VK_MENU)&0x8000) ret|=SDL_KEYM_ALT;
+    if (modstate & KMOD_SHIFT) ret|=SDL_KEYM_SHIFT;
+    if (modstate & KMOD_CTRL) ret|=SDL_KEYM_CTRL;
+    if (modstate & KMOD_ALT) ret|=SDL_KEYM_ALT;
 
     return ret;
 }
@@ -260,7 +261,7 @@ void dx_copysprite_emerald(int scrx,int scry,int emx,int emy) {
 
 
 int (*do_display_help)(int)=_do_display_help;
-__declspec(dllexport) int _do_display_help(int nr) {
+EXPORT int _do_display_help(int nr) {
     int x=dotx(DOT_HLP)+10,y=doty(DOT_HLP)+8,oldy;
 
     switch (nr) {
@@ -653,14 +654,19 @@ display_graphs:
         //static int frame_min=99,frame_max=0,frame_step=0;
         //static int tick_min=99,tick_max=0,tick_step=0;
         int px=800-110,py=35+(!(game_options&GO_SMALLTOP) ? 0 : gui_topoff);
-        PROCESS_MEMORY_COUNTERS mi;
-
-        GetProcessMemoryInfo(GetCurrentProcess(),&mi,sizeof(mi));
 
         //dd_drawtext_fmt(px,py+=10,0xffff,DD_SMALL|DD_LEFT|DD_FRAME|DD_NOCACHE,"skip %3.0f%%",100.0*skip/tota);
         //dd_drawtext_fmt(px,py+=10,0xffff,DD_SMALL|DD_LEFT|DD_FRAME|DD_NOCACHE,"idle %3.0f%%",100.0*idle/tota);
         //dd_drawtext_fmt(px,py+=10,IRGB(8,31,8),DD_LEFT|DD_FRAME|DD_NOCACHE,"Tex: %5.2f MB",mem_tex/(1024.0*1024.0));
-        dd_drawtext_fmt(px,py+=10,IRGB(8,31,8),DD_LEFT|DD_FRAME|DD_NOCACHE,"Mem: %5.2f MB",mi.WorkingSetSize/(1024.0*1024.0));
+#ifdef PLATFORM_WINDOWS
+        {
+            PROCESS_MEMORY_COUNTERS mi;
+            GetProcessMemoryInfo(GetCurrentProcess(),&mi,sizeof(mi));
+            dd_drawtext_fmt(px,py+=10,IRGB(8,31,8),DD_LEFT|DD_FRAME|DD_NOCACHE,"Mem: %5.2f MB",mi.WorkingSetSize/(1024.0*1024.0));
+        }
+#else
+        dd_drawtext_fmt(px,py+=10,IRGB(8,31,8),DD_LEFT|DD_FRAME|DD_NOCACHE,"Mem: N/A");
+#endif
 
 #if 0
         if (pre_in>=pre_3) size=pre_in-pre_3;
@@ -699,12 +705,12 @@ display_graphs:
         dd_drawtext_fmt(px,py+=10,IRGB(8,31,8),DD_NOCACHE|DD_LEFT|DD_FRAME,"TT %d %d",tick_min,tick_max);
 #endif
         size=gui_frametime/2;
-        dd_drawtext_fmt(px,py+=10,IRGB(8,31,8),DD_NOCACHE|DD_LEFT|DD_FRAME,"Frametime %lld",gui_frametime);
+        dd_drawtext_fmt(px,py+=10,IRGB(8,31,8),DD_NOCACHE|DD_LEFT|DD_FRAME,"Frametime %" PRIu64,gui_frametime);
         sdl_bargraph_add(sizeof(pre2_graph),pre2_graph,size<42?size:42);
         sdl_bargraph(px,py+=40,sizeof(pre2_graph),pre2_graph,x_offset,y_offset);
 
         size=gui_ticktime/2;
-        dd_drawtext_fmt(px,py+=10,IRGB(8,31,8),DD_NOCACHE|DD_LEFT|DD_FRAME,"Ticktime %lld",gui_ticktime);
+        dd_drawtext_fmt(px,py+=10,IRGB(8,31,8),DD_NOCACHE|DD_LEFT|DD_FRAME,"Ticktime %" PRIu64,gui_ticktime);
         sdl_bargraph_add(sizeof(pre3_graph),pre3_graph,size<42?size:42);
         sdl_bargraph(px,py+=40,sizeof(pre3_graph),pre3_graph,x_offset,y_offset);
 #if 0
@@ -862,7 +868,7 @@ static void set_cmd_cursor(int cmd) {
         case CMD_WEA_DROP:      cursor=SDL_CUR_c_drop; break;
 
         case CMD_CON_TAKE:      cursor=SDL_CUR_c_take; break;
-        case CMD_CON_FASTTAKE:	cursor=SDL_CUR_c_take; break;   // needs different cursor!!!
+        case CMD_CON_FASTTAKE:  cursor=SDL_CUR_c_take; break;   // needs different cursor!!!
 
         case CMD_CON_BUY:       cursor=SDL_CUR_c_buy; break;
         case CMD_CON_FASTBUY:   cursor=SDL_CUR_c_buy; break;    // needs different cursor!!!
@@ -901,23 +907,23 @@ static void set_cmd_cursor(int cmd) {
         case CMD_SPEED1:
         case CMD_SPEED2:        cursor=SDL_CUR_c_set; break;
 
-        case CMD_TELEPORT:	    cursor=SDL_CUR_c_take; break;
+        case CMD_TELEPORT:      cursor=SDL_CUR_c_take; break;
 
         case CMD_HELP_NEXT:
         case CMD_HELP_PREV:
-        case CMD_HELP_CLOSE:	cursor=SDL_CUR_c_use; break;
+        case CMD_HELP_CLOSE:    cursor=SDL_CUR_c_use; break;
 
-        case CMD_HELP_MISC:	    if (helpsel!=-1) cursor=SDL_CUR_c_use;
+        case CMD_HELP_MISC:     if (helpsel!=-1) cursor=SDL_CUR_c_use;
                                 else if (questsel!=-1) cursor=SDL_CUR_c_use;
                                 else cursor=SDL_CUR_c_only;
                                 break;
 
-        case CMD_HELP:		    cursor=SDL_CUR_c_use; break;
-        case CMD_QUEST:		    cursor=SDL_CUR_c_use; break;
-        case CMD_EXIT:		    cursor=SDL_CUR_c_use; break;
-        case CMD_NOLOOK:	    cursor=SDL_CUR_c_use; break;
+        case CMD_HELP:          cursor=SDL_CUR_c_use; break;
+        case CMD_QUEST:         cursor=SDL_CUR_c_use; break;
+        case CMD_EXIT:          cursor=SDL_CUR_c_use; break;
+        case CMD_NOLOOK:        cursor=SDL_CUR_c_use; break;
 
-        case CMD_COLOR:		    cursor=SDL_CUR_c_use; break;
+        case CMD_COLOR:         cursor=SDL_CUR_c_use; break;
 
         case CMD_ACTION:        cursor=SDL_CUR_c_use; break;
 
@@ -944,7 +950,7 @@ void set_cmd_key_states(void) {
     vk_spell=vk_alt;
 }
 
-__declspec(dllexport) int get_near_ground(int x,int y) {
+EXPORT int get_near_ground(int x,int y) {
     int mapx,mapy;
 
     if (!stom(x,y,&mapx,&mapy)) return -1;
@@ -954,7 +960,7 @@ __declspec(dllexport) int get_near_ground(int x,int y) {
     return mapmn(mapx,mapy);
 }
 
-__declspec(dllexport) int get_near_item(int x,int y,int flag,int looksize) {
+EXPORT int get_near_item(int x,int y,int flag,int looksize) {
     int mapx,mapy,sx,sy,ex,ey,mn,scrx,scry,nearest=-1;
     double dist,nearestdist=100000000;
 
@@ -988,7 +994,7 @@ __declspec(dllexport) int get_near_item(int x,int y,int flag,int looksize) {
     return nearest;
 }
 
-__declspec(dllexport) int get_near_char(int x,int y,int looksize) {
+EXPORT int get_near_char(int x,int y,int looksize) {
     int mapx,mapy,sx,sy,ex,ey,mn,scrx,scry,nearest=-1;
     double dist,nearestdist=100000000;
 
@@ -1085,7 +1091,7 @@ static void set_conoff(int bymouse,int ny) {
 }
 
 int (*get_skltab_index)(int n)=_get_skltab_index;
-__declspec(dllexport) int _get_skltab_index(int n) {
+EXPORT int _get_skltab_index(int n) {
     static int itab[V_MAX+1]={
         -1,
         0,1,2,                          // powers
@@ -1105,12 +1111,12 @@ __declspec(dllexport) int _get_skltab_index(int n) {
 }
 
 int (*get_skltab_sep)(int i)=_get_skltab_sep;
-__declspec(dllexport)int _get_skltab_sep(int i) {
+EXPORT int _get_skltab_sep(int i) {
     return (i==0 || i==3 || i==7 || i==12 || i==17 || i==25 || i==28 || i==42 || i==43);
 }
 
 int (*get_skltab_show)(int i)=_get_skltab_show;
-__declspec(dllexport)int _get_skltab_show(int i) {
+EXPORT int _get_skltab_show(int i) {
     return (i==V_WEAPON || i==V_ARMOR || i==V_SPEED || i==V_LIGHT);
 }
 
@@ -1214,8 +1220,8 @@ static int is_fkey_use_item(int i) {
         case 50208:
         case 50209:
         case 50211:
-        case 50212:	return 0;
-        default:	return item_flags[i]&IF_USE;
+        case 50212: return 0;
+        default:    return item_flags[i]&IF_USE;
     }
 }
 
@@ -1348,11 +1354,11 @@ static void set_cmd_states(void) {
     sprintf(buf,"%s - Astonia 3 v%d.%d.%d - (%u.%u.%u.%u:%u)",
             (map[plrmn].cn && player[map[plrmn].cn].name[0])?player[map[plrmn].cn].name:"Someone",
             (VERSION>>16)&255,(VERSION>>8)&255,(VERSION)&255,
-            (target_server>>24)&255,
-            (target_server>>16)&255,
-            (target_server>>8)&255,
-            (target_server>>0)&255,
-            target_port);
+            (unsigned)((target_server>>24)&255),
+            (unsigned)((target_server>>16)&255),
+            (unsigned)((target_server>>8)&255),
+            (unsigned)((target_server>>0)&255),
+            (unsigned)target_port);
     if (strcmp(title,buf)) {
         strcpy(title,buf);
         sdl_set_title(title);
@@ -1569,46 +1575,46 @@ static void set_cmd_states(void) {
         if (butsel==BUT_WEA_LCK) lcmd=CMD_WEAR_LOCK;
     }
 
-    // set rcmd
-    rcmd=CMD_NONE;
+    // set gui_rcmd
+    gui_rcmd=CMD_NONE;
     if (action_ovr==-1) {
         skl_look_sel=get_skl_look(mousex,mousey);
-        if (con_cnt==0 && skl_look_sel!=-1) rcmd=CMD_SKL_LOOK;
+        if (con_cnt==0 && skl_look_sel!=-1) gui_rcmd=CMD_SKL_LOOK;
         else if (!vk_spell) {
-            if (mapsel!=-1) rcmd=CMD_MAP_LOOK;
-            if (itmsel!=-1) rcmd=CMD_ITM_LOOK;
-            if (chrsel!=-1) rcmd=CMD_CHR_LOOK;
+            if (mapsel!=-1) gui_rcmd=CMD_MAP_LOOK;
+            if (itmsel!=-1) gui_rcmd=CMD_ITM_LOOK;
+            if (chrsel!=-1) gui_rcmd=CMD_CHR_LOOK;
             if (context_key_enabled()) {
-                if (invsel!=-1) rcmd=CMD_INV_USE;
-                if (weasel!=-1) rcmd=CMD_WEA_USE;
+                if (invsel!=-1) gui_rcmd=CMD_INV_USE;
+                if (weasel!=-1) gui_rcmd=CMD_WEA_USE;
             } else {
-                if (invsel!=-1) rcmd=CMD_INV_LOOK;
-                if (weasel!=-1) rcmd=CMD_WEA_LOOK;
-                if (consel!=-1) rcmd=CMD_CON_LOOK;
+                if (invsel!=-1) gui_rcmd=CMD_INV_LOOK;
+                if (weasel!=-1) gui_rcmd=CMD_WEA_LOOK;
+                if (consel!=-1) gui_rcmd=CMD_CON_LOOK;
             }
         } else {
-            if (mapsel!=-1) rcmd=CMD_MAP_CAST_R;
-            if (itmsel!=-1) rcmd=CMD_ITM_CAST_R;
-            if (chrsel!=-1) rcmd=CMD_CHR_CAST_R;
+            if (mapsel!=-1) gui_rcmd=CMD_MAP_CAST_R;
+            if (itmsel!=-1) gui_rcmd=CMD_ITM_CAST_R;
+            if (chrsel!=-1) gui_rcmd=CMD_CHR_CAST_R;
         }
-    } else rcmd=CMD_ACTION_CANCEL;
+    } else gui_rcmd=CMD_ACTION_CANCEL;
 
     if (gear_lock) { // gear lock resets cmds to none if on
         // no fast-equip from inventory
         if (invsel!=-1 && lcmd==CMD_INV_USE && !(item_flags[invsel]&IF_USE)) lcmd=CMD_NONE;
-        if (invsel!=-1 && rcmd==CMD_INV_USE && !(item_flags[invsel]&IF_USE)) rcmd=CMD_NONE;
+        if (invsel!=-1 && gui_rcmd==CMD_INV_USE && !(item_flags[invsel]&IF_USE)) gui_rcmd=CMD_NONE;
 
         // no fast-unequip from equipment
         if (weasel!=-1 && lcmd==CMD_WEA_USE && !(item_flags[weatab[weasel]]&IF_USE)) lcmd=CMD_NONE;
-        if (weasel!=-1 && rcmd==CMD_WEA_USE && !(item_flags[weatab[weasel]]&IF_USE)) rcmd=CMD_NONE;
+        if (weasel!=-1 && gui_rcmd==CMD_WEA_USE && !(item_flags[weatab[weasel]]&IF_USE)) gui_rcmd=CMD_NONE;
 
         // no take/swap/drop from equipment unless it is the left-hand-slot (for torches)
         if (weasel!=2 && (lcmd==CMD_WEA_TAKE || lcmd==CMD_WEA_DROP || lcmd==CMD_WEA_SWAP)) lcmd=CMD_NONE;
-        if (weasel!=2 && (rcmd==CMD_WEA_TAKE || rcmd==CMD_WEA_DROP || rcmd==CMD_WEA_SWAP)) rcmd=CMD_NONE;
+        if (weasel!=2 && (gui_rcmd==CMD_WEA_TAKE || gui_rcmd==CMD_WEA_DROP || gui_rcmd==CMD_WEA_SWAP)) gui_rcmd=CMD_NONE;
     }
 
     // set cursor
-    if (vk_rbut) set_cmd_cursor(rcmd);
+    if (vk_rbut) set_cmd_cursor(gui_rcmd);
     else set_cmd_cursor(lcmd);
 }
 
@@ -1696,7 +1702,7 @@ static void exec_cmd(int cmd,int a) {
         case CMD_CON_DROP:      //return;
         case CMD_CON_SELL:      cmd_con(consel); return;
         case CMD_CON_FASTTAKE:
-        case CMD_CON_FASTBUY:	cmd_con_fast(consel); return;
+        case CMD_CON_FASTBUY:   cmd_con_fast(consel); return;
 
         case CMD_MAP_LOOK:      cmd_look_map(originx-MAPDX/2+mapsel%MAPDX,originy-MAPDY/2+mapsel/MAPDX); return;
         case CMD_ITM_LOOK:      cmd_look_item(originx-MAPDX/2+itmsel%MAPDX,originy-MAPDY/2+itmsel/MAPDX); return;
@@ -1712,7 +1718,7 @@ static void exec_cmd(int cmd,int a) {
         case CMD_ITM_CAST_R:    cmd_some_spell(CL_BALL,originx-MAPDX/2+itmsel%MAPDX,originy-MAPDY/2+itmsel/MAPDX,0); break;
         case CMD_CHR_CAST_R:    cmd_some_spell(CL_BALL,0,0,map[chrsel].cn); break;
 
-        case CMD_SLF_CAST_K:	cmd_some_spell(a,0,0,map[plrmn].cn); break;
+        case CMD_SLF_CAST_K:    cmd_some_spell(a,0,0,map[plrmn].cn); break;
         case CMD_MAP_CAST_K:    cmd_some_spell(a,originx-MAPDX/2+mapsel%MAPDX,originy-MAPDY/2+mapsel/MAPDX,0); break;
         case CMD_CHR_CAST_K:    cmd_some_spell(a,0,0,map[chrsel].cn); break;
 
@@ -1732,7 +1738,7 @@ static void exec_cmd(int cmd,int a) {
 
         case CMD_SAY_HITSEL:    cmd_add_text(hitsel,hittype); break;
 
-        case CMD_USE_FKEYITEM:	cmd_use_inv(fkeyitem[a]); return;
+        case CMD_USE_FKEYITEM:  cmd_use_inv(fkeyitem[a]); return;
 
         case CMD_DROP_GOLD:     cmd_drop_gold(); return;
         case CMD_TAKE_GOLD:     cmd_take_gold(takegold); return;
@@ -1743,35 +1749,35 @@ static void exec_cmd(int cmd,int a) {
         case CMD_SPEED1:        if (pspeed!=1) cmd_speed(1); return;
         case CMD_SPEED2:        if (pspeed!=2) cmd_speed(2); return;
 
-        case CMD_TELEPORT:	if (telsel==1042) clan_offset=16-clan_offset;
+        case CMD_TELEPORT:  if (telsel==1042) clan_offset=16-clan_offset;
             else {
                 if (telsel>=64 && telsel<=100) cmd_teleport(telsel+clan_offset);
                 else cmd_teleport(telsel);
             }
             return;
-        case CMD_COLOR:		cmd_color(colsel); return;
-        case CMD_SKL_LOOK:	cmd_look_skill(skl_look_sel); return;
+        case CMD_COLOR:     cmd_color(colsel); return;
+        case CMD_SKL_LOOK:  cmd_look_skill(skl_look_sel); return;
 
-        case CMD_HELP_NEXT:	if (display_help) { display_help++; if (display_help>MAXHELP) display_help=1; }
+        case CMD_HELP_NEXT: if (display_help) { display_help++; if (display_help>MAXHELP) display_help=1; }
             if (display_quest) { display_quest++; if (display_quest>MAXQUEST2) display_quest=1; }
             return;
-        case CMD_HELP_PREV:	if (display_help) { display_help--; if (display_help<1) display_help=MAXHELP; }
+        case CMD_HELP_PREV: if (display_help) { display_help--; if (display_help<1) display_help=MAXHELP; }
             if (display_quest) { display_quest--; if (display_quest<1) display_quest=MAXQUEST2; }
             return;
-        case CMD_HELP_CLOSE:	display_help=0; display_quest=0; return;
-        case CMD_HELP_MISC:	if (helpsel>0 && helpsel<=MAXHELP && display_help) display_help=helpsel;
+        case CMD_HELP_CLOSE:    display_help=0; display_quest=0; return;
+        case CMD_HELP_MISC: if (helpsel>0 && helpsel<=MAXHELP && display_help) display_help=helpsel;
             if (questsel!=-1) quest_select(questsel);
             return;
         case CMD_HELP_DRAG:     help_drag(); return;
-        case CMD_HELP:		if (display_help) display_help=0;
+        case CMD_HELP:      if (display_help) display_help=0;
             else { display_help=1; display_quest=0; }
             return;
-        case CMD_QUEST:		if (display_quest) display_quest=0;
+        case CMD_QUEST:     if (display_quest) display_quest=0;
             else { display_quest=1; display_help=0; }
             return;
 
-        case CMD_EXIT:		quit=1; return;
-        case CMD_NOLOOK:	show_look=0; return;
+        case CMD_EXIT:      quit=1; return;
+        case CMD_NOLOOK:    show_look=0; return;
 
         case CMD_ACTION:    cmd_action(); return;
         case CMD_ACTION_CANCEL: return; // action gets cancelled on top
@@ -1809,17 +1815,17 @@ void gui_sdl_keyproc(int wparam) {
         case SDLK_F3:           if (fkeyitem[2]) exec_cmd(CMD_USE_FKEYITEM,2); return;
         case SDLK_F4:           if (fkeyitem[3]) exec_cmd(CMD_USE_FKEYITEM,3); return;
 
-        case SDLK_F5:		    cmd_speed(1); return;
+        case SDLK_F5:           cmd_speed(1); return;
         case SDLK_F6:           cmd_speed(0); return;
         case SDLK_F7:           cmd_speed(2); return;
 
-        case SDLK_F8:		    nocut^=1; return;
+        case SDLK_F8:           nocut^=1; return;
 
-        case SDLK_F9:		    if (display_quest) display_quest=0;
+        case SDLK_F9:           if (display_quest) display_quest=0;
                                 else { display_help=0; display_quest=1; }
                                 return;
 
-        case SDLK_F10:		    display_vc^=1; list_mem(); dd_list_text(); return;
+        case SDLK_F10:          display_vc^=1; list_mem(); dd_list_text(); return;
 
         case SDLK_F11:          if (display_help) display_help=0;
                                 else { display_quest=0; display_help=1; }
@@ -1940,6 +1946,7 @@ void gui_sdl_draghack(void) {
         SDL_Event eventSink;
         while (SDL_PollEvent(&eventSink)) { /*clear event queue*/ }
 
+#ifdef PLATFORM_WINDOWS
         //Windows code to fix dragging bug with window inactive
         INPUT input[2];
         ZeroMemory(input, sizeof(input));
@@ -1951,6 +1958,7 @@ void gui_sdl_draghack(void) {
         input[1].mi.dwFlags=MOUSEEVENTF_LEFTDOWN;
 
         SendInput(2, input, sizeof(INPUT)); //note: SDL_PushEvent doesn't work
+#endif
     }
 }
 
@@ -2037,9 +2045,9 @@ void gui_sdl_mouseproc(int x,int y,int what,int clicks) {
         case SDL_MOUM_RUP:
             vk_rbut=0;
             if (amod_mouse_click(mousex,mousey,what)) break;
-            if (rcmd==CMD_MAP_LOOK && context_open(mousex,mousey)) break;
+            if (gui_rcmd==CMD_MAP_LOOK && context_open(mousex,mousey)) break;
             context_stop();
-            exec_cmd(rcmd,0);
+            exec_cmd(gui_rcmd,0);
             break;
 
         case SDL_MOUM_WHEEL:
@@ -2047,23 +2055,23 @@ void gui_sdl_mouseproc(int x,int y,int what,int clicks) {
 
             if (amod_mouse_click(0,delta,what)) break;
 
-            if (mousex>=dotx(DOT_SKL) && mousex<dotx(DOT_SK2) && mousey>=doty(DOT_SKL) && mousey<doty(DOT_SK2)) {	// skill / depot / merchant
-				while (delta>0) { if (!con_cnt) set_skloff(0,skloff-1); else set_conoff(0,conoff-1); delta--; }
-				while (delta<0) { if (!con_cnt) set_skloff(0,skloff+1); else set_conoff(0,conoff+1); delta++; }
-				break;
-			}
+            if (mousex>=dotx(DOT_SKL) && mousex<dotx(DOT_SK2) && mousey>=doty(DOT_SKL) && mousey<doty(DOT_SK2)) {   // skill / depot / merchant
+                while (delta>0) { if (!con_cnt) set_skloff(0,skloff-1); else set_conoff(0,conoff-1); delta--; }
+                while (delta<0) { if (!con_cnt) set_skloff(0,skloff+1); else set_conoff(0,conoff+1); delta++; }
+                break;
+            }
 
-			if (mousex>=dotx(DOT_TXT) && mousex<dotx(DOT_TX2) && mousey>=doty(DOT_TXT) && mousey<doty(DOT_TX2)) {	// chat
-				while (delta>0) { dd_text_lineup(); dd_text_lineup(); dd_text_lineup(); delta--; }
-				while (delta<0) { dd_text_linedown(); dd_text_linedown(); dd_text_linedown(); delta++; }
-				break;
-			}
+            if (mousex>=dotx(DOT_TXT) && mousex<dotx(DOT_TX2) && mousey>=doty(DOT_TXT) && mousey<doty(DOT_TX2)) {   // chat
+                while (delta>0) { dd_text_lineup(); dd_text_lineup(); dd_text_lineup(); delta--; }
+                while (delta<0) { dd_text_linedown(); dd_text_linedown(); dd_text_linedown(); delta++; }
+                break;
+            }
 
-			if (mousex>=dotx(DOT_IN1) && mousex<dotx(DOT_IN2) && mousey>=doty(DOT_IN1) && mousey<doty(DOT_IN2)) {	// inventory
-				while (delta>0) { set_invoff(0,invoff-1); delta--; }
-				while (delta<0) { set_invoff(0,invoff+1); delta++; }
-				break;
-			}
+            if (mousex>=dotx(DOT_IN1) && mousex<dotx(DOT_IN2) && mousey>=doty(DOT_IN1) && mousey<doty(DOT_IN2)) {   // inventory
+                while (delta>0) { set_invoff(0,invoff-1); delta--; }
+                while (delta<0) { set_invoff(0,invoff+1); delta++; }
+                break;
+            }
 
             if (game_options&GO_WHEEL) {
                 while (delta>0) { vk_special_inc(); delta--; }

@@ -15,7 +15,7 @@
 #define MPT             (1000/TICKS)            // milliseconds per tick
 #define MPF             (1000/FRAMES)           // milliseconds per frame
 
-#define DIST		    25
+#define DIST            25
 #define FDX             40      // width of a map tile
 #define FDY             20      // height of a map tile
 
@@ -27,7 +27,9 @@
 
 #define PARANOIA(a) a
 
+#ifndef bzero
 #define bzero(ptr,size) memset(ptr,0,size)
+#endif
 
 #define MEM_NONE        0
 #define MEM_GLOB        1
@@ -62,10 +64,6 @@
 
 #ifndef max
 #define max(a,b) (((a) > (b)) ? (a) : (b))
-#endif
-
-#ifndef abs
-#define abs(a)	((a)<0 ? (-(a)) : (a))
 #endif
 
 #ifndef ARRAYSIZE

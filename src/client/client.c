@@ -7,15 +7,19 @@
  *
  */
 
-#include <winsock2.h>
 #include <time.h>
 #include <zlib.h>
-#include <SDL2/SDL.h>
 
+/* Include platform.h first to ensure socket types are available */
+#include "../../src/platform.h"
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_net.h>
 #include "../../src/astonia.h"
 #include "../../src/client.h"
 #include "../../src/client/_client.h"
 #include "../../src/sdl.h"
+#include "../../src/sdl/_sdl.h"
 #include "../../src/gui.h"
 #include "../../src/modder.h"
 
@@ -31,16 +35,16 @@ int kicked_out=0;
 static unsigned int unique=0;
 static unsigned int usum=0;
 int target_port=5556;
-__declspec(dllexport) int target_server=0;
-__declspec(dllexport) char password[16];
+EXPORT int target_server=0;
+EXPORT char password[16];
 static int zsinit;
 static struct z_stream_s zs;
 
-__declspec(dllexport) char username[40];
-__declspec(dllexport) int tick;
-__declspec(dllexport) int mirror=0;
-__declspec(dllexport) int realtime;
-__declspec(dllexport) int protocol_version=0;
+EXPORT char username[40];
+EXPORT int tick;
+EXPORT int mirror=0;
+EXPORT int realtime;
+EXPORT int protocol_version=0;
 
 int newmirror=0;
 int lasttick;           // ticks in inbuf
@@ -60,56 +64,56 @@ static unsigned char inbuf[MAX_INBUF];
 static int outused;
 static unsigned char outbuf[MAX_OUTBUF];
 
-__declspec(dllexport) int act;
-__declspec(dllexport) int actx;
-__declspec(dllexport) int acty;
+EXPORT int act;
+EXPORT int actx;
+EXPORT int acty;
 
-__declspec(dllexport) unsigned int cflags;        // current item flags
-__declspec(dllexport) unsigned int csprite;       // and sprite
+EXPORT unsigned int cflags;        // current item flags
+EXPORT unsigned int csprite;       // and sprite
 
-__declspec(dllexport) int originx;
-__declspec(dllexport) int originy;
-__declspec(dllexport) struct map map[MAPDX*MAPDY];
-__declspec(dllexport) struct map map2[MAPDX*MAPDY];
+EXPORT int originx;
+EXPORT int originy;
+EXPORT struct map map[MAPDX*MAPDY];
+EXPORT struct map map2[MAPDX*MAPDY];
 
-__declspec(dllexport) int value[2][V_MAX];
-__declspec(dllexport) int item[INVENTORYSIZE];
-__declspec(dllexport) int item_flags[INVENTORYSIZE];
-__declspec(dllexport) int hp;
-__declspec(dllexport) int mana;
-__declspec(dllexport) int rage;
-__declspec(dllexport) int endurance;
-__declspec(dllexport) int lifeshield;
-__declspec(dllexport) int experience;
-__declspec(dllexport) int experience_used;
-__declspec(dllexport) int mil_exp;
-__declspec(dllexport) int gold;
+EXPORT int value[2][V_MAX];
+EXPORT int item[INVENTORYSIZE];
+EXPORT int item_flags[INVENTORYSIZE];
+EXPORT int hp;
+EXPORT int mana;
+EXPORT int rage;
+EXPORT int endurance;
+EXPORT int lifeshield;
+EXPORT int experience;
+EXPORT int experience_used;
+EXPORT int mil_exp;
+EXPORT int gold;
 
-__declspec(dllexport) struct player player[MAXCHARS];
+EXPORT struct player player[MAXCHARS];
 
-__declspec(dllexport) union ceffect ceffect[MAXEF];
-__declspec(dllexport) unsigned char ueffect[MAXEF];
+EXPORT union ceffect ceffect[MAXEF];
+EXPORT unsigned char ueffect[MAXEF];
 
-__declspec(dllexport) int con_type;
-__declspec(dllexport) char con_name[80];
-__declspec(dllexport) int con_cnt;
-__declspec(dllexport) int container[CONTAINERSIZE];
-__declspec(dllexport) int price[CONTAINERSIZE];
-__declspec(dllexport) int itemprice[CONTAINERSIZE];
-__declspec(dllexport) int cprice;
+EXPORT int con_type;
+EXPORT char con_name[80];
+EXPORT int con_cnt;
+EXPORT int container[CONTAINERSIZE];
+EXPORT int price[CONTAINERSIZE];
+EXPORT int itemprice[CONTAINERSIZE];
+EXPORT int cprice;
 
-__declspec(dllexport) int lookinv[12];
-__declspec(dllexport) int looksprite,lookc1,lookc2,lookc3;
-__declspec(dllexport) char look_name[80];
-__declspec(dllexport) char look_desc[1024];
+EXPORT int lookinv[12];
+EXPORT int looksprite,lookc1,lookc2,lookc3;
+EXPORT char look_name[80];
+EXPORT char look_desc[1024];
 
-__declspec(dllexport) char pent_str[7][80];
+EXPORT char pent_str[7][80];
 
-__declspec(dllexport) int pspeed=0;   // 0=normal   1=fast      2=stealth     - like the server
+EXPORT int pspeed=0;   // 0=normal   1=fast      2=stealth     - like the server
 
 int may_teleport[64+32];
 
-__declspec(dllexport) int frames_per_second=TICKS;
+EXPORT int frames_per_second=TICKS;
 
 int sv_map01(unsigned char *buf,int *last,struct map *cmap) {
     int p,c;
@@ -539,8 +543,8 @@ int is_char_ceffect(int type) {
         case 15:        return 0;
         case 16:        return 0;
         case 17:        return 0;
-        case 22:	return 1;
-        case 23:	return 1;
+        case 22:    return 1;
+        case 23:    return 1;
 
     }
     return 0;
@@ -565,33 +569,33 @@ int sv_ceffect(unsigned char *buf) {
     type=((struct cef_generic *)(buf+2))->type;
 
     switch (type) {
-        case 1:		len=sizeof(struct cef_shield); break;
-        case 2:		len=sizeof(struct cef_ball); break;
-        case 3:		len=sizeof(struct cef_strike); break;
-        case 4:		len=sizeof(struct cef_fireball); break;
-        case 5:		len=sizeof(struct cef_flash); break;
+        case 1:     len=sizeof(struct cef_shield); break;
+        case 2:     len=sizeof(struct cef_ball); break;
+        case 3:     len=sizeof(struct cef_strike); break;
+        case 4:     len=sizeof(struct cef_fireball); break;
+        case 5:     len=sizeof(struct cef_flash); break;
 
-        case 7:		len=sizeof(struct cef_explode); break;
-        case 8:		len=sizeof(struct cef_warcry); break;
-        case 9:		len=sizeof(struct cef_bless); break;
-        case 10:	len=sizeof(struct cef_heal); break;
-        case 11:	len=sizeof(struct cef_freeze); break;
-        case 12:	len=sizeof(struct cef_burn); break;
-        case 13:	len=sizeof(struct cef_mist); break;
-        case 14:	len=sizeof(struct cef_potion); break;
-        case 15:	len=sizeof(struct cef_earthrain); break;
-        case 16:	len=sizeof(struct cef_earthmud); break;
-        case 17:	len=sizeof(struct cef_edemonball); break;
-        case 18:	len=sizeof(struct cef_curse); break;
-        case 19:	len=sizeof(struct cef_cap); break;
-        case 20:	len=sizeof(struct cef_lag); break;
-        case 21:	len=sizeof(struct cef_pulse); break;
-        case 22:	len=sizeof(struct cef_pulseback); break;
-        case 23:	len=sizeof(struct cef_firering); break;
-        case 24:	len=sizeof(struct cef_bubble); break;
+        case 7:     len=sizeof(struct cef_explode); break;
+        case 8:     len=sizeof(struct cef_warcry); break;
+        case 9:     len=sizeof(struct cef_bless); break;
+        case 10:    len=sizeof(struct cef_heal); break;
+        case 11:    len=sizeof(struct cef_freeze); break;
+        case 12:    len=sizeof(struct cef_burn); break;
+        case 13:    len=sizeof(struct cef_mist); break;
+        case 14:    len=sizeof(struct cef_potion); break;
+        case 15:    len=sizeof(struct cef_earthrain); break;
+        case 16:    len=sizeof(struct cef_earthmud); break;
+        case 17:    len=sizeof(struct cef_edemonball); break;
+        case 18:    len=sizeof(struct cef_curse); break;
+        case 19:    len=sizeof(struct cef_cap); break;
+        case 20:    len=sizeof(struct cef_lag); break;
+        case 21:    len=sizeof(struct cef_pulse); break;
+        case 22:    len=sizeof(struct cef_pulseback); break;
+        case 23:    len=sizeof(struct cef_firering); break;
+        case 24:    len=sizeof(struct cef_bubble); break;
 
 
-        default:	note("unknown effect %d",type); break;
+        default:    note("unknown effect %d",type); break;
     }
 
     if (nr<0 || nr>=MAXEF) { fail("sv_ceffect: invalid nr %d\n",nr); exit(-1); }
@@ -619,33 +623,33 @@ int svl_ceffect(unsigned char *buf) {
     type=((struct cef_generic *)(buf+2))->type;
 
     switch (type) {
-        case 1:		len=sizeof(struct cef_shield); break;
-        case 2:		len=sizeof(struct cef_ball); break;
-        case 3:		len=sizeof(struct cef_strike); break;
-        case 4:		len=sizeof(struct cef_fireball); break;
-        case 5:		len=sizeof(struct cef_flash); break;
+        case 1:     len=sizeof(struct cef_shield); break;
+        case 2:     len=sizeof(struct cef_ball); break;
+        case 3:     len=sizeof(struct cef_strike); break;
+        case 4:     len=sizeof(struct cef_fireball); break;
+        case 5:     len=sizeof(struct cef_flash); break;
 
-        case 7:		len=sizeof(struct cef_explode); break;
-        case 8:		len=sizeof(struct cef_warcry); break;
-        case 9:		len=sizeof(struct cef_bless); break;
-        case 10:	len=sizeof(struct cef_heal); break;
-        case 11:	len=sizeof(struct cef_freeze); break;
-        case 12:	len=sizeof(struct cef_burn); break;
-        case 13:	len=sizeof(struct cef_mist); break;
-        case 14:	len=sizeof(struct cef_potion); break;
-        case 15:	len=sizeof(struct cef_earthrain); break;
-        case 16:	len=sizeof(struct cef_earthmud); break;
-        case 17:	len=sizeof(struct cef_edemonball); break;
-        case 18:	len=sizeof(struct cef_curse); break;
-        case 19:	len=sizeof(struct cef_cap); break;
-        case 20:	len=sizeof(struct cef_lag); break;
-        case 21:	len=sizeof(struct cef_pulse); break;
-        case 22:	len=sizeof(struct cef_pulseback); break;
-        case 23:	len=sizeof(struct cef_firering); break;
-        case 24:	len=sizeof(struct cef_bubble); break;
+        case 7:     len=sizeof(struct cef_explode); break;
+        case 8:     len=sizeof(struct cef_warcry); break;
+        case 9:     len=sizeof(struct cef_bless); break;
+        case 10:    len=sizeof(struct cef_heal); break;
+        case 11:    len=sizeof(struct cef_freeze); break;
+        case 12:    len=sizeof(struct cef_burn); break;
+        case 13:    len=sizeof(struct cef_mist); break;
+        case 14:    len=sizeof(struct cef_potion); break;
+        case 15:    len=sizeof(struct cef_earthrain); break;
+        case 16:    len=sizeof(struct cef_earthmud); break;
+        case 17:    len=sizeof(struct cef_edemonball); break;
+        case 18:    len=sizeof(struct cef_curse); break;
+        case 19:    len=sizeof(struct cef_cap); break;
+        case 20:    len=sizeof(struct cef_lag); break;
+        case 21:    len=sizeof(struct cef_pulse); break;
+        case 22:    len=sizeof(struct cef_pulseback); break;
+        case 23:    len=sizeof(struct cef_firering); break;
+        case 24:    len=sizeof(struct cef_bubble); break;
 
 
-        default:	note("unknown effect %d",type); break;
+        default:    note("unknown effect %d",type); break;
 
     }
 
@@ -762,8 +766,8 @@ void sv_special(unsigned char *buf) {
     opt2=*(unsigned int *)(buf+9);
 
     switch (type) {
-        case 0:		display_gfx=opt1; display_time=tick; break;
-        default:	if (type>0 && type<1000) play_sound(type,opt1,opt2);
+        case 0:     display_gfx=opt1; display_time=tick; break;
+        default:    if (type>0 && type<1000) play_sound(type,opt1,opt2);
             break;
     }
 }
@@ -792,11 +796,11 @@ void sv_prof(unsigned char *buf) {
     update_skltab=1;
 }
 
-__declspec(dllexport) struct quest quest[MAXQUEST];
-__declspec(dllexport) struct shrine_ppd shrine;
-__declspec(dllexport) unsigned int rubyBits;
-__declspec(dllexport) unsigned char hardcoreFlag; //Used to determine if the char is HC (LOE in Questlog)
-__declspec(dllexport) struct military_questlog military;
+EXPORT struct quest quest[MAXQUEST];
+EXPORT struct shrine_ppd shrine;
+EXPORT unsigned int rubyBits;
+EXPORT unsigned char hardcoreFlag; //Used to determine if the char is HC (LOE in Questlog)
+EXPORT struct military_questlog military;
 
 void sv_questlog(unsigned char *buf) {
     int size;
@@ -805,11 +809,12 @@ void sv_questlog(unsigned char *buf) {
 
     memcpy(quest,buf+1,size);
     memcpy(&shrine,buf+1+size,sizeof(struct shrine_ppd));
-	memcpy(&rubyBits,buf+1+size+sizeof(struct shrine_ppd),sizeof(unsigned int));
-	memcpy(&hardcoreFlag, buf + (size += sizeof(unsigned int)),sizeof(unsigned char));
-	memcpy(&military, buf + (size += sizeof(unsigned char)),sizeof(struct military_questlog));
+    memcpy(&rubyBits,buf+1+size+sizeof(struct shrine_ppd),sizeof(unsigned int));
+    memcpy(&hardcoreFlag, buf + (size += sizeof(unsigned int)),sizeof(unsigned char));
+    memcpy(&military, buf + (size += sizeof(unsigned char)),sizeof(struct military_questlog));
 }
 
+#ifdef PLATFORM_WINDOWS
 static void save_unique(void) {
     HKEY hk;
 
@@ -834,6 +839,10 @@ static void load_unique(void) {
     if ((unique^0x3e5fba04)!=usum) unique=usum=0;
     else unique=unique^0xfe2abc82;
 }
+#else
+static void save_unique(void) { /* Not available on non-Windows */ }
+static void load_unique(void) { /* Not available on non-Windows */ }
+#endif
 
 void sv_unique(unsigned char *buf) {
     if (unique!=*(unsigned int *)(buf+1)) {
@@ -870,8 +879,8 @@ void process(unsigned char *buf,int size) {
                 case SV_SETHP:                  sv_sethp(buf); len=3; break;
                 case SV_SETMANA:                sv_setmana(buf); len=3; break;
                 case SV_SETRAGE:                sv_setrage(buf); len=3; break;
-                case SV_ENDURANCE:		        sv_endurance(buf); len=3; break;
-                case SV_LIFESHIELD:		        sv_lifeshield(buf); len=3; break;
+                case SV_ENDURANCE:              sv_endurance(buf); len=3; break;
+                case SV_LIFESHIELD:             sv_lifeshield(buf); len=3; break;
 
                 case SV_SETITEM:                sv_setitem(buf); len=10; break;
 
@@ -881,44 +890,44 @@ void process(unsigned char *buf,int size) {
 
                 case SV_ACT:                    if (!(game_options&GO_PREDICT)) sv_act(buf);
                                                 len=7; break;
-                case SV_EXIT:			        len=sv_exit(buf); break;
+                case SV_EXIT:                   len=sv_exit(buf); break;
                 case SV_TEXT:                   len=sv_text(buf); break;
 
-                case SV_NAME:			        len=sv_name(buf); break;
+                case SV_NAME:                   len=sv_name(buf); break;
 
-                case SV_CONTAINER:		        sv_container(buf); len=6; break;
-                case SV_PRICE:			        sv_price(buf); len=6; break;
-                case SV_CPRICE:			        sv_cprice(buf); len=5; break;
-                case SV_CONCNT:			        sv_concnt(buf); len=2; break;
-                case SV_ITEMPRICE:		        sv_itemprice(buf); len=6; break;
-                case SV_CONTYPE:		        sv_contype(buf); len=2; break;
-                case SV_CONNAME:		        len=sv_conname(buf); break;
+                case SV_CONTAINER:              sv_container(buf); len=6; break;
+                case SV_PRICE:                  sv_price(buf); len=6; break;
+                case SV_CPRICE:                 sv_cprice(buf); len=5; break;
+                case SV_CONCNT:                 sv_concnt(buf); len=2; break;
+                case SV_ITEMPRICE:              sv_itemprice(buf); len=6; break;
+                case SV_CONTYPE:                sv_contype(buf); len=2; break;
+                case SV_CONNAME:                len=sv_conname(buf); break;
 
-                case SV_GOLD:			        sv_gold(buf); len=5; break;
+                case SV_GOLD:                   sv_gold(buf); len=5; break;
 
-                case SV_EXP:	 		        sv_exp(buf); len=5; break;
-                case SV_EXP_USED:		        sv_exp_used(buf); len=5; break;
-                case SV_MIL_EXP:	 	        sv_mil_exp(buf); len=5; break;
-                case SV_LOOKINV:		        sv_lookinv(buf); len=17+12*4; break;
-                case SV_CYCLES:			        sv_cycles(buf); len=5; break;
-                case SV_CEFFECT:		        len=sv_ceffect(buf); break;
-                case SV_UEFFECT:		        sv_ueffect(buf); len=9; break;
+                case SV_EXP:                    sv_exp(buf); len=5; break;
+                case SV_EXP_USED:               sv_exp_used(buf); len=5; break;
+                case SV_MIL_EXP:                sv_mil_exp(buf); len=5; break;
+                case SV_LOOKINV:                sv_lookinv(buf); len=17+12*4; break;
+                case SV_CYCLES:                 sv_cycles(buf); len=5; break;
+                case SV_CEFFECT:                len=sv_ceffect(buf); break;
+                case SV_UEFFECT:                sv_ueffect(buf); len=9; break;
 
-                case SV_SERVER:			        sv_server(buf); len=7; break;
+                case SV_SERVER:                 sv_server(buf); len=7; break;
 
                 case SV_REALTIME:               sv_realtime(buf); len=5; break;
 
-                case SV_SPEEDMODE:		        sv_speedmode(buf); len=2; break;
-                case SV_FIGHTMODE:		        sv_fightmode(buf); len=2; break;
-                case SV_LOGINDONE:		        sv_logindone(); len=1; break;
-                case SV_SPECIAL:		        sv_special(buf); len=13; break;
-                case SV_TELEPORT:		        sv_teleport(buf); len=13; break;
+                case SV_SPEEDMODE:              sv_speedmode(buf); len=2; break;
+                case SV_FIGHTMODE:              sv_fightmode(buf); len=2; break;
+                case SV_LOGINDONE:              sv_logindone(); len=1; break;
+                case SV_SPECIAL:                sv_special(buf); len=13; break;
+                case SV_TELEPORT:               sv_teleport(buf); len=13; break;
 
                 case SV_MIRROR:                 sv_mirror(buf); len=5; break;
-                case SV_PROF:			        sv_prof(buf); len=21; break;
-                case SV_PING:			        len=sv_ping(buf); break;
-                case SV_UNIQUE:			        sv_unique(buf); len=5; break;
-		        case SV_QUESTLOG:               sv_questlog(buf); len=1+sizeof(struct quest)*MAXQUEST+sizeof(struct shrine_ppd)+sizeof(unsigned int)+sizeof(unsigned char)+sizeof(struct military_questlog); break;
+                case SV_PROF:                   sv_prof(buf); len=21; break;
+                case SV_PING:                   len=sv_ping(buf); break;
+                case SV_UNIQUE:                 sv_unique(buf); len=5; break;
+                case SV_QUESTLOG:               sv_questlog(buf); len=1+sizeof(struct quest)*MAXQUEST+sizeof(struct shrine_ppd)+sizeof(unsigned int)+sizeof(unsigned char)+sizeof(struct military_questlog); break;
                 case SV_PROTOCOL:               sv_protocol(buf); len=2; break;
 
                 default:                        len=amod_process(buf);
@@ -961,8 +970,8 @@ int prefetch(unsigned char *buf,int size) {
                 case SV_SETHP:                  len=3; break;
                 case SV_SETMANA:                len=3; break;
                 case SV_SETRAGE:                len=3; break;
-                case SV_ENDURANCE:		        len=3; break;
-                case SV_LIFESHIELD:		        len=3; break;
+                case SV_ENDURANCE:              len=3; break;
+                case SV_LIFESHIELD:             len=3; break;
 
                 case SV_SETITEM:                if (game_options&GO_PREDICT) sv_setitem(buf);
                                                 len=10; break;
@@ -978,39 +987,39 @@ int prefetch(unsigned char *buf,int size) {
                 case SV_TEXT:                   len=svl_text(buf); break;
                 case SV_EXIT:                   len=svl_exit(buf); break;
 
-                case SV_NAME:			        len=svl_name(buf); break;
+                case SV_NAME:                   len=svl_name(buf); break;
 
-                case SV_CONTAINER:		        len=6; break;
-                case SV_PRICE:			        len=6; break;
-                case SV_CPRICE:			        len=5; break;
-                case SV_CONCNT:			        len=2; break;
-                case SV_ITEMPRICE:		        len=6; break;
-                case SV_CONTYPE:		        len=2; break;
-                case SV_CONNAME:		        len=svl_conname(buf); break;
+                case SV_CONTAINER:              len=6; break;
+                case SV_PRICE:                  len=6; break;
+                case SV_CPRICE:                 len=5; break;
+                case SV_CONCNT:                 len=2; break;
+                case SV_ITEMPRICE:              len=6; break;
+                case SV_CONTYPE:                len=2; break;
+                case SV_CONNAME:                len=svl_conname(buf); break;
 
                 case SV_MIRROR:                 len=5; break;
 
-                case SV_GOLD:			        len=5; break;
+                case SV_GOLD:                   len=5; break;
 
-                case SV_EXP:	 		        len=5; break;
-                case SV_EXP_USED:		        len=5; break;
-                case SV_MIL_EXP:		        len=5; break;
-                case SV_LOOKINV:		        len=17+12*4; break;
-                case SV_CYCLES:			        len=5; break;
-                case SV_CEFFECT:		        len=svl_ceffect(buf); break;
-                case SV_UEFFECT:		        len=9; break;
+                case SV_EXP:                    len=5; break;
+                case SV_EXP_USED:               len=5; break;
+                case SV_MIL_EXP:                len=5; break;
+                case SV_LOOKINV:                len=17+12*4; break;
+                case SV_CYCLES:                 len=5; break;
+                case SV_CEFFECT:                len=svl_ceffect(buf); break;
+                case SV_UEFFECT:                len=9; break;
 
-                case SV_SERVER:			        len=7; break;
+                case SV_SERVER:                 len=7; break;
                 case SV_REALTIME:               len=5; break;
-                case SV_SPEEDMODE:		        len=2; break;
-                case SV_FIGHTMODE:		        len=2; break;
+                case SV_SPEEDMODE:              len=2; break;
+                case SV_FIGHTMODE:              len=2; break;
                 case SV_LOGINDONE:              bzero(map2,sizeof(map2)); len=1; break;
-                case SV_SPECIAL:		        len=13; break;
-                case SV_TELEPORT:		        len=13; break;
-                case SV_PROF:			        len=21; break;
-                case SV_PING:			        len=svl_ping(buf); break;
-                case SV_UNIQUE:			        len=5; break;
-		        case SV_QUESTLOG:                len=1+sizeof(struct quest)*MAXQUEST+sizeof(struct shrine_ppd)+sizeof(unsigned int)+sizeof(unsigned char)+sizeof(struct military_questlog); break;
+                case SV_SPECIAL:                len=13; break;
+                case SV_TELEPORT:               len=13; break;
+                case SV_PROF:                   len=21; break;
+                case SV_PING:                   len=svl_ping(buf); break;
+                case SV_UNIQUE:                 len=5; break;
+                case SV_QUESTLOG:                len=1+sizeof(struct quest)*MAXQUEST+sizeof(struct shrine_ppd)+sizeof(unsigned int)+sizeof(unsigned char)+sizeof(struct military_questlog); break;
                 case SV_PROTOCOL:               len=2; break;
 
                 default:                        len=amod_prefetch(buf);
@@ -1033,7 +1042,7 @@ int prefetch(unsigned char *buf,int size) {
     return prefetch_tick;
 }
 
-__declspec(dllexport) void client_send(void *buf,int len) {
+EXPORT void client_send(void *buf,int len) {
     if (len>MAX_OUTBUF-outused) return;
 
     memcpy(outbuf+outused,buf,len);
@@ -1271,7 +1280,7 @@ void cmd_text(char *text) {
 
     buf[0]=CL_TEXT;
 
-    for (len=0; text[len] && text[len]!='�' && len<254; len++) buf[len+2]=text[len];
+    for (len=0; text[len] && text[len]!=DDT && len<254; len++) buf[len+2]=text[len];
 
     buf[2+len]=0;
     buf[1]=len+1;
@@ -1287,7 +1296,7 @@ void cmd_log(char *text) {
 
     buf[0]=CL_LOG;
 
-    for (len=0; text[len] && len<254; len++) buf[len+2]=text[len];
+    for (len=0; len<254 && text[len]; len++) buf[len+2]=text[len];
 
     buf[2+len]=0;
     buf[1]=len+1;
@@ -1418,7 +1427,7 @@ int close_client(void) {
     return 0;
 }
 
-#define MAXPASSWORD	16
+#define MAXPASSWORD 16
 void decrypt(char *name,char *password) {
     int i;
     static char secret[4][MAXPASSWORD]={
@@ -1491,66 +1500,30 @@ int poll_network(void) {
             return -1;
         }
 
-        // set to nonblocking
-        if (ioctlsocket(sock,FIONBIO,&one)==-1) {
-            fail("ioctlsocket(non-blocking) failed (%d)\n",WSAGetLastError());
-            sockstate=-2;   // fail - no retry
-            return -1;
-        }
+        // Use blocking socket for connect() - simpler and more reliable
+        // After connection succeeds, set to non-blocking for recv/send
 
         // connect to server
         addr.sin_family=AF_INET;
         addr.sin_port=htons(target_port);
         addr.sin_addr.s_addr=htonl(target_server);
-        if ((connect(sock,(struct sockaddr *)&addr,sizeof(addr)))) {
-            if (WSAGetLastError()!=WSAEWOULDBLOCK) {
-                fail("connect failed (%d)\n",WSAGetLastError());
-                sockstate=-3;   // fail - no retry
-                return -1;
-            }
+        if (connect(sock,(struct sockaddr *)&addr,sizeof(addr))) {
+            fail("connect failed (%d)\n",WSAGetLastError());
+            sockstate=-3;   // fail - no retry
+            return -1;
         }
-        // statechange
-        sockstate=1;
-        // return 0;
+
+        // Connection succeeded - now set to non-blocking for recv/send
+        // This prevents recv() from freezing the game loop
+        ioctlsocket(sock,FIONBIO,&one);
+
+        // Connection succeeded, move to connected state
+        sockstate=2;
     }
 
-    // wait until connect is ok
+    // wait until connect is ok (no longer needed with blocking socket)
     if (sockstate==1) {
-
-        struct fd_set outset,errset;
-        struct timeval timeout;
-
-        if (SDL_GetTicks()<socktime) return 0;
-
-
-        FD_ZERO(&outset);
-        FD_ZERO(&errset);
-        FD_SET((unsigned int)sock,&outset);
-        FD_SET((unsigned int)sock,&errset);
-
-        timeout.tv_sec=0;
-        timeout.tv_usec=50;
-        n=select(sock+1,NULL,&outset,&errset,&timeout);
-        if (n==0) {
-            // timed out
-            socktime=SDL_GetTicks()+50;
-            return 0;
-        }
-
-        if (FD_ISSET(sock,&errset)) {
-            note("select connect failed (%d)",WSAGetLastError());
-            sockstate=0;
-            socktime=SDL_GetTicks()+5000;
-            return -1;
-        }
-
-        if (!FD_ISSET(sock,&outset)) {
-            note("can we see this (select without timeout and none set) ?");
-            sockstate=-4;   // fail - no retry
-            return -1;
-        }
-
-        // statechange
+        // This state is no longer used - we go straight from 0 to 2
         sockstate=2;
     }
 
@@ -1760,18 +1733,18 @@ void cl_ticker(void) {
 }
 
 // X exp yield level Y
-__declspec(dllexport) int exp2level(int val) {
+EXPORT int exp2level(int val) {
     if (val<1) return 1;
 
     return max(1,(int)(sqrt(sqrt(val))));
 }
 
 // to reach level X you need Y exp
-__declspec(dllexport) int level2exp(int level) {
+EXPORT int level2exp(int level) {
     return pow(level,4);
 }
 
-__declspec(dllexport) int mapmn(int x,int y) {
+EXPORT int mapmn(int x,int y) {
     if (x<0 || y<0 || x>=MAPDX || y>=MAPDY) {
         return -1;
     }

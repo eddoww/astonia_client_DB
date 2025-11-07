@@ -34,6 +34,8 @@
 
 #ifndef STANDALONE
 #include "../../src/sdl/_sdl.h"
+#else
+#include "../../src/platform.h"
 #endif
 
 struct png_helper {
@@ -67,7 +69,7 @@ struct sdl_image {
     int16_t xoff,yoff;
 };
 
-void png_helper_read(png_struct *ps,unsigned char *buf,long long unsigned len) {
+void png_helper_read(png_struct *ps,unsigned char *buf,png_size_t len) {
     zip_fread(png_get_io_ptr(ps),buf,len);
 }
 
@@ -396,12 +398,12 @@ int main(int argc,char *args[]) {
     p.filename=args[1];
     sprite=atoi(args[2]);
 
-    mkdir("../gfxp");
+    platform_mkdir("../gfxp");
     for (s=1; s<5; s++) {
         sprintf(buf,"../gfxp/x%d",s);
-        mkdir(buf);
+        platform_mkdir(buf);
         sprintf(buf,"../gfxp/x%d/%08d",s,(sprite/1000)*1000);
-        mkdir(buf);
+        platform_mkdir(buf);
     }
 
     if (tolower(args[3][0])=='w') {

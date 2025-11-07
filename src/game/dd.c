@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 
+#include "../../src/platform.h"
 #include "../../src/astonia.h"
 #include "../../src/game.h"
 #include "../../src/game/_game.h"
@@ -47,7 +48,7 @@ void dd_dump(FILE *fp) {
     fprintf(fp,"\n");
 }
 
-__declspec(dllexport) void dd_push_clip(void) {
+EXPORT void dd_push_clip(void) {
     if (clippos>=32) return;
 
     clipstore[clippos][0]=clipsx;
@@ -57,7 +58,7 @@ __declspec(dllexport) void dd_push_clip(void) {
     clippos++;
 }
 
-__declspec(dllexport) void dd_pop_clip(void) {
+EXPORT void dd_pop_clip(void) {
     if (clippos==0) return;
 
     clippos--;
@@ -67,7 +68,7 @@ __declspec(dllexport) void dd_pop_clip(void) {
     clipey=clipstore[clippos][3];
 }
 
-__declspec(dllexport) void dd_more_clip(int sx,int sy,int ex,int ey) {
+EXPORT void dd_more_clip(int sx,int sy,int ex,int ey) {
     if (sx>clipsx) clipsx=sx;
     if (sy>clipsy) clipsy=sy;
     if (ex<clipex) clipex=ex;
@@ -99,10 +100,11 @@ int dd_exit(void) {
     return 0;
 }
 
-__declspec(dllexport) int dd_copysprite_fx(DDFX *ddfx,int scrx,int scry) {
+EXPORT int dd_copysprite_fx(DDFX *ddfx,int scrx,int scry) {
     int stx;
 
     PARANOIA(if (!ddfx) paranoia("dd_copysprite_fx: ddfx=NULL"); )
+    // cppcheck-suppress nullPointerRedundantCheck
     PARANOIA(if (ddfx->light<0 || ddfx->light>16) paranoia("dd_copysprite_fx: ddfx->light=%d",ddfx->light); )
     PARANOIA(if (ddfx->freeze<0 || ddfx->freeze>=DDFX_MAX_FREEZE) paranoia("dd_copysprite_fx: ddfx->freeze=%d",ddfx->freeze); )
 
@@ -173,7 +175,7 @@ void dd_copysprite_callfx(int sprite,int scrx,int scry,int light,int ml,int alig
     dd_copysprite_fx(&ddfx,scrx,scry);
 }
 
-__declspec(dllexport) void dd_copysprite(int sprite,int scrx,int scry,int light,int align) {
+EXPORT void dd_copysprite(int sprite,int scrx,int scry,int light,int align) {
     DDFX ddfx;
 
     bzero(&ddfx,sizeof(DDFX));
@@ -188,7 +190,7 @@ __declspec(dllexport) void dd_copysprite(int sprite,int scrx,int scry,int light,
     dd_copysprite_fx(&ddfx,scrx,scry);
 }
 
-__declspec(dllexport) void dd_rect(int sx,int sy,int ex,int ey,unsigned short int color) {
+EXPORT void dd_rect(int sx,int sy,int ex,int ey,unsigned short int color) {
     sdl_rect(sx,sy,ex,ey,color,clipsx,clipsy,clipex,clipey,x_offset,y_offset);
 }
 
@@ -196,7 +198,7 @@ void dd_shaded_rect(int sx,int sy,int ex,int ey,unsigned short color,unsigned sh
     sdl_shaded_rect(sx,sy,ex,ey,color,alpha,clipsx,clipsy,clipex,clipey,x_offset,y_offset);
 }
 
-__declspec(dllexport) void dd_line(int fx,int fy,int tx,int ty,unsigned short col) {
+EXPORT void dd_line(int fx,int fy,int tx,int ty,unsigned short col) {
     sdl_line(fx,fy,tx,ty,col,clipsx,clipsy,clipex,clipey,x_offset,y_offset);
 }
 
@@ -276,7 +278,7 @@ void dd_display_pulseback(int fx,int fy,int tx,int ty) {
 
 // text
 
-__declspec(dllexport) int dd_textlength(int flags,const char *text) {
+EXPORT int dd_textlength(int flags,const char *text) {
     DDFONT *font;
     int x;
     const char *c;
@@ -306,7 +308,7 @@ int dd_textlen(int flags,const char *text,int n) {
     return x;
 }
 
-__declspec(dllexport) int dd_drawtext(int sx,int sy,unsigned short int color,int flags,const char *text) {
+EXPORT int dd_drawtext(int sx,int sy,unsigned short int color,int flags,const char *text) {
     DDFONT *font;
 
     if (flags&DD__SHADEFONT) {
@@ -335,7 +337,7 @@ __declspec(dllexport) int dd_drawtext(int sx,int sy,unsigned short int color,int
     return sx;
 }
 
-__declspec(dllexport) int dd_drawtext_break(int x,int y,int breakx,unsigned short color,int flags,const char *ptr) {
+EXPORT int dd_drawtext_break(int x,int y,int breakx,unsigned short color,int flags,const char *ptr) {
     char buf[256];
     int xp,n;
     int size;
@@ -358,7 +360,7 @@ __declspec(dllexport) int dd_drawtext_break(int x,int y,int breakx,unsigned shor
     return y+10;
 }
 
-__declspec(dllexport) int dd_drawtext_nl(int x,int y,int unsigned short color,int flags,const char *ptr) {
+EXPORT int dd_drawtext_nl(int x,int y,int unsigned short color,int flags,const char *ptr) {
     char buf[256];
     int n;
 
@@ -374,7 +376,7 @@ __declspec(dllexport) int dd_drawtext_nl(int x,int y,int unsigned short color,in
     return y+10;
 }
 
-__declspec(dllexport) int dd_drawtext_break_length(int x,int y,int breakx,unsigned short color,int flags,const char *ptr) {
+EXPORT int dd_drawtext_break_length(int x,int y,int breakx,unsigned short color,int flags,const char *ptr) {
     char buf[256];
     int xp,n;
     int size;
@@ -396,11 +398,11 @@ __declspec(dllexport) int dd_drawtext_break_length(int x,int y,int breakx,unsign
     return y+10;
 }
 
-__declspec(dllexport) void dd_pixel(int x,int y,unsigned short col) {
+EXPORT void dd_pixel(int x,int y,unsigned short col) {
     sdl_pixel(x,y,col,x_offset,y_offset);
 }
 
-__declspec(dllexport) int dd_drawtext_fmt(int sx,int sy,unsigned short int color,int flags,const char *format,...) {
+EXPORT int dd_drawtext_fmt(int sx,int sy,unsigned short int color,int flags,const char *format,...) {
     char buf[1024];
     va_list va;
 
@@ -411,7 +413,7 @@ __declspec(dllexport) int dd_drawtext_fmt(int sx,int sy,unsigned short int color
     return dd_drawtext(sx,sy,color,flags,buf);
 }
 
-__declspec(dllexport) int dd_drawtext_break_fmt(int sx,int sy,int breakx,unsigned short int color,int flags,const char *format,...) {
+EXPORT int dd_drawtext_break_fmt(int sx,int sy,int breakx,unsigned short int color,int flags,const char *format,...) {
     char buf[1024];
     va_list va;
 
@@ -677,15 +679,15 @@ int dd_char_len(char c) {
 
 
 // ---------------------> Chat Window <-----------------------------
-#define MAXTEXTLINES		256
-#define MAXTEXTLETTERS		256
+#define MAXTEXTLINES        256
+#define MAXTEXTLETTERS      256
 
-#define TEXTDISPLAY_DY		(textdisplay_dy)
+#define TEXTDISPLAY_DY      (textdisplay_dy)
 
-#define TEXTDISPLAY_SX		396
-#define TEXTDISPLAY_SY		(__textdisplay_sy)
+#define TEXTDISPLAY_SX      396
+#define TEXTDISPLAY_SY      (__textdisplay_sy)
 
-#define TEXTDISPLAYLINES	(TEXTDISPLAY_SY/TEXTDISPLAY_DY)
+#define TEXTDISPLAYLINES    (TEXTDISPLAY_SY/TEXTDISPLAY_DY)
 
 int textnextline=0,textdisplayline=0,textlines=0;
 
@@ -713,12 +715,12 @@ void dd_init_text(void) {
 
     palette[9]=IRGB(24,24,16);    // chat - auction
     palette[10]=IRGB(24,16,24);    // chat - grats
-    palette[11]=IRGB(16,24,24);    // chat	- mirror
+    palette[11]=IRGB(16,24,24);    // chat  - mirror
     palette[12]=IRGB(31,24,16);    // chat - info
     palette[13]=IRGB(31,16,24);    // chat - area
     palette[14]=IRGB(16,31,24);    // chat - v2, games
     palette[15]=IRGB(24,31,16);    // chat - public clan
-    palette[16]=IRGB(24,16,31);    // chat	- internal clan
+    palette[16]=IRGB(24,16,31);    // chat  - internal clan
 
     palette[17]=IRGB(31,31,31);    // fake white text (hidden links)
 }
@@ -726,8 +728,8 @@ void dd_init_text(void) {
 void dd_set_textfont(int nr) {
 
     switch (nr) {
-        case 0:	textfont=fonta; textdisplay_dy=10; break;
-        case 1:	textfont=fontc; textdisplay_dy=12; break;
+        case 0: textfont=fonta; textdisplay_dy=10; break;
+        case 1: textfont=fontc; textdisplay_dy=12; break;
     }
     bzero(text,MAXTEXTLINES*MAXTEXTLETTERS*sizeof(struct letter));
     textnextline=textdisplayline=textlines=0;
@@ -758,16 +760,16 @@ void dd_display_text(void) {
             }
 
             if (text[pos].c<32) {
-				int i;
+                int i;
 
-				x=((int)text[pos].c)*12+dotx(DOT_TXT);
+                x=((int)text[pos].c)*12+dotx(DOT_TXT);
 
-				// better display for numbers
-				for (i=pos+1; isdigit(text[i].c) || text[i].c=='-'; i++) {
-					x-=textfont[text[i].c].dim;
-				}
-				continue;
-			}
+                // better display for numbers
+                for (i=pos+1; isdigit(text[i].c) || text[i].c=='-'; i++) {
+                    x-=textfont[text[i].c].dim;
+                }
+                continue;
+            }
 
             *bp++=text[pos].c;
         }
@@ -790,10 +792,10 @@ void dd_add_text(char *ptr) {
 
     while (*ptr) {
         while (*ptr==' ') ptr++;
-        while (*ptr=='°') {
+        while (*ptr==DDT) {
             ptr++;
             switch (*ptr) {
-                case 'c':	tmp=atoi(ptr+1);
+                case 'c':   tmp=atoi(ptr+1);
                     if (tmp==18) link=0;
                     else if (tmp!=17) { color=tmp; link=0; }
                     if (tmp==4) link=1;
@@ -801,13 +803,13 @@ void dd_add_text(char *ptr) {
                     ptr++;
                     while (isdigit(*ptr)) ptr++;
                     break;
-                default:	ptr++; break;
+                default:    ptr++; break;
             }
         }
         while (*ptr==' ') ptr++;
 
         n=0;
-        while (*ptr && *ptr!=' ' && *ptr!='°' && n<49) buf[n++]=*ptr++;
+        while (*ptr && *ptr!=' ' && *ptr!=DDT && n<49) buf[n++]=*ptr++;
         buf[n]=0;
 
         if (x+(tmp=dd_text_len(buf))>=TEXTDISPLAY_SX) {

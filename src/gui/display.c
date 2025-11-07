@@ -505,9 +505,9 @@ void display_tutor(void) {
 }
 
 // date stuff
-#define DAYLEN		(60*60*2)
-#define HOURLEN		(DAYLEN/24)
-#define MINLEN		(HOURLEN/60)
+#define DAYLEN      (60*60*2)
+#define HOURLEN     (DAYLEN/24)
+#define MINLEN      (HOURLEN/60)
 
 static void trans_date(int t,int *phour,int *pmin) {
     if (pmin) *pmin=(t/MINLEN)%60;
@@ -701,7 +701,7 @@ char **game_rankname=_game_rankname;
 int _game_rankcount=ARRAYSIZE(_game_rankname);
 int *game_rankcount=&_game_rankcount;
 
-__declspec(dllexport) int mil_rank(int exp) {
+EXPORT int mil_rank(int exp) {
     int n;
 
     for (n=1; n<50; n++) {
@@ -761,42 +761,42 @@ void display_game_special(void) {
         // since we want to re-write the input parts of the
         // GUI there's no point in updating them now
         // so: Make a new tutorial. Eventually.
-        case 1:		dd_copysprite(50473,343,540,14,0); break;
-        case 2:		dd_copysprite(50473,423,167,14,0); break;
-        case 3:		dx=(tick-display_time)*450/120;
+        case 1:     dd_copysprite(50473,343,540,14,0); break;
+        case 2:     dd_copysprite(50473,423,167,14,0); break;
+        case 3:     dx=(tick-display_time)*450/120;
             if (dx<450) dd_copysprite(50475,175+dx,60,14,0);
             break;
-        case 4:		dd_copysprite(50475,218,60,14,0); break;
-        case 5:		dd_copysprite(50475,257,60,14,0); break;
-        case 6:		dd_copysprite(50475,23,45,14,0); break;
-        case 7:		dd_copysprite(50475,75,47,14,0); break;
-        case 8:		dd_copysprite(50475,763,62,14,0); break;
+        case 4:     dd_copysprite(50475,218,60,14,0); break;
+        case 5:     dd_copysprite(50475,257,60,14,0); break;
+        case 6:     dd_copysprite(50475,23,45,14,0); break;
+        case 7:     dd_copysprite(50475,75,47,14,0); break;
+        case 8:     dd_copysprite(50475,763,62,14,0); break;
 
-        case 9:		dx=(tick-display_time)*150/120;
+        case 9:     dx=(tick-display_time)*150/120;
             if (dx<150) dd_copysprite(50474,188,447+dx,14,0);
             break;
 
-        case 10:	dd_copysprite(50474,205,459,14,0); break;
+        case 10:    dd_copysprite(50474,205,459,14,0); break;
 
-        case 11:	dx=(tick-display_time)*150/120;
+        case 11:    dx=(tick-display_time)*150/120;
             if (dx<150) dd_copysprite(50476,200,440+dx,14,0);
             break;
 
-        case 12:	dx=(tick-display_time)*150/120;
+        case 12:    dx=(tick-display_time)*150/120;
             if (dx<150) dd_copysprite(50476,618,445+dx,14,0);
             break;
 
-        case 13:	dd_copysprite(50476,625,456,14,0); break;
-        case 14:	dd_copysprite(50476,700,456,14,0); break;
-        case 15:	dd_copysprite(50476,741,456,14,0); break;
+        case 13:    dd_copysprite(50476,625,456,14,0); break;
+        case 14:    dd_copysprite(50476,700,456,14,0); break;
+        case 15:    dd_copysprite(50476,741,456,14,0); break;
 
-        case 16:	dd_copysprite(50476,353,203,14,0); break;
+        case 16:    dd_copysprite(50476,353,203,14,0); break;
 
-        case 17:	dd_copysprite(50473,722,382,14,0); dd_copysprite(50475,257,60,14,0); break;
+        case 17:    dd_copysprite(50473,722,382,14,0); dd_copysprite(50475,257,60,14,0); break;
 
         // TODO: this is used to display the maps in earth underground
         // needs testing.
-        default:	dd_copysprite(display_gfx,550,210,14,0); break;
+        default:    dd_copysprite(display_gfx,550,210,14,0); break;
     }
 }
 

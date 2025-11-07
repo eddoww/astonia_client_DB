@@ -1,5 +1,10 @@
+/*
+ * Example of modding the questlog (using vanilla data for easy editing)
+ */
 
-__declspec(dllexport) struct questlog game_questlog[]={
+#include "amod.h"
+
+EXPORT struct questlog game_questlog[]={
     {"Lydia's Potion",1,2,"James","Cameron",15,QLF_REPEATABLE},         //0,
     {"Find the Spoon of Doom",2,3,"Gwendolyn","Cameron",75,QLF_REPEATABLE},        //1,
     {"The Second Skull",3,5,"Gwendylon","Cameron",150,QLF_REPEATABLE},      //2,
@@ -84,6 +89,6 @@ __declspec(dllexport) struct questlog game_questlog[]={
     {"Helping Jessica",6,9,"Jessica","Cameron",750,QLF_REPEATABLE},         //79,
 
 };
-__declspec(dllexport) int game_questcount=ARRAYSIZE(game_questlog);
+EXPORT int game_questcount=ARRAYSIZE(game_questlog);
 
 
