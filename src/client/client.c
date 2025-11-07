@@ -1500,8 +1500,8 @@ int poll_network(void) {
             return -1;
         }
 
-        // Use blocking socket - simpler and works fine for game client
-        // Non-blocking was causing issues without proper select() handling
+        // Use blocking socket for connect() - simpler and more reliable
+        // After connection succeeds, set to non-blocking for recv/send
 
         // connect to server
         addr.sin_family=AF_INET;
@@ -1512,6 +1512,11 @@ int poll_network(void) {
             sockstate=-3;   // fail - no retry
             return -1;
         }
+
+        // Connection succeeded - now set to non-blocking for recv/send
+        // This prevents recv() from freezing the game loop
+        unsigned long one=1;
+        ioctlsocket(sock,FIONBIO,&one);
 
         // Connection succeeded, move to connected state
         sockstate=2;
