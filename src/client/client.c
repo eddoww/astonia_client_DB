@@ -1500,44 +1500,26 @@ int poll_network(void) {
             return -1;
         }
 
-        // set to nonblocking
-        if (ioctlsocket(sock,FIONBIO,&one)==-1) {
-            fail("ioctlsocket(non-blocking) failed (%d)\n",WSAGetLastError());
-            sockstate=-2;   // fail - no retry
-            return -1;
-        }
+        // Use blocking socket - simpler and works fine for game client
+        // Non-blocking was causing issues without proper select() handling
 
         // connect to server
         addr.sin_family=AF_INET;
         addr.sin_port=htons(target_port);
         addr.sin_addr.s_addr=htonl(target_server);
-        if ((connect(sock,(struct sockaddr *)&addr,sizeof(addr)))) {
-            if (WSAGetLastError()!=WSAEWOULDBLOCK) {
-                fail("connect failed (%d)\n",WSAGetLastError());
-                sockstate=-3;   // fail - no retry
-                return -1;
-            }
+        if (connect(sock,(struct sockaddr *)&addr,sizeof(addr))) {
+            fail("connect failed (%d)\n",WSAGetLastError());
+            sockstate=-3;   // fail - no retry
+            return -1;
         }
-        // statechange
-        sockstate=1;
-        // return 0;
+
+        // Connection succeeded, move to connected state
+        sockstate=2;
     }
 
-    // wait until connect is ok
+    // wait until connect is ok (no longer needed with blocking socket)
     if (sockstate==1) {
-        /* Non-blocking connect check simplified - no fd_set needed
-         * The socket is already non-blocking, so we just wait a bit
-         * and then try to use it. If it's not connected yet, subsequent
-         * operations will fail gracefully with EWOULDBLOCK
-         */
-
-        if (SDL_GetTicks()<socktime) return 0;
-
-        /* Small delay to allow connection to establish */
-        socktime=SDL_GetTicks()+50;
-
-        /* Move to next state - actual connection errors will be
-         * caught when we try to send/receive data */
+        // This state is no longer used - we go straight from 0 to 2
         sockstate=2;
     }
 
