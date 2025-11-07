@@ -1515,7 +1515,6 @@ int poll_network(void) {
 
         // Connection succeeded - now set to non-blocking for recv/send
         // This prevents recv() from freezing the game loop
-        unsigned long one=1;
         ioctlsocket(sock,FIONBIO,&one);
 
         // Connection succeeded, move to connected state
