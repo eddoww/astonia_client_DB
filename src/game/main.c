@@ -577,12 +577,12 @@ int parse_cmd(char *s) {
             if (tolower(*s)=='u') {         // -u <username>
                 s++;
                 while (isspace(*s)) s++;
-                n=0; while (n<40 && *s && !isspace(*s)) username[n++]=*s++;
+                n=0; while (n<39 && *s && !isspace(*s)) username[n++]=*s++;
                 username[n]=0;
             } else if (tolower(*s)=='p') {  // -p <password>
                 s++;
                 while (isspace(*s)) s++;
-                n=0; while (n<16 && *s && !isspace(*s)) password[n++]=*s++;
+                n=0; while (n<15 && *s && !isspace(*s)) password[n++]=*s++;
                 password[n]=0;
             } else if (tolower(*s)=='d') { // -d <server url>
                 s++;

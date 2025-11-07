@@ -103,7 +103,7 @@ void play_sdl_sound(int nr,int distance,int angle)
 	// Check if sound is enabled
 	if (!(game_options&GO_SOUND)) return;
 
-    if (nr<1 || nr>=sfx_name_cnt) return;
+    if (nr<1 || nr>=sfx_name_cnt || nr>=MAXSOUND) return;
 
 	// For debugging/optimization
 	time_start = SDL_GetTicks64();

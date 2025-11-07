@@ -1296,7 +1296,7 @@ void cmd_log(char *text) {
 
     buf[0]=CL_LOG;
 
-    for (len=0; text[len] && len<254; len++) buf[len+2]=text[len];
+    for (len=0; len<254 && text[len]; len++) buf[len+2]=text[len];
 
     buf[2+len]=0;
     buf[1]=len+1;
